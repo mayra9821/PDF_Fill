@@ -7,35 +7,44 @@ import fontkit from '@pdf-lib/fontkit'
 import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
-const VIN = "12ojn98213onm89012";
-const YEAR = "2019"
-const MAKE = "ford"
-const COLOR = "gray"
-const TAG = "77128u9"
-const ISSUE = "feb 02, 2020"
-const EXP = "jul 30, 2020"
+const output_name = '24,'
 
-const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
-const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
+const TAG = "77128W9"
+
+const VIN = "12ojn98213onm89012"
+
+const YEAR = "2019"
+
+const MAKE = "ford"
+
+const COLOR = "gray"
 
 const NAME = "mayra campo"
+
 const DIRECCION = "123321 VERMONT ST\nsanta marta TX\n723230"
-const BODY = "QQ"
-const MODEL = "ttr"
 
+const MODEL = "acc"
+
+const BODY = "ll"
+
+
+
+const ISSUE = "feb 02, 2020"
+const EXP = "jul 30, 2020"
+const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
+const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
 const DEALER = "ACTIVE DEALERSHIP LLC"
-
 const COUNTY = 227
 
-const QR = `${VIN.toUpperCase()}
+const QR = `${VIN.toUpperCase().trim()}
 YEAR: ${YEAR}
-MAKE: ${MAKE.toUpperCase()}
-COLOR: ${COLOR.toUpperCase()}
-VIN: ${VIN.toUpperCase()}
-TAG #: ${TAG.toUpperCase()}
+MAKE: ${MAKE.toUpperCase().trim()}
+COLOR: ${COLOR.toUpperCase().trim()}
+VIN: ${VIN.toUpperCase().trim()}
+TAG #: ${TAG.toUpperCase().trim()}
 CREATED: ${CREATED_QR}
 EXPIRATION: ${EXPIRATION_QR}
-DEALER: ${DEALER.toUpperCase()}
+DEALER: ${DEALER.toUpperCase().trim()}
 COUNTY: ${COUNTY}
 TAG Type: BUYER`
 
@@ -55,7 +64,9 @@ async function fillForm(OUTPUT) {
   pdfDoc.registerFontkit(fontkit)
 
   const qr_i = await pdfDoc.embedPng(canvas.toDataURL())
-  const image = await pdfDoc.embedPng(fs.readFileSync('bases/lineas.png'))
+  const image = await pdfDoc.embedPng(fs.readFileSync('bases/ORIGINAL.png'))
+  // const image1 = await pdfDoc.embedPng(fs.readFileSync('bases/lineas.png'))
+
 
   const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'))
   const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'))
@@ -78,30 +89,30 @@ async function fillForm(OUTPUT) {
 
 
 
-  VINField.setText(VIN.toUpperCase())
+  VINField.setText(VIN.toUpperCase().trim())
   VINField.updateAppearances(font)
-  YEARField.setText(YEAR.toUpperCase())
+  YEARField.setText(YEAR.toUpperCase().trim())
   YEARField.updateAppearances(font)
-  MAKEField.setText(MAKE.toUpperCase())
+  MAKEField.setText(MAKE.toUpperCase().trim())
   MAKEField.updateAppearances(font)
-  COLORField.setText(COLOR.toUpperCase())
+  COLORField.setText(COLOR.toUpperCase().trim())
   COLORField.updateAppearances(font)
-  TAGField.setText(TAG.toUpperCase())
+  TAGField.setText(TAG.toUpperCase().trim())
   TAGField.updateAppearances(font)
-  ISSUEField.setText(ISSUE.toUpperCase())
+  ISSUEField.setText(ISSUE.toUpperCase().trim())
   ISSUEField.updateAppearances(font)
-  EXPField.setText(EXP.toUpperCase())
+  EXPField.setText(EXP.toUpperCase().trim())
   EXPField.updateAppearances(font)
-  NAMEField.setText(NAME.toUpperCase())
+  NAMEField.setText(NAME.toUpperCase().trim())
   NAMEField.updateAppearances(font)
-  DIRECCIONField.setText(DIRECCION.toUpperCase())
+  DIRECCIONField.setText(DIRECCION.toUpperCase().trim())
   DIRECCIONField.updateAppearances(font)
-  BODYField.setText(BODY.toUpperCase())
+  BODYField.setText(BODY.toUpperCase().trim())
   BODYField.updateAppearances(font)
-  MODELField.setText(MODEL.toUpperCase())
+  MODELField.setText(MODEL.toUpperCase().trim())
   MODELField.updateAppearances(font)
 
-  firstPage.drawText(VIN.toUpperCase(), {
+  firstPage.drawText(VIN.toUpperCase().trim(), {
     y: 76,
     x: 470,
     size: 18,
@@ -110,7 +121,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  firstPage.drawText(YEAR.toUpperCase() + ' ' + MAKE.toUpperCase(), {
+  firstPage.drawText(YEAR.toUpperCase().trim() + ' ' + MAKE.toUpperCase().trim(), {
     y: 275,
     x: 344,
     size: 40,
@@ -120,7 +131,7 @@ async function fillForm(OUTPUT) {
   })
 
   const fontSize = 140
-  firstPage.drawText(TAG.toUpperCase(), {
+  firstPage.drawText(TAG.toUpperCase().trim(), {
     y: 61.76,
     x: 287.01,
     size: fontSize,
@@ -129,7 +140,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  firstPage.drawText(EXP.replace(",", "").toUpperCase(), {
+  firstPage.drawText(EXP.replace(",", "").toUpperCase().trim(), {
     y: 140,
     x: 430,
     size: 80,
@@ -148,12 +159,24 @@ async function fillForm(OUTPUT) {
 
   heigh = 213
   firstPage.drawImage(image, {
-    rotate: degrees(90),
+    // rotate: degrees(90),
     y: 0,
-    x: 197 + heigh,
-    height: heigh,
-    width: 3.7144814420 * heigh,
+    x: 0,
+    height: 792,
+    width: 612,
   })
+
+
+
+  // firstPage.drawImage(image1, {
+  //   rotate: degrees(90),
+  //   y: 0,
+  //   x: 197 + heigh,
+  //   height: heigh,
+  //   width: 3.7144814420 * heigh,
+  // })
+
+
 
   const pdfBytes = await pdfDoc.save()
 
@@ -168,7 +191,7 @@ async function fillForm(OUTPUT) {
 
 
 
-fillForm("22,")
+fillForm(output_name)
 
 
 
