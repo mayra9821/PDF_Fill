@@ -7,38 +7,44 @@ import fontkit from '@pdf-lib/fontkit'
 import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
-const output_name = '24,'
+const output_name = '48'
 
-const TAG = "77128W9"
+var TAG = "77128W9"
 
-const VIN = "12ojn98213onm89012"
+var VIN = "1YVHP84C875M36362"
 
-const YEAR = "2019"
+var YEAR = "2007"
 
-const MAKE = "ford"
+var MAKE = "MAZD"
 
-const COLOR = "gray"
+var COLOR = "RED"
 
-const NAME = "mayra campo"
+var NAME = "DANNIS Y ALVARADO FLORES "
 
-const DIRECCION = "123321 VERMONT ST\nsanta marta TX\n723230"
+var DIRECCION = `1206 ET MARY ST
+SCOTT LA
+70583`
 
-const MODEL = "acc"
+var MODEL = "LL"
 
-const BODY = "ll"
+var BODY = "LL"
+
+var ISSUE = "Mar 27, 2022"
+var EXP = "may 26, 2022"
 
 
 
-const ISSUE = "feb 02, 2020"
-const EXP = "jul 30, 2020"
-const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
-const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
-const DEALER = "ACTIVE DEALERSHIP LLC"
+
+// NO se cambian 
 const DEALER_NUMBER = "P163908"
-
+const DEALER = "ACTIVE DEALERSHIP LLC"
 const COUNTY = 227
 
-const QR = `${VIN.toUpperCase().trim()}
+
+const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
+const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
+
+const QR = `  ${VIN.toUpperCase().trim()}
 YEAR: ${YEAR}
 MAKE: ${MAKE.toUpperCase().trim()}
 COLOR: ${COLOR.toUpperCase().trim()}
@@ -50,8 +56,7 @@ DEALER: ${DEALER.toUpperCase().trim()}
 COUNTY: ${COUNTY}
 TAG Type: BUYER`
 
-
-console.log(QR)
+// console.log(QR)
 
 async function fillForm(OUTPUT) {
 
@@ -130,7 +135,7 @@ async function fillForm(OUTPUT) {
 
   /// SEGUNDA PAGINA
 
-  pages[1].drawText(TAG.replace(",", "").toUpperCase().trim(), {
+  pages[1].drawText(TAG.toUpperCase().trim(), {
     y: 708,
     x: 160,
     size: 10,
@@ -240,7 +245,7 @@ async function fillForm(OUTPUT) {
   DIRECCION.split("\n").map(
     (line, index) => {
       pages[1].drawText(line.toUpperCase().trim(), {
-        y: 451 - 12 * index,
+        y: 451 - 16 * index,
         x: 307,
         size: 10,
         font: font,
@@ -252,7 +257,7 @@ async function fillForm(OUTPUT) {
 
 
   /// TERCERA PAGINA
-  pages[2].drawText(TAG.replace(",", "").toUpperCase().trim(), {
+  pages[2].drawText(TAG.toUpperCase().trim(), {
     y: 708,
     x: 160,
     size: 10,
