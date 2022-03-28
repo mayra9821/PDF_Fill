@@ -34,6 +34,8 @@ const EXP = "jul 30, 2020"
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
 const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
 const DEALER = "ACTIVE DEALERSHIP LLC"
+const DEALER_NUMBER = "P163908"
+
 const COUNTY = 227
 
 const QR = `${VIN.toUpperCase().trim()}
@@ -53,7 +55,7 @@ console.log(QR)
 
 async function fillForm(OUTPUT) {
 
-  const file = await fs.readFileSync("bases/base.pdf")
+  const file = await fs.readFileSync("bases/base1.pdf")
 
 
   let canvas = new Canvas()
@@ -65,54 +67,14 @@ async function fillForm(OUTPUT) {
 
   const qr_i = await pdfDoc.embedPng(canvas.toDataURL())
   const image = await pdfDoc.embedPng(fs.readFileSync('bases/ORIGINAL.png'))
-  // const image1 = await pdfDoc.embedPng(fs.readFileSync('bases/lineas.png'))
-
 
   const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'))
   const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'))
 
-  const form = pdfDoc.getForm()
+  const pages = pdfDoc.getPages()
 
-  const firstPage = pdfDoc.getPages()[0]
-
-  const VINField = form.getTextField('VIN')
-  const YEARField = form.getTextField('año_fab')
-  const MAKEField = form.getTextField('fab')
-  const TAGField = form.getTextField('consecutivo')
-  const COLORField = form.getTextField('color')
-  const ISSUEField = form.getTextField('issue_date,')
-  const EXPField = form.getTextField('exp_date')
-  const NAMEField = form.getTextField('nombre')
-  const DIRECCIONField = form.getTextField('direccion')
-  const BODYField = form.getTextField('body')
-  const MODELField = form.getTextField('model')
-
-
-
-  VINField.setText(VIN.toUpperCase().trim())
-  VINField.updateAppearances(font)
-  YEARField.setText(YEAR.toUpperCase().trim())
-  YEARField.updateAppearances(font)
-  MAKEField.setText(MAKE.toUpperCase().trim())
-  MAKEField.updateAppearances(font)
-  COLORField.setText(COLOR.toUpperCase().trim())
-  COLORField.updateAppearances(font)
-  TAGField.setText(TAG.toUpperCase().trim())
-  TAGField.updateAppearances(font)
-  ISSUEField.setText(ISSUE.toUpperCase().trim())
-  ISSUEField.updateAppearances(font)
-  EXPField.setText(EXP.toUpperCase().trim())
-  EXPField.updateAppearances(font)
-  NAMEField.setText(NAME.toUpperCase().trim())
-  NAMEField.updateAppearances(font)
-  DIRECCIONField.setText(DIRECCION.toUpperCase().trim())
-  DIRECCIONField.updateAppearances(font)
-  BODYField.setText(BODY.toUpperCase().trim())
-  BODYField.updateAppearances(font)
-  MODELField.setText(MODEL.toUpperCase().trim())
-  MODELField.updateAppearances(font)
-
-  firstPage.drawText(VIN.toUpperCase().trim(), {
+  // PRIMERA PAGINA
+  pages[0].drawText(VIN.toUpperCase().trim(), {
     y: 76,
     x: 470,
     size: 18,
@@ -121,7 +83,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  firstPage.drawText(YEAR.toUpperCase().trim() + ' ' + MAKE.toUpperCase().trim(), {
+  pages[0].drawText(YEAR.toUpperCase().trim() + ' ' + MAKE.toUpperCase().trim(), {
     y: 275,
     x: 344,
     size: 40,
@@ -131,7 +93,7 @@ async function fillForm(OUTPUT) {
   })
 
   const fontSize = 140
-  firstPage.drawText(TAG.toUpperCase().trim(), {
+  pages[0].drawText(TAG.toUpperCase().trim(), {
     y: 61.76,
     x: 287.01,
     size: fontSize,
@@ -140,7 +102,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  firstPage.drawText(EXP.replace(",", "").toUpperCase().trim(), {
+  pages[0].drawText(EXP.replace(",", "").toUpperCase().trim(), {
     y: 140,
     x: 430,
     size: 80,
@@ -149,7 +111,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  firstPage.drawImage(qr_i, {
+  pages[0].drawImage(qr_i, {
     rotate: degrees(90),
     y: 520,
     x: 450 + heigh,
@@ -158,7 +120,7 @@ async function fillForm(OUTPUT) {
   })
 
   heigh = 213
-  firstPage.drawImage(image, {
+  pages[0].drawImage(image, {
     // rotate: degrees(90),
     y: 0,
     x: 0,
@@ -166,16 +128,251 @@ async function fillForm(OUTPUT) {
     width: 612,
   })
 
+  /// SEGUNDA PAGINA
+
+  pages[1].drawText(TAG.replace(",", "").toUpperCase().trim(), {
+    y: 708,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(ISSUE.toUpperCase().trim(), {
+    y: 710,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(EXP.toUpperCase().trim(), {
+    y: 694,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  var init = 624
+
+  pages[1].drawText(ISSUE.toUpperCase().trim(), {
+    y: init,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
 
 
-  // firstPage.drawImage(image1, {
-  //   rotate: degrees(90),
-  //   y: 0,
-  //   x: 197 + heigh,
-  //   height: heigh,
-  //   width: 3.7144814420 * heigh,
-  // })
+  pages[1].drawText(VIN.toUpperCase().trim(), {
+    y: init - 16 * 1,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
 
+  pages[1].drawText(YEAR.toUpperCase().trim(), {
+    y: init - 16 * 2,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(MAKE.toUpperCase().trim(), {
+    y: init - 16 * 3,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(COLOR.toUpperCase().trim(), {
+    y: init - 16 * 4,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(BODY.toUpperCase().trim(), {
+    y: 625,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(MODEL.toUpperCase().trim(), {
+    y: 609,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(DEALER.toUpperCase().trim(), {
+    y: 530,
+    x: 307,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+  pages[1].drawText(DEALER_NUMBER.toUpperCase().trim(), {
+    y: 530 - 16,
+    x: 307,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(NAME.toUpperCase().trim(), {
+    y: 467,
+    x: 307,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+
+  DIRECCION.split("\n").map(
+    (line, index) => {
+      pages[1].drawText(line.toUpperCase().trim(), {
+        y: 451 - 12 * index,
+        x: 307,
+        size: 10,
+        font: font,
+        color: rgb(0, 0, 0),
+      })
+    }
+  )
+
+
+
+  /// TERCERA PAGINA
+  pages[2].drawText(TAG.replace(",", "").toUpperCase().trim(), {
+    y: 708,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(ISSUE.toUpperCase().trim(), {
+    y: 710,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(EXP.toUpperCase().trim(), {
+    y: 694,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  init = 670
+
+  pages[2].drawText(ISSUE.toUpperCase().trim(), {
+    y: init,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+
+  pages[2].drawText(VIN.toUpperCase().trim(), {
+    y: init - 16 * 1,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(YEAR.toUpperCase().trim(), {
+    y: init - 16 * 2,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(MAKE.toUpperCase().trim(), {
+    y: init - 16 * 3,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(COLOR.toUpperCase().trim(), {
+    y: init - 16 * 4,
+    x: 160,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(BODY.toUpperCase().trim(), {
+    y: 656,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(MODEL.toUpperCase().trim(), {
+    y: 656 - 16,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[2].drawText(DEALER.toUpperCase().trim(), {
+    y: 576,
+    x: 307,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+  pages[2].drawText(DEALER_NUMBER.toUpperCase().trim(), {
+    y: 576 - 16,
+    x: 307,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+
+
+
+  pages[2].drawText(NAME.toUpperCase().trim(), {
+    y: 512,
+    x: 307,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
+
+  DIRECCION.split("\n").map(
+    (line, index) => {
+      pages[2].drawText(line.toUpperCase().trim(), {
+        y: 512 - 16 * (index + 1),
+        x: 307,
+        size: 10,
+        font: font,
+        color: rgb(0, 0, 0),
+      })
+    }
+  )
 
 
   const pdfBytes = await pdfDoc.save()
