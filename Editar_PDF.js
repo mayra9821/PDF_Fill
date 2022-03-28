@@ -8,30 +8,35 @@ import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
 
-const output_name = '48'
+const output_name = '52,'
 
-var TAG = "77128W9"
+var TAG = "77128A7"
 
-var VIN = `1YVHP84C875M36362`
+var VIN = `1FADP3K25DL337304
 
-var YEAR = `2007`
 
-var MAKE = `MAZD`
+`
 
-var COLOR = `RED`
+var YEAR = `2013
+`
 
-var NAME = `DANNIS Y ALVARADO FLORES `
+var MAKE = `Ford `
 
-var DIRECCION = `1206 ET MARY ST
-SCOTT LA
-70583`
+var COLOR = `Silver`
 
-var MODEL = `LL`
+var NAME = `YEBERSON ANTONIO BLANCO AGUILAR `
 
-var BODY = `LL`
+var DIRECCION = `
+6160 ELM ST. #2315|
+HOUSTON TX |77081
+`
 
-var ISSUE = "Mar 27, 2022"
-var EXP = "may 26, 2022"
+var MODEL = `foc`
+
+var BODY = `SE`
+
+var ISSUE = "Mar 28, 2022"
+var EXP = "may 27, 2022"
 
 
 
@@ -45,15 +50,15 @@ const COUNTY = 227
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
 const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
 
-const QR = `  ${VIN.toUpperCase().trim()}
+const QR = `  ${VIN.toUpperCase().replace("\n", "").trim()}
 YEAR: ${YEAR}
-MAKE: ${MAKE.toUpperCase().trim()}
-COLOR: ${COLOR.toUpperCase().trim()}
-VIN: ${VIN.toUpperCase().trim()}
-TAG #: ${TAG.toUpperCase().trim()}
+MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
+COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
+VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
+TAG #: ${TAG.toUpperCase().replace("\n", "").trim()}
 CREATED: ${CREATED_QR}
 EXPIRATION: ${EXPIRATION_QR}
-DEALER: ${DEALER.toUpperCase().trim()}
+DEALER: ${DEALER.toUpperCase().replace("\n", "").trim()}
 COUNTY: ${COUNTY}
 TAG Type: BUYER`
 
@@ -80,7 +85,7 @@ async function fillForm(OUTPUT) {
 
 
   // PRIMERA PAGINA
-  pages[0].drawText(VIN.toUpperCase().trim(), {
+  pages[0].drawText(VIN.toUpperCase().replace("\n", "").trim(), {
     y: 76,
     x: 470,
     size: 18,
@@ -89,7 +94,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[0].drawText(YEAR.toUpperCase().trim() + ' ' + MAKE.toUpperCase().trim(), {
+  pages[0].drawText(YEAR.toUpperCase().replace("\n", "").trim() + ' ' + MAKE.toUpperCase().replace("\n", "").trim(), {
     y: 275,
     x: 344,
     size: 40,
@@ -99,7 +104,7 @@ async function fillForm(OUTPUT) {
   })
 
   const fontSize = 140
-  pages[0].drawText(TAG.toUpperCase().trim(), {
+  pages[0].drawText(TAG.toUpperCase().replace("\n", "").trim(), {
     y: 61.76,
     x: 287.01,
     size: fontSize,
@@ -108,7 +113,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[0].drawText(EXP.replace(",", "").toUpperCase().trim(), {
+  pages[0].drawText(EXP.replace(",", "").toUpperCase().replace("\n", "").trim(), {
     y: 140,
     x: 430,
     size: 80,
@@ -136,7 +141,7 @@ async function fillForm(OUTPUT) {
 
   /// SEGUNDA PAGINA
 
-  pages[1].drawText(TAG.toUpperCase().trim(), {
+  pages[1].drawText(TAG.toUpperCase().replace("\n", "").trim(), {
     y: 708,
     x: 160,
     size: 10,
@@ -144,7 +149,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(ISSUE.toUpperCase().trim(), {
+  pages[1].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
     y: 710,
     x: 435,
     size: 10,
@@ -152,7 +157,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(EXP.toUpperCase().trim(), {
+  pages[1].drawText(EXP.toUpperCase().replace("\n", "").trim(), {
     y: 694,
     x: 435,
     size: 10,
@@ -162,7 +167,7 @@ async function fillForm(OUTPUT) {
 
   var init = 624
 
-  pages[1].drawText(ISSUE.toUpperCase().trim(), {
+  pages[1].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
     y: init,
     x: 160,
     size: 10,
@@ -171,7 +176,7 @@ async function fillForm(OUTPUT) {
   })
 
 
-  pages[1].drawText(VIN.toUpperCase().trim(), {
+  pages[1].drawText(VIN.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 1,
     x: 160,
     size: 10,
@@ -179,7 +184,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(YEAR.toUpperCase().trim(), {
+  pages[1].drawText(YEAR.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 2,
     x: 160,
     size: 10,
@@ -187,7 +192,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(MAKE.toUpperCase().trim(), {
+  pages[1].drawText(MAKE.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 3,
     x: 160,
     size: 10,
@@ -195,7 +200,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(COLOR.toUpperCase().trim(), {
+  pages[1].drawText(COLOR.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 4,
     x: 160,
     size: 10,
@@ -203,7 +208,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(BODY.toUpperCase().trim(), {
+  pages[1].drawText(BODY.toUpperCase().replace("\n", "").trim(), {
     y: 625,
     x: 435,
     size: 10,
@@ -211,7 +216,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(MODEL.toUpperCase().trim(), {
+  pages[1].drawText(MODEL.toUpperCase().replace("\n", "").trim(), {
     y: 609,
     x: 435,
     size: 10,
@@ -219,7 +224,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(DEALER.toUpperCase().trim(), {
+  pages[1].drawText(DEALER.toUpperCase().replace("\n", "").trim(), {
     y: 530,
     x: 307,
     size: 10,
@@ -227,7 +232,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(DEALER_NUMBER.toUpperCase().trim(), {
+  pages[1].drawText(DEALER_NUMBER.toUpperCase().replace("\n", "").trim(), {
     y: 530 - 16,
     x: 307,
     size: 10,
@@ -235,7 +240,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(NAME.toUpperCase().trim(), {
+  pages[1].drawText(NAME.toUpperCase().replace("\n", "").trim().replace("\n", ""), {
     y: 467,
     x: 307,
     size: 10,
@@ -244,9 +249,9 @@ async function fillForm(OUTPUT) {
   })
 
 
-  DIRECCION.split("\n").map(
+  DIRECCION.replace("\n", "").split("|").map(
     (line, index) => {
-      pages[1].drawText(line.toUpperCase().trim(), {
+      pages[1].drawText(line.toUpperCase().replace("\n", "").trim(), {
         y: 451 - 16 * index,
         x: 307,
         size: 10,
@@ -259,7 +264,7 @@ async function fillForm(OUTPUT) {
 
 
   /// TERCERA PAGINA
-  pages[2].drawText(TAG.toUpperCase().trim(), {
+  pages[2].drawText(TAG.toUpperCase().replace("\n", "").trim(), {
     y: 708,
     x: 160,
     size: 10,
@@ -267,7 +272,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(ISSUE.toUpperCase().trim(), {
+  pages[2].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
     y: 710,
     x: 435,
     size: 10,
@@ -275,7 +280,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(EXP.toUpperCase().trim(), {
+  pages[2].drawText(EXP.toUpperCase().replace("\n", "").trim(), {
     y: 694,
     x: 435,
     size: 10,
@@ -285,7 +290,7 @@ async function fillForm(OUTPUT) {
 
   init = 670
 
-  pages[2].drawText(ISSUE.toUpperCase().trim(), {
+  pages[2].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
     y: init,
     x: 160,
     size: 10,
@@ -294,7 +299,7 @@ async function fillForm(OUTPUT) {
   })
 
 
-  pages[2].drawText(VIN.toUpperCase().trim(), {
+  pages[2].drawText(VIN.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 1,
     x: 160,
     size: 10,
@@ -302,7 +307,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(YEAR.toUpperCase().trim(), {
+  pages[2].drawText(YEAR.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 2,
     x: 160,
     size: 10,
@@ -310,7 +315,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(MAKE.toUpperCase().trim(), {
+  pages[2].drawText(MAKE.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 3,
     x: 160,
     size: 10,
@@ -318,7 +323,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(COLOR.toUpperCase().trim(), {
+  pages[2].drawText(COLOR.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 4,
     x: 160,
     size: 10,
@@ -326,7 +331,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(BODY.toUpperCase().trim(), {
+  pages[2].drawText(BODY.toUpperCase().replace("\n", "").trim(), {
     y: 656,
     x: 435,
     size: 10,
@@ -334,7 +339,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(MODEL.toUpperCase().trim(), {
+  pages[2].drawText(MODEL.toUpperCase().replace("\n", "").trim(), {
     y: 656 - 16,
     x: 435,
     size: 10,
@@ -342,7 +347,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(DEALER.toUpperCase().trim(), {
+  pages[2].drawText(DEALER.toUpperCase().replace("\n", "").trim(), {
     y: 576,
     x: 307,
     size: 10,
@@ -350,7 +355,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(DEALER_NUMBER.toUpperCase().trim(), {
+  pages[2].drawText(DEALER_NUMBER.toUpperCase().replace("\n", "").trim(), {
     y: 576 - 16,
     x: 307,
     size: 10,
@@ -358,7 +363,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(NAME.toUpperCase().trim(), {
+  pages[2].drawText(NAME.toUpperCase().replace("\n", "").trim().replace("\n", ""), {
     y: 512,
     x: 307,
     size: 10,
@@ -367,9 +372,9 @@ async function fillForm(OUTPUT) {
   })
 
 
-  DIRECCION.split("\n").map(
+  DIRECCION.replace("\n", "").split("|").map(
     (line, index) => {
-      pages[2].drawText(line.toUpperCase().trim(), {
+      pages[2].drawText(line.toUpperCase().replace("\n", "").trim(), {
         y: 512 - 16 * (index + 1),
         x: 307,
         size: 10,
@@ -381,7 +386,7 @@ async function fillForm(OUTPUT) {
 
   const pdfBytes = await pdfDoc.save()
 
-  fs.writeFile(OUTPUT + '.pdf', pdfBytes, err => {
+  fs.writeFile('./out/' + OUTPUT + '.pdf', pdfBytes, err => {
     if (err) {
       console.error(err)
       return
@@ -393,7 +398,7 @@ async function fillForm(OUTPUT) {
 
 fillForm(output_name)
 
-
+console.log("TERMINO")
 
 
 
