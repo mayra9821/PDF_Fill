@@ -7,27 +7,28 @@ import fontkit from '@pdf-lib/fontkit'
 import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
+
 const output_name = '48'
 
 var TAG = "77128W9"
 
-var VIN = "1YVHP84C875M36362"
+var VIN = `1YVHP84C875M36362`
 
-var YEAR = "2007"
+var YEAR = `2007`
 
-var MAKE = "MAZD"
+var MAKE = `MAZD`
 
-var COLOR = "RED"
+var COLOR = `RED`
 
-var NAME = "DANNIS Y ALVARADO FLORES "
+var NAME = `DANNIS Y ALVARADO FLORES `
 
 var DIRECCION = `1206 ET MARY ST
 SCOTT LA
 70583`
 
-var MODEL = "LL"
+var MODEL = `LL`
 
-var BODY = "LL"
+var BODY = `LL`
 
 var ISSUE = "Mar 27, 2022"
 var EXP = "may 26, 2022"
@@ -62,7 +63,6 @@ async function fillForm(OUTPUT) {
 
   const file = await fs.readFileSync("bases/base1.pdf")
 
-
   let canvas = new Canvas()
   PDF417.draw(QR, canvas)
 
@@ -77,6 +77,7 @@ async function fillForm(OUTPUT) {
   const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'))
 
   const pages = pdfDoc.getPages()
+
 
   // PRIMERA PAGINA
   pages[0].drawText(VIN.toUpperCase().trim(), {
@@ -225,6 +226,7 @@ async function fillForm(OUTPUT) {
     font: font,
     color: rgb(0, 0, 0),
   })
+
   pages[1].drawText(DEALER_NUMBER.toUpperCase().trim(), {
     y: 530 - 16,
     x: 307,
@@ -347,6 +349,7 @@ async function fillForm(OUTPUT) {
     font: font,
     color: rgb(0, 0, 0),
   })
+
   pages[2].drawText(DEALER_NUMBER.toUpperCase().trim(), {
     y: 576 - 16,
     x: 307,
@@ -354,9 +357,6 @@ async function fillForm(OUTPUT) {
     font: font,
     color: rgb(0, 0, 0),
   })
-
-
-
 
   pages[2].drawText(NAME.toUpperCase().trim(), {
     y: 512,
@@ -379,9 +379,7 @@ async function fillForm(OUTPUT) {
     }
   )
 
-
   const pdfBytes = await pdfDoc.save()
-
 
   fs.writeFile(OUTPUT + '.pdf', pdfBytes, err => {
     if (err) {
