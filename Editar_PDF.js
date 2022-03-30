@@ -8,7 +8,7 @@ import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
 
-const output_name = '52,'
+const output_name = '58,'
 
 var TAG = "77128A7"
 
@@ -78,8 +78,8 @@ async function fillForm(OUTPUT) {
   const qr_i = await pdfDoc.embedPng(canvas.toDataURL())
   const image = await pdfDoc.embedPng(fs.readFileSync('bases/ORIGINAL.png'))
 
-  const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'))
-  const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'))
+  const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
+  const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
 
   const pages = pdfDoc.getPages()
 
