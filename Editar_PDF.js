@@ -1,5 +1,3 @@
-
-
 import { PDFDocument, rgb, degrees } from 'pdf-lib'
 import fs from 'fs';
 
@@ -7,37 +5,36 @@ import fontkit from '@pdf-lib/fontkit'
 import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
+const output_name = '95,'
+var TAG = "90575s5"
 
-const output_name = '52,'
 
-var TAG = "77128A7"
+var VIN = ` 1HTMMAAL5CH451907 
+`
 
-var VIN = `1FADP3K25DL337304
+var YEAR = ` 2012      
+`
 
+var MAKE = ` INTL   
+`
+
+var COLOR = ` Yellow                  
+`
+
+var NAME = `ROGELIO SALGADO
 
 `
 
-var YEAR = `2013
+var DIRECCION = `9501  BEECHNUT APT 1202|HOUSTON TX|77036 
 `
 
-var MAKE = `Ford `
-
-var COLOR = `Silver`
-
-var NAME = `YEBERSON ANTONIO BLANCO AGUILAR `
-
-var DIRECCION = `
-6160 ELM ST. #2315|
-HOUSTON TX |77081
+var MODEL = ` 400  
+`
+var BODY = ` ll  
 `
 
-var MODEL = `foc`
-
-var BODY = `SE`
-
-var ISSUE = "Mar 28, 2022"
-var EXP = "may 27, 2022"
-
+var ISSUE = "Apr 18, 2022"
+var EXP = "Jun 17, 2022"
 
 
 
@@ -45,6 +42,7 @@ var EXP = "may 27, 2022"
 const DEALER_NUMBER = "P163908"
 const DEALER = "ACTIVE DEALERSHIP LLC"
 const COUNTY = 227
+MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
 
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
@@ -86,7 +84,7 @@ async function fillForm(OUTPUT) {
 
   // PRIMERA PAGINA
   pages[0].drawText(VIN.toUpperCase().replace("\n", "").trim(), {
-    y: 76,
+    y: 82,
     x: 470,
     size: 18,
     font: fontBold,
@@ -113,7 +111,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[0].drawText(EXP.replace(",", "").toUpperCase().replace("\n", "").trim(), {
+  pages[0].drawText(EXP.toUpperCase().replace("\n", "").trim(), {
     y: 140,
     x: 430,
     size: 80,
@@ -240,7 +238,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(NAME.toUpperCase().replace("\n", "").trim().replace("\n", ""), {
+  pages[1].drawText(NAME.toUpperCase().replace("Ñ","N").replace("\n", "").trim().replace("\n", ""), {
     y: 467,
     x: 307,
     size: 10,
@@ -363,7 +361,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(NAME.toUpperCase().replace("\n", "").trim().replace("\n", ""), {
+  pages[2].drawText(NAME.toUpperCase().replace("Ñ","N").replace("\n", "").trim().replace("\n", ""), {
     y: 512,
     x: 307,
     size: 10,
