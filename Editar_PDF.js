@@ -1,5 +1,3 @@
-
-
 import { PDFDocument, rgb, degrees } from 'pdf-lib'
 import fs from 'fs';
 
@@ -7,37 +5,35 @@ import fontkit from '@pdf-lib/fontkit'
 import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
+const output_name = '10,'
+var TAG = "90575t9"
 
-const output_name = '52,'
 
-var TAG = "77128A7"
+var VIN = ` 1GKKRSKD6EJ356887     
+`
 
-var VIN = `1FADP3K25DL337304
+var YEAR = ` 2014        
+`
 
+var MAKE = ` GMC     
+`
+
+var COLOR = ` SILVER                    
+`
+
+var NAME = `EDA FLORES
 
 `
 
-var YEAR = `2013
+var DIRECCION = `1502 N McGuire Av |Monroe LA |71203
+`
+var MODEL = ` ACA 
+`
+var BODY = ` ll
 `
 
-var MAKE = `Ford `
-
-var COLOR = `Silver`
-
-var NAME = `YEBERSON ANTONIO BLANCO AGUILAR `
-
-var DIRECCION = `
-6160 ELM ST. #2315|
-HOUSTON TX |77081
-`
-
-var MODEL = `foc`
-
-var BODY = `SE`
-
-var ISSUE = "Mar 28, 2022"
-var EXP = "may 27, 2022"
-
+var ISSUE = "Apr 19, 2022"
+var EXP = "Jun 18, 2022"
 
 
 
@@ -45,6 +41,7 @@ var EXP = "may 27, 2022"
 const DEALER_NUMBER = "P163908"
 const DEALER = "ACTIVE DEALERSHIP LLC"
 const COUNTY = 227
+MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
 
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
@@ -78,15 +75,15 @@ async function fillForm(OUTPUT) {
   const qr_i = await pdfDoc.embedPng(canvas.toDataURL())
   const image = await pdfDoc.embedPng(fs.readFileSync('bases/ORIGINAL.png'))
 
-  const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'))
-  const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'))
+  const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
+  const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
 
   const pages = pdfDoc.getPages()
 
 
   // PRIMERA PAGINA
   pages[0].drawText(VIN.toUpperCase().replace("\n", "").trim(), {
-    y: 76,
+    y: 82,
     x: 470,
     size: 18,
     font: fontBold,
@@ -96,7 +93,7 @@ async function fillForm(OUTPUT) {
 
   pages[0].drawText(YEAR.toUpperCase().replace("\n", "").trim() + ' ' + MAKE.toUpperCase().replace("\n", "").trim(), {
     y: 275,
-    x: 344,
+    x: 354,
     size: 40,
     font: fontBold,
     rotate: degrees(90),
@@ -106,16 +103,16 @@ async function fillForm(OUTPUT) {
   const fontSize = 140
   pages[0].drawText(TAG.toUpperCase().replace("\n", "").trim(), {
     y: 61.76,
-    x: 287.01,
+    x: 315,
     size: fontSize,
     font: fontBold,
     rotate: degrees(90),
     color: rgb(0, 0, 0),
   })
 
-  pages[0].drawText(EXP.replace(",", "").toUpperCase().replace("\n", "").trim(), {
+  pages[0].drawText(EXP.toUpperCase().replace("\n", "").trim(), {
     y: 140,
-    x: 430,
+    x: 445,
     size: 80,
     font: fontBold,
     rotate: degrees(90),
@@ -240,7 +237,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(NAME.toUpperCase().replace("\n", "").trim().replace("\n", ""), {
+  pages[1].drawText(NAME.toUpperCase().replace("Ñ","N").replace("\n", "").trim().replace("\n", ""), {
     y: 467,
     x: 307,
     size: 10,
@@ -363,7 +360,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[2].drawText(NAME.toUpperCase().replace("\n", "").trim().replace("\n", ""), {
+  pages[2].drawText(NAME.toUpperCase().replace("Ñ","N").replace("\n", "").trim().replace("\n", ""), {
     y: 512,
     x: 307,
     size: 10,
