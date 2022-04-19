@@ -76,8 +76,8 @@ async function fillForm(OUTPUT) {
   const qr_i = await pdfDoc.embedPng(canvas.toDataURL())
   const image = await pdfDoc.embedPng(fs.readFileSync('bases/ORIGINAL.png'))
 
-  const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'))
-  const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'))
+  const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
+  const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
 
   const pages = pdfDoc.getPages()
 
