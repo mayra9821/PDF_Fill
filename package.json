@@ -12,8 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "@pdf-lib/fontkit": "1.1.1",
-    "canvas": "2.9.1",
+    "canvas": "^2.9.1",
     "moment": "^2.29.3",
+    "node-cmd": "^5.0.0",
     "pdf-lib": "1.17.1",
     "pdf417-generator": "1.0.4"
   }

@@ -6,42 +6,34 @@ import fontkit from '@pdf-lib/fontkit'
 import { Canvas } from "canvas"
 import PDF417 from "pdf417-generator"
 
+import cmd from 'node-cmd'
 // NO USAR I Ñ O Q
 
 const TIPO_BASE = '1'
 
-const output_name = '5,'
-var TAG = "32738r5"
+const output_name = '11,'
+var TAG = "56985m5"
 
-var VIN = ` 1G1AK15FX77194743
-     
+var VIN = ` 5GTDN136568168826   
 `
 
-var YEAR = ` 2007 
+var YEAR = ` 2006  
 `
 
-var MAKE = ` chev      
+var MAKE = `HUMM        
 `
 
-var COLOR = ` Red
-
+var COLOR = `BLACK  
 `
 
-var NAME = `Simon posada
-
-
-
-
+var NAME = `Rosanna Lara
 `
 
-var DIRECCION = `581 n 600 w apt.#1 |provo ut |84601
-
-
-
+var DIRECCION = `1818 Tompkins dr |Grand Prairie tx |75051
 `
-var MODEL = ` Lan 
+var MODEL = `H3    
 `
-var BODY = ` ll
+var BODY = ` ll 
 `
 
 
@@ -61,7 +53,7 @@ const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
 const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
 
 const QR = `  ${VIN.toUpperCase().replace("\n", "").trim()}
-YEAR: ${YEAR}
+YEAR: ${YEAR.replace("\n", "").trim()}
 MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
 COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
 VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
@@ -123,9 +115,12 @@ async function fillForm(OUTPUT) {
 
   pages[0].drawText(VIN.toUpperCase().replace("\n", "").trim(), vinOpt[indice])
 
+  let year_make = YEAR.toUpperCase().replace("\n", "").trim() + ' ' + MAKE.toUpperCase().replace("\n", "").trim()
+  const x1 = (792 - font.widthOfTextAtSize(year_make, 40)) / 2
+
   let yearOpt = [
     {
-      y: 275,
+      y: x1,
       x: 354,
       size: 40,
       font: font,
@@ -133,7 +128,7 @@ async function fillForm(OUTPUT) {
       color: rgb(0, 0, 0),
     }, {
       y: 282,
-      x: 294.4,
+      x: x1,
       size: 40,
       font: font,
       rotate: degrees(rotate),
@@ -141,18 +136,23 @@ async function fillForm(OUTPUT) {
     }]
 
 
-  pages[0].drawText(YEAR.toUpperCase().replace("\n", "").trim() + ' ' + MAKE.toUpperCase().replace("\n", "").trim(), yearOpt[indice])
+  pages[0].drawText(year_make, yearOpt[indice])
+
+
+
+
+  const x = (792 - font.widthOfTextAtSize(TAG.toUpperCase().replace("\n", "").trim(), fontSize)) / 2
 
   let tagOpt = [
     {
-      y: 61.76,
+      y: x,
       x: 315,
       size: fontSize,
       font: font,
       rotate: degrees(rotate),
       color: rgb(0, 0, 0),
     }, {
-      x: 130,
+      x: x,
       y: 309,
       size: fontSize,
       font: font,
@@ -478,9 +478,14 @@ async function fillForm(OUTPUT) {
       console.error(err)
       return
     }
+    else{
+      var syncClone = cmd.runSync(`"C:\\Program Files (x86)\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "C:\\Users\\MayTorres\\Desktop\\pdfGenerator\\PDF_Fill\\out\\${OUTPUT}.pdf"`);
+      console.log(syncClone)
+    }
 
   })
   console.log("TERMINO")
+  
 }
 
 
