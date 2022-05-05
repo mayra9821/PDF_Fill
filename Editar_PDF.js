@@ -11,31 +11,30 @@ import cmd from 'node-cmd'
 
 const TIPO_BASE = '1'
 
-const output_name = '11,'
-var TAG = "56985m5"
+const output_name = '39,'
+var TAG = "58946F9"
 
-var VIN = ` 5GTDN136568168826   
+var VIN = `4T1BK36B27U227668   
 `
+var YEAR = ` 2007 
 
-var YEAR = ` 2006  
 `
-
-var MAKE = `HUMM        
-`
-
-var COLOR = `BLACK  
+var MAKE = `Toyt      
 `
 
-var NAME = `Rosanna Lara
+var COLOR = `tan    
+          
+`
+var NAME = `Curtis Ricks 
+` 
+var DIRECCION = `1419 Laurentide st |Houston TX |77029
+`
+var MODEL = `Ava        
+`
+var BODY = `xl   
 `
 
-var DIRECCION = `1818 Tompkins dr |Grand Prairie tx |75051
-`
-var MODEL = `H3    
-`
-var BODY = ` ll 
-`
-
+var MINOR=`gold`
 
 
 var ISSUE = moment().format("MMM DD, YYYY");
@@ -52,19 +51,29 @@ MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
 const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
 
-const QR = `  ${VIN.toUpperCase().replace("\n", "").trim()}
+let QR = `  ${VIN.toUpperCase().replace("\n", "").trim()}
 YEAR: ${YEAR.replace("\n", "").trim()}
 MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
-COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
-VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
+`
+if (MINOR.replace("\n", "").trim() ==''){
+  QR= QR + `COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
+`
+}
+else{
+QR= QR + `MAJOR COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
+MINOR COLOR: ${MINOR.toUpperCase().replace("\n", "").trim()}
+` }
+
+QR = QR+`VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
 TAG #: ${TAG.toUpperCase().replace("\n", "").trim()}
 CREATED: ${CREATED_QR}
 EXPIRATION: ${EXPIRATION_QR}
 DEALER: ${DEALER.toUpperCase().replace("\n", "").trim()}
 COUNTY: ${COUNTY}
 TAG Type: BUYER`
+// MINOR COLOR: GOLD
 
-// console.log(QR)
+console.log(QR)
 
 async function fillForm(OUTPUT) {
   let base = "base1.pdf"
@@ -96,8 +105,8 @@ async function fillForm(OUTPUT) {
   const pages = pdfDoc.getPages()
 
   let vinOpt = [{
-    y: 82,
-    x: 470,
+    y: 53, // + -> , - <-
+    x: 459,
     size: 18,
     font: font,
     rotate: degrees(rotate),
@@ -112,8 +121,8 @@ async function fillForm(OUTPUT) {
   }
   ]
   // PRIMERA PAGINA
-
-  pages[0].drawText(VIN.toUpperCase().replace("\n", "").trim(), vinOpt[indice])
+  let vin_text=[ "VIN: "+VIN.toUpperCase().replace("\n", "").trim(), VIN.toUpperCase().replace("\n", "").trim()]
+  pages[0].drawText(vin_text[indice], vinOpt[indice])
 
   let year_make = YEAR.toUpperCase().replace("\n", "").trim() + ' ' + MAKE.toUpperCase().replace("\n", "").trim()
   const x1 = (792 - font.widthOfTextAtSize(year_make, 40)) / 2
@@ -121,7 +130,7 @@ async function fillForm(OUTPUT) {
   let yearOpt = [
     {
       y: x1,
-      x: 354,
+      x: 346,
       size: 40,
       font: font,
       rotate: degrees(rotate),
@@ -146,7 +155,7 @@ async function fillForm(OUTPUT) {
   let tagOpt = [
     {
       y: x,
-      x: 315,
+      x: 320,
       size: fontSize,
       font: font,
       rotate: degrees(rotate),
@@ -166,8 +175,8 @@ async function fillForm(OUTPUT) {
 
   let expOpt = [
     {
-      y: 140,
-      x: 445,
+      y: 165,
+      x: 430,
       size: 80,
       font: font,
       rotate: degrees(rotate),
@@ -182,12 +191,12 @@ async function fillForm(OUTPUT) {
     }]
 
   pages[0].drawText(EXP.toUpperCase().replace("\n", "").replace(', ', ',').trim(), expOpt[indice])
-  heigh = 21
+  heigh = 22
   let qrOpt = [
     {
       rotate: degrees(rotate),
-      y: 520,
-      x: 450 + heigh,
+      y: 575,
+      x: 442.5 + heigh,
       height: heigh,
       width: 8 * heigh,
     }, {
@@ -311,6 +320,14 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
+  pages[1].drawText(MINOR.toUpperCase().replace("\n", "").trim(), {
+    y: 567,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+
   pages[1].drawText(DEALER.toUpperCase().replace("\n", "").trim(), {
     y: 530,
     x: 307,
@@ -428,6 +445,13 @@ async function fillForm(OUTPUT) {
 
   pages[2].drawText(MODEL.toUpperCase().replace("\n", "").trim(), {
     y: 648 - 16,
+    x: 435,
+    size: 10,
+    font: font,
+    color: rgb(0, 0, 0),
+  })
+  pages[2].drawText(MINOR.toUpperCase().replace("\n", "").trim(), {
+    y: 648 - 32,
     x: 435,
     size: 10,
     font: font,
