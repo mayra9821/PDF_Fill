@@ -11,30 +11,34 @@ import cmd from 'node-cmd'
 
 const TIPO_BASE = '1'
 
-const output_name = '39,'
-var TAG = "58946F9"
+const output_name = '45,'
+var TAG = "58946g6"
 
-var VIN = `4T1BK36B27U227668   
+var VIN = `3HGCM56496G704907 
+    
 `
-var YEAR = ` 2007 
+var YEAR = ` 2006     
 
 `
-var MAKE = `Toyt      
+var MAKE = `Hond       
 `
 
-var COLOR = `tan    
+var COLOR = `red     
           
 `
-var NAME = `Curtis Ricks 
+var NAME = `FIGUEROA MERLIN
+
 ` 
-var DIRECCION = `1419 Laurentide st |Houston TX |77029
+var DIRECCION = `2004 josephine st |houston tx |70113
 `
-var MODEL = `Ava        
+var MODEL = ` ll
+        
 `
-var BODY = `xl   
+var BODY = `ll   
 `
 
-var MINOR=`gold`
+var MINOR=`
+`
 
 
 var ISSUE = moment().format("MMM DD, YYYY");
@@ -73,7 +77,7 @@ COUNTY: ${COUNTY}
 TAG Type: BUYER`
 // MINOR COLOR: GOLD
 
-console.log(QR)
+// console.log(QR)
 
 async function fillForm(OUTPUT) {
   let base = "base1.pdf"
