@@ -8,36 +8,43 @@ import PDF417 from "pdf417-generator"
 
 import cmd from 'node-cmd'
 // NO USAR I Ñ O Q
+var s = 'ABCDEFGHJKLMNPRSTUVWXYZ'
 
+let rand = Math.floor(Math.random() * (98987 - 37479 + 1) + 12479);
+
+
+var letter = s[Math.floor(Math.random() * (22 + 1))];
+// const letter = 'k'
 const TIPO_BASE = '1'
+const output_name = '62,'
 
-const output_name = '45,'
-var TAG = "58946g6"
+var TAG = rand + letter + (Math.floor(Math.random() * 9) + 1);
 
-var VIN = `3HGCM56496G704907 
+var VIN = `SHSD78803U118630    
     
 `
-var YEAR = ` 2006     
+var YEAR = ` 2003    
 
 `
 var MAKE = `Hond       
 `
 
-var COLOR = `red     
+var COLOR = `gray      
           
 `
-var NAME = `FIGUEROA MERLIN
+var NAME = `Roberto Lainez 
 
-` 
-var DIRECCION = `2004 josephine st |houston tx |70113
 `
-var MODEL = ` ll
+var DIRECCION = `58 Liberty st |New Haven CT |06519
+
+`
+var MODEL = ` CRV
         
 `
 var BODY = `ll   
 `
 
-var MINOR=`
+var MINOR = `
 `
 
 
@@ -59,16 +66,16 @@ let QR = `  ${VIN.toUpperCase().replace("\n", "").trim()}
 YEAR: ${YEAR.replace("\n", "").trim()}
 MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
 `
-if (MINOR.replace("\n", "").trim() ==''){
-  QR= QR + `COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
+if (MINOR.replace("\n", "").trim() == '') {
+  QR = QR + `COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
 `
 }
-else{
-QR= QR + `MAJOR COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
+else {
+  QR = QR + `MAJOR COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
 MINOR COLOR: ${MINOR.toUpperCase().replace("\n", "").trim()}
 ` }
 
-QR = QR+`VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
+QR = QR + `VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
 TAG #: ${TAG.toUpperCase().replace("\n", "").trim()}
 CREATED: ${CREATED_QR}
 EXPIRATION: ${EXPIRATION_QR}
@@ -125,7 +132,7 @@ async function fillForm(OUTPUT) {
   }
   ]
   // PRIMERA PAGINA
-  let vin_text=[ "VIN: "+VIN.toUpperCase().replace("\n", "").trim(), VIN.toUpperCase().replace("\n", "").trim()]
+  let vin_text = ["VIN: " + VIN.toUpperCase().replace("\n", "").trim(), VIN.toUpperCase().replace("\n", "").trim()]
   pages[0].drawText(vin_text[indice], vinOpt[indice])
 
   let year_make = YEAR.toUpperCase().replace("\n", "").trim() + ' ' + MAKE.toUpperCase().replace("\n", "").trim()
@@ -506,14 +513,14 @@ async function fillForm(OUTPUT) {
       console.error(err)
       return
     }
-    else{
-      var syncClone = cmd.runSync(`"C:\\Program Files (x86)\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "C:\\Users\\MayTorres\\Desktop\\pdfGenerator\\PDF_Fill\\out\\${OUTPUT}.pdf"`);
+    else {
+      var syncClone = cmd.runSync(`"C:\\Program Files (x86)\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${OUTPUT}.pdf"`);
       console.log(syncClone)
     }
 
   })
   console.log("TERMINO")
-  
+
 }
 
 
