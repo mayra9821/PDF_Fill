@@ -12,50 +12,54 @@ var s = 'ABCDEFGHJKLMNPRSTUVWXYZ'
 
 let rand = Math.floor(Math.random() * (98987 - 37479 + 1) + 12479);
 
-
+const removeAccents = (str) => {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 var letter = s[Math.floor(Math.random() * (22 + 1))];
 // const letter = 'k'
-const TIPO_BASE = '1'
-const output_name = '62,'
-
 var TAG = rand + letter + (Math.floor(Math.random() * 9) + 1);
 
-var VIN = `SHSD78803U118630    
-    
+const TIPO_BASE = '1'
+const output_name = '16,'
+
+var VIN = `1FMDU85E54ZB37411 
 `
-var YEAR = ` 2003    
+var YEAR = ` 2004 
+`
+var MAKE = `Ford
 
 `
-var MAKE = `Hond       
-`
 
-var COLOR = `gray      
-          
+var COLOR = `black
 `
-var NAME = `Roberto Lainez 
+var NAME = `LUIS CARLOS RUIZ PAZ 
+
 
 `
-var DIRECCION = `58 Liberty st |New Haven CT |06519
+var DIRECCION = `11721 N TH15 ST |APT 102 |TAMPA FL |33612 
 
 `
-var MODEL = ` CRV
-        
+var MODEL = `Exp
 `
-var BODY = `ll   
+var BODY = `ll
 `
 
 var MINOR = `
 `
 
 
-var ISSUE = moment().format("MMM DD, YYYY");
-var EXP = moment().add(2, 'months').subtract(1, 'days').format("MMM DD, YYYY");
-
-
 // NO se cambian 
 const DEALER_NUMBER = "P163908"
 const DEALER = "ACTIVE DEALERSHIP LLC"
 const COUNTY = 227
+
+
+NAME = removeAccents(NAME)
+DIRECCION = removeAccents(DIRECCION)
+
+var ISSUE = moment().format("MMM DD, YYYY");
+var EXP = moment().add(2, 'months').subtract(1, 'days').format("MMM DD, YYYY");
+
 MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
 
@@ -110,7 +114,7 @@ async function fillForm(OUTPUT) {
   const image1 = await pdfDoc.embedPng(fs.readFileSync('bases/lineasV.png'))
 
 
-  const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
+  // const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
   const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
 
   const pages = pdfDoc.getPages()
@@ -134,6 +138,18 @@ async function fillForm(OUTPUT) {
   // PRIMERA PAGINA
   let vin_text = ["VIN: " + VIN.toUpperCase().replace("\n", "").trim(), VIN.toUpperCase().replace("\n", "").trim()]
   pages[0].drawText(vin_text[indice], vinOpt[indice])
+
+
+  if (TIPO_BASE == '1') {
+    pages[0].drawText("Seller: " + DEALER.toUpperCase().replace("\n", "").trim(), {
+      y: 53, // + -> , - <-
+      x: 459 + 26, // - ↑ , + ↓
+      size: 18,
+      font: font,
+      rotate: degrees(rotate),
+      color: rgb(0, 0, 0),
+    })
+  }
 
   let year_make = YEAR.toUpperCase().replace("\n", "").trim() + ' ' + MAKE.toUpperCase().replace("\n", "").trim()
   const x1 = (792 - font.widthOfTextAtSize(year_make, 40)) / 2
@@ -236,6 +252,14 @@ async function fillForm(OUTPUT) {
   ]
 
   pages[0].drawImage(image, imageOP[indice])
+
+
+  // let svgPath = "M 367.11, 794.85 C -1.79, -6.55 - 3.13, -12.82 - 4.15, -18.66 - 1.51, -8.61 - 2.59, -15.1 - 3.14, -18.97 - 0.4, -2.88 - 1.2, -9.43 - 1.69, -14.53 - 0.25, -2.64 - 0.2, -3.34 - 0.75, -10.35 - 0.2, -2.55 - 0.43, -7.08 - 0.51, -8.53 - 0.18, -3.33 - 0.2, -3.99 - 0.28, -9.41 - 0.1, -7.01 - 0.21, -7.4 - 0.16, -11.16 0.02, -1.49 0.07, -3.08 0.17, -6.27 0.11, -3.43 0.18, -5.74 0.31, -8.58 0.15, -3.19 0.32, -7.02 0.76, -11.78 0.14, -1.49 0.4, -3.74 0.92, -8.17 0.96, -8.18 1.45, -12.34 1.9, -15.32 0.56, -3.71 1.04, -6.24 1.86, -10.54 0, 0 1.9, -9.95 4.33, -19.76 0.2, -0.82 0.97, -3.87 1.93, -7 0, 0 0, 0 0, 0 0.95, -3.08 1.53, -5.2 1.61, -5.51 0.85, -3.05 5.61, -16.83 7.7, -23.33 4.03, -12.54 6.23, -23.2 7.95, -31.57 0.31, -1.53 1.06, -5.19 1.91, -9.96 1.27, -7.1 2.56, -15.43 3.64, -24.97 3.03, -26.51 2.53, -44.96 2.46, -46.86 - 0.09, -2.34 - 0.2, -5.22 - 0.2, -5.22 - 0.11, -2.81 - 0.21, -5.03 - 0.24, -5.6 - 0.03, -0.64 - 0.64, -13.88 - 1.9, -23.46 - 0.32, -2.41 - 0.71, -5.13 - 0.71, -5.13 0, 0 - 0.39, -2.67 - 0.77, -5.05 - 1.71, -10.66 - 4.04, -20.67 - 4.04, -20.67 - 2.1, -8.99 - 3.53, -13.09 - 5.14, -20.22 - 0.83, -3.69 - 1.74, -8.31 - 1.99, -9.65 - 0.22, -1.2 - 0.43, -2.4 - 0.43, -2.4 - 0.05, -0.26 - 0.16, -0.9 - 0.29, -1.69 - 0.27, -1.58 - 0.46, -2.82 - 0.64, -3.96 - 0.26, -1.68 - 0.69, -4.43 - 0.86, -5.69 0, 0 - 0.21, -1.55 - 0.31, -2.18 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 - 0.37, -2.68 - 0.58, -4.26 0, 0 - 0.18, -1.36 - 0.35, -2.74 0, 0 0, -0.03 0, -0.03 0, 0 - 0.04, -0.39 - 0.09, -0.76 - 2.18, -15.96 - 2.43, -27.99 - 2.53, -30.44 - 0.32, -7.86 - 0.31, -14.13 - 0.28, -17.3 0, -0.51 0.03, -2.74 0.09, -5.7 0.14, -5.79 0.36, -10.4 0.51, -13.04 0.14, -2.57 0.54, -9.79 1.11, -14.86 0.04, -0.32 0.27, -2.41 0.57, -4.99 0.14, -1.24 0.33, -2.84 0.43, -3.7 0, 0 1.27, -10.86 2.66, -17.81 V 0 C 0, 0 0.16, -0.8 0.32, -1.59 0.3, -1.48 1.24, -5.92 1.48, -7.04 0, 0 0, -0.01 0, -0.01 0.37, -1.75 0.68, -3.12 0.85, -3.92 0, 0 0.96, -4.31 1.47, -6.21 0, 0 0.01, -0.03 0.01, -0.03 0.05, -0.18 0.07, -0.25 0.1, -0.38 0, 0 0.01, -0.03 0.01, -0.03 0.07, -0.26 0.76, -2.83 0.9, -3.37 0.47, -1.77 0.97, -3.9 1.09, -4.4 0.74, -3.1 1.91, -6.79 3.06, -10.31 3.35, -10.23 3.84, -10.6 6.22, -18.24 1.57, -5.04 2.64, -8.96 3, -10.33 0.67, -2.49 1.16, -4.48 1.82, -7.17 0.67, -2.7 1.35, -5.47 2.18, -9.13 0.7, -3.1 1.62, -7.32 2.58, -12.32 0.22, -1.14 0.82, -4.31 1.52, -8.41 0.58, -3.39 0.91, -5.61 1.01, -6.28 0.06, -0.39 0.19, -1.29 0.51, -3.63 0.6, -4.37 0.9, -6.55 1.23, -9.32 0.3, -2.47 0.48, -4.25 0.73, -6.74 0.23, -2.26 0.51, -4.96 0.77, -8.11 0.29, -3.49 0.51, -7.44 0.93, -15.34 0.14, -2.58 0.23, -4.38 0.28, -6.76 0.05, -2.37 0.03, -4.7 0.02, -5.91 0, -0.12 - 0.01, -1.2 - 0.03, -2.42 - 0.15, -7.93 - 0.34, -17.93 - 1.25, -27.71 - 0.12, -1.31 - 0.37, -3.67 - 0.87, -8.4 - 0.1, -0.92 - 0.29, -2.71 - 0.53, -4.45 - 0.15, -1.06 - 0.26, -1.89 - 0.41, -2.87 - 0.43, -2.87 - 0.97, -5.93 - 1.1, -6.77 - 0.77, -4.76 - 1.98, -10.73 - 2.94, -15.16 - 1.18, -5.4 - 3.04, -12.28 - 3.68, -14.33"
+  // pages[0].drawSvgPath(svgPath, {
+  //   y: 0,
+  //   x: 0,
+  //   color: rgb(1.0, 0, 0),
+  // })
 
   if (TIPO_BASE == '2') {
     pages[0].drawImage(image1, {
