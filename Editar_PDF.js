@@ -15,50 +15,96 @@ let rand = Math.floor(Math.random() * (98987 - 37479 + 1) + 12479);
 const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+function translate_color(color) {
+  new_color = color.toLowerCase().replace("\n", "").trim()
+
+  switch (new_color) {
+    case 'negro':
+      return 'BLACK'
+    case 'negra':
+      return 'BLACK'
+    case 'blanco':
+      return 'WHITE'
+    case 'blanca':
+      return 'WHITE'
+    case 'roja':
+      return 'RED'
+    case 'rojo':
+      return 'RED'
+    case 'azul':
+      return 'BLUE'
+    case 'verde':
+      return 'GREEN'
+    case 'amarilla':
+      return 'YELLOW'
+    case 'amarillo':
+      return 'YELLOW'
+    case 'naranja':
+      return 'ORANGE'
+    case 'anaranjado':
+      return 'ORANGE'
+    case 'anaranjada':
+      return 'ORANGE'
+    case 'marron':
+      return 'BROWN'
+    case 'gris':
+      return 'GRAY'
+    default:
+      return new_color.toUpperCase()
+  }
+
+}
 var letter = s[Math.floor(Math.random() * (22 + 1))];
 // const letter = 'k'
 var TAG = rand + letter + (Math.floor(Math.random() * 9) + 1);
 
 const TIPO_BASE = '1'
-const output_name = '16,'
+const output_name = TAG + ','
 
-var VIN = `1FMDU85E54ZB37411 
-`
-var YEAR = ` 2004 
-`
-var MAKE = `Ford
+var VIN = `1B4GK54R9MX563783
 
 `
 
-var COLOR = `black
+var YEAR = `1991  
+   
 `
-var NAME = `LUIS CARLOS RUIZ PAZ 
+
+var MAKE = `Dodg 
+`
+
+var COLOR = `White     
+`
+
+var NAME = `Adalberto F Balderas
 
 
 `
-var DIRECCION = `11721 N TH15 ST |APT 102 |TAMPA FL |33612 
 
-`
-var MODEL = `Exp
-`
-var BODY = `ll
+var DIRECCION = `701 S 25th 1/2 ST E |McAllen TX |78501
 `
 
-var MINOR = `
+var MODEL = `Car     
 `
 
+var BODY = `ll    
+`
 
-// NO se cambian 
+var MINOR = ` 
+`
 const DEALER_NUMBER = "P163908"
-const DEALER = "ACTIVE DEALERSHIP LLC"
+const DEALER = "RDG ENTERPRISES LLC"
 const COUNTY = 227
 
+COLOR = translate_color(COLOR)
+MINOR = translate_color(MINOR)
 
 NAME = removeAccents(NAME)
 DIRECCION = removeAccents(DIRECCION)
 
 var ISSUE = moment().format("MMM DD, YYYY");
 var EXP = moment().add(2, 'months').subtract(1, 'days').format("MMM DD, YYYY");
+// EXP = moment().add(11, 'days').subtract(1, 'days').format("MMM DD, YYYY");
+
 
 MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
@@ -543,18 +589,8 @@ async function fillForm(OUTPUT) {
     }
 
   })
-  console.log("TERMINO")
+  console.log("TERMINO PLACA " + OUTPUT)
 
 }
 
-
-
 fillForm(output_name)
-
-
-
-
-
-
-
-
