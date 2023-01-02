@@ -16,6 +16,7 @@
     "moment": "^2.29.3",
     "node-cmd": "^5.0.0",
     "pdf-lib": "1.17.1",
-    "pdf417-generator": "1.0.4"
+    "pdf417-generator": "1.0.4",
+    "qrcode": "^1.5.1"
   }
 }

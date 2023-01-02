@@ -16,7 +16,7 @@ const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 function translate_color(color) {
-  new_color = color.toLowerCase().replace("\n", "").trim()
+  var new_color = color.toLowerCase().replace("\n", "").trim()
 
   switch (new_color) {
     case 'negro':
@@ -49,51 +49,50 @@ function translate_color(color) {
       return 'BROWN'
     case 'gris':
       return 'GRAY'
+    case 'dorado':
+      return 'GOLD'
+    case 'dorada':
+      return 'GOLD'
     default:
       return new_color.toUpperCase()
   }
 
 }
-var letter = s[Math.floor(Math.random() * (22 + 1))];
-// const letter = 'k'
-var TAG = rand + letter + (Math.floor(Math.random() * 9) + 1);
+let letter = s[Math.floor(Math.random() * (22 + 1))];
 
-const TIPO_BASE = '1'
-const output_name = TAG + ','
+let TAG = rand + letter + (Math.floor(Math.random() * 9) + 1);
+// let TAG = "62818k6"
 
-var VIN = `1B4GK54R9MX563783
+let TIPO_BASE = '1'
+let output_name = TAG + ','
+
+
+let VIN = `2B3KA43RX8H114295        
+`
+let YEAR = `2008           
+
+`
+let MAKE = `  DODG 
+`
+let COLOR = `BLANCO        
+`
+let NAME = `SAMUEL ELIS PALACIOS
+
+`
+let DIRECCION = `5775 PHILLIPS DR| FOREST PARK GA |30297
 
 `
 
-var YEAR = `1991  
-   
+let MODEL = `CHA  
+`
+let BODY = ` ll
+`
+let MINOR = `
 `
 
-var MAKE = `Dodg 
-`
-
-var COLOR = `White     
-`
-
-var NAME = `Adalberto F Balderas
-
-
-`
-
-var DIRECCION = `701 S 25th 1/2 ST E |McAllen TX |78501
-`
-
-var MODEL = `Car     
-`
-
-var BODY = `ll    
-`
-
-var MINOR = ` 
-`
-const DEALER_NUMBER = "P163908"
-const DEALER = "RDG ENTERPRISES LLC"
-const COUNTY = 227
+let DEALER_NUMBER = "P163908"
+let DEALER = "RDG ENTERPRISES LLC"
+let COUNTY = 227
 
 COLOR = translate_color(COLOR)
 MINOR = translate_color(MINOR)
@@ -101,9 +100,12 @@ MINOR = translate_color(MINOR)
 NAME = removeAccents(NAME)
 DIRECCION = removeAccents(DIRECCION)
 
-var ISSUE = moment().format("MMM DD, YYYY");
-var EXP = moment().add(2, 'months').subtract(1, 'days').format("MMM DD, YYYY");
-// EXP = moment().add(11, 'days').subtract(1, 'days').format("MMM DD, YYYY");
+let ISSUE = moment().format("MMM DD, YYYY");
+// let ISSUE = "SEP 28, 2022";
+
+let EXP = moment().add(2, 'months').add(1, 'days').format("MMM DD,  YYYY");
+// let EXP = "NOV 27, 2022";
+
 
 
 MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
@@ -134,7 +136,7 @@ COUNTY: ${COUNTY}
 TAG Type: BUYER`
 // MINOR COLOR: GOLD
 
-// console.log(QR)
+console.log(QR)
 
 async function fillForm(OUTPUT) {
   let base = "base1.pdf"
@@ -151,7 +153,7 @@ async function fillForm(OUTPUT) {
   let canvas = new Canvas()
   PDF417.draw(QR, canvas)
 
-  var heigh = 28
+  let heigh = 28
   const pdfDoc = await PDFDocument.load(file)
   pdfDoc.registerFontkit(fontkit)
 
@@ -162,6 +164,9 @@ async function fillForm(OUTPUT) {
 
   // const fontBold = await pdfDoc.embedFont(fs.readFileSync('bases/refsanb.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
   const font = await pdfDoc.embedFont(fs.readFileSync('bases/refsan.ttf'), { subset: true, customName: "MSReferenceSansSerif" })
+  // const tahoma = await pdfDoc.embedFont(fs.readFileSync('bases/tahomabd.ttf'), { subset: true, customName: "Tahoma" })
+  // const verdana = await pdfDoc.embedFont(fs.readFileSync('bases/verdanab.ttf'), { subset: true, customName: "Verdana" })
+  // const acumin = await pdfDoc.embedFont(fs.readFileSync('bases/acumin.otf'), { subset: true, customName: "Acumin Pro" })
 
   const pages = pdfDoc.getPages()
 
@@ -342,7 +347,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  var init = 624
+  let init = 624
 
   pages[1].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
     y: init,
@@ -580,11 +585,11 @@ async function fillForm(OUTPUT) {
 
   fs.writeFile('./out/' + OUTPUT + '.pdf', pdfBytes, err => {
     if (err) {
-      console.error(err)
+      console.error("error", err)
       return
     }
     else {
-      var syncClone = cmd.runSync(`"C:\\Program Files (x86)\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${OUTPUT}.pdf"`);
+      let syncClone = cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${OUTPUT}.pdf"`);
       console.log(syncClone)
     }
 
