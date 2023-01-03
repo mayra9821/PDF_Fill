@@ -10,7 +10,7 @@ import cmd from 'node-cmd'
 // NO USAR I Ñ O Q
 let s = 'ABCDEFGHJKLNPRSTUVWXYZ'
 
-let rand = Math.floor(Math.random() * (98987 - 37479 + 1) + 12479);
+let rand = Math.floor(Math.random() * (9898 - 3747 + 1) + 1247);
 
 const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -58,9 +58,39 @@ function translate_color(color) {
   }
 
 }
+
+
+function draw_spaced(text, x, y, font, size, space, vert, color = rgb(0, 0, 0), rotate = 0) {
+
+  for (const c in text) {
+    console.log(y + (c * space))
+    console.log(text[c])
+    if (vert) {
+      pages[0].drawText(text[c], {
+        y: y + (c * space),
+        x: x,
+        size: size,
+        font: font,
+        rotate: degrees(rotate),
+        color: color,
+      })
+    }
+    else {
+      pages[0].drawText(text[c], {
+        y: y,
+        x: x + (c * space),
+        size: size,
+        font: font,
+        rotate: degrees(rotate),
+        color: color,
+      })
+    }
+  }
+}
+
 let letter = s[Math.floor(Math.random() * (22 + 1))];
 
-let TAG = (rand + letter + (Math.floor(Math.random() * 9) + 1));
+let TAG = (rand + letter + (Math.floor(Math.random() * 99) + 1));
 // TAG = "7359T07"
 
 let output_name = TAG + ','
@@ -107,7 +137,7 @@ let ISSUE = date_ISS.format("MMM DD, YYYY");
 console.log(ISSUE)
 // let ISSUE = "SEP 28, 2022";
 
-let date_EXP = date_ISS.add(2, 'months').add(1, 'days')
+let date_EXP = date_ISS.clone().add(2, 'months').add(1, 'days')
 let EXP = date_EXP.format("MMM DD,YYYY");
 // let EXP = "NOV 27, 2022";
 
@@ -136,8 +166,10 @@ EXPIRATION: ${EXPIRATION_QR}
 `
 
 
+
+
 async function fillForm(OUTPUT) {
-  let base = "base4.pdf"
+  let base = "base41.pdf"
   let rotate = 0
   let indice = 0
   const file = await fs.readFileSync("bases/" + base)
@@ -156,33 +188,7 @@ async function fillForm(OUTPUT) {
   const qr_i = await pdfDoc.embedPng(dataurl)
   const font = await pdfDoc.embedFont(fs.readFileSync('bases/arialbd.ttf'), { subset: true, customName: "Arial" })
   const courier = await pdfDoc.embedFont(fs.readFileSync('bases/cour.ttf'), { subset: true, customName: "Courier New" })
-  function draw_spaced(text, x, y, font, size, space, vert, color = rgb(0, 0, 0), rotate = 0) {
 
-    for (const c in text) {
-      console.log(y + (c * space))
-      console.log(text[c])
-      if (vert) {
-        pages[0].drawText(text[c], {
-          y: y + (c * space),
-          x: x,
-          size: size,
-          font: font,
-          rotate: degrees(rotate),
-          color: color,
-        })
-      }
-      else {
-        pages[0].drawText(text[c], {
-          y: y,
-          x: x + (c * space),
-          size: size,
-          font: font,
-          rotate: degrees(rotate),
-          color: color,
-        })
-      }
-    }
-  }
   const pages = pdfDoc.getPages()
 
 
@@ -263,7 +269,7 @@ async function fillForm(OUTPUT) {
   pages[0].drawImage(qr_i, qrOpt)
 
 
-  let COD = date_ISS.format('MMDDYY') + s[Math.floor(Math.random() * (22 + 1))] + s[Math.floor(Math.random() * (22 + 1))] + (Math.floor(Math.random() * (10))) + (Math.floor(Math.random() * (10)))
+  let COD = date_ISS.format('MMDDYY') + s[Math.floor(Math.random() * (21 + 1))] + s[Math.floor(Math.random() * (21 + 1))] + (Math.floor(Math.random() * (10))) + (Math.floor(Math.random() * (10)))
 
 
   for (const c in COD) {
@@ -346,7 +352,7 @@ EXPIRATION TIME: 11:00:AM`
 
 
   let text_3 = [`EFFECTIVE DATE: ${date_ISS.format('MM/DD/YYYY')}`,
-  `EFFECTIVE TIME: 11:00:AM`,
+    `EFFECTIVE TIME: 11:00:AM`,
   `\nTRANSACTION ID: ${moment().format('x').substring(0, 8)}`]
 
 
