@@ -68,25 +68,26 @@ let TIPO_BASE = '1'
 let output_name = TAG + ','
 
 
-let VIN = `1GNEK13T95R247054 
+let VIN = `5J6RE3H78BL051298 
 `
-let YEAR = `2005        
+let YEAR = `2011        
 
 `
-let MAKE_COMPLETO = `Chevrolet
+let MAKE_COMPLETO = `Honda
 `
 
-let MAKE = `  Chev
+let MAKE = `  Hond 
 `
-let COLOR = `BLANCA       
+let COLOR = `Gray       
 `
-let NAME = `Christopher Erik sanchez
+let NAME = `Martha Cecilia sanchez Ramirez
+
 `
-let DIRECCION = `3607 s Lombard ave |Cicero il| 60804
+let DIRECCION = `600 deerfield rd, |Building#19 apt 1901 |Tarrytown LA |70056
 
 `
 
-let MODEL = `  TAH
+let MODEL = `  CRV
 `
 let BODY = `ll
 `
@@ -293,7 +294,6 @@ async function fillForm(OUTPUT) {
 
 
   for (const c in COD) {
-    console.log(COD[c])
     pages[0].drawText(COD[c], {
       y: 356 - (33.5 * c),
       x: 766,
