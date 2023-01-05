@@ -67,25 +67,24 @@ let TIPO_BASE = '1'
 let output_name = TAG + ','
 
 
-let VIN = `2B3KA43RX8H114295        
+let VIN = `2G1WC5E30C1279064        
 `
-let YEAR = `2008           
+let YEAR = `2012           
 
 `
-let MAKE = `  DODG 
+let MAKE = `  CHEV   
 `
 let COLOR = `BLANCO        
 `
-let NAME = `SAMUEL ELIS PALACIOS
-
+let NAME = `Joselin del Carmen
+Herrera zeledon 
 `
-let DIRECCION = `5775 PHILLIPS DR| FOREST PARK GA |30297
-
+let DIRECCION = `8710 fondren rd apt 151 |Houston tx |77074
 `
 
-let MODEL = `CHA  
+let MODEL = `imp  
 `
-let BODY = ` ll
+let BODY = ` 4D 
 `
 let MINOR = `
 `

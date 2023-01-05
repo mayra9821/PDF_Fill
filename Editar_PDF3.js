@@ -65,27 +65,29 @@ let TAG = (rand + letter + (Math.floor(Math.random() * 99) + 1));
 
 let output_name = TAG + ','
 
-let VIN = `1FMEU33KX7UA01728  
+
+let VIN = `1G6KD52B6SU264489 
 `
-let YEAR = `2007        
+let YEAR = `1995         
 
 `
-let MAKE_COMPLETO = `FORD
+let MAKE_COMPLETO = `CADILLAC  
 `
 
-let MAKE = `  FORD 
+let MAKE = `  CADI   
 `
-let COLOR = `BROWN       
+let COLOR = `red       
 `
-let NAME = `JOSE RAUL LOPEZ SILVA
+let NAME = `Johnny Mitchell
 
 `
-let DIRECCION = `64 RANDAZZO DR |SAINTS BERNARD, LA |70085
+let DIRECCION = `
+3630 MORRIS ST |DALLAS  TX |75212
 `
 
-let MODEL = `  EPR
+let MODEL = `  ll
 `
-let BODY = `LL
+let BODY = `ll
 `
 let MINOR = `
 `

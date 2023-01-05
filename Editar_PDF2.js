@@ -96,26 +96,24 @@ let TAG = (rand + letter + (Math.floor(Math.random() * 99) + 1));
 let output_name = TAG + ','
 
 
-let VIN = `2D4RN5D15AR196312 
+let VIN = `WBA7T2C02LGL17252 
 `
-let YEAR = `2010        
+let YEAR = `2020        
 
 `
-let MAKE_COMPLETO = `DODG
+let MAKE_COMPLETO = `BMW 
 `
 
-let MAKE = `  Hond 
+let MAKE = `  BMW  
 `
-let COLOR = `Gray       
+let COLOR = `NEGRO       
 `
-let NAME = `Martha Cecilia sanchez Ramirez
-
+let NAME = `Maria Gutierrez
 `
-let DIRECCION = `600 deerfield rd, |Building#19 apt 1901 |Tarrytown LA |70056
-
+let DIRECCION = `2727 Pawnee rd |Waukegan il|60087
 `
 
-let MODEL = `  CRV
+let MODEL = `  740
 `
 let BODY = `ll
 `
