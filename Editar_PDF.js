@@ -82,9 +82,9 @@ let NAME = `hector ismael murillo nuñes
 let DIRECCION = `310 st rear |stafford tx |77477
 `
 
-let MODEL = `CHA  
+let MODEL = `imp  
 `
-let BODY = ` ll
+let BODY = ` 4D 
 `
 let MINOR = `
 `

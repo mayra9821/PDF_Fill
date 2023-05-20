@@ -81,12 +81,6 @@ let NAME = `Melvin omar enamorado garcia
 ` 
 let DIRECCION = `11363 catalpa st, |Baton rouge LA |70815
 
- 
- 
-
-
-
-
 `
 let MODEL = ` Venza 
 `
