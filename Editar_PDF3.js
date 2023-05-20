@@ -60,32 +60,37 @@ function translate_color(color) {
 }
 let letter = s[Math.floor(Math.random() * (22 + 1))];
 
-let TAG = (rand + letter + (Math.floor(Math.random() * 99) + 1));
-// TAG = "7359T07"
+let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
+//let TAG = "1975U25"
 
 let output_name = TAG + ','
 
-let VIN = `1FMEU33KX7UA01728  
+let VIN = `4T3ZA3BB8BU019742      
 `
-let YEAR = `2007        
+let YEAR = `2011       
+`
+let MAKE_COMPLETO = `Toyota            
+`
+let MAKE = `Toyta  
+   `
+
+let COLOR = `Brown      
+`
+let NAME = `Melvin omar enamorado garcia
+
+` 
+let DIRECCION = `11363 catalpa st, |Baton rouge LA |70815
+
+ 
+ 
+
+
+
 
 `
-let MAKE_COMPLETO = `FORD
+let MODEL = ` Venza 
 `
-
-let MAKE = `  FORD 
-`
-let COLOR = `BROWN       
-`
-let NAME = `JOSE RAUL LOPEZ SILVA
-
-`
-let DIRECCION = `64 RANDAZZO DR |SAINTS BERNARD, LA |70085
-`
-
-let MODEL = `  EPR
-`
-let BODY = `LL
+let BODY = `ll
 `
 let MINOR = `
 `
@@ -93,20 +98,22 @@ let MINOR = `
 let DEALER_NUMBER = "P163943"
 let DEALER = "HEMPHILL MOTORS"
 let COUNTY = 227
-
 COLOR = translate_color(COLOR)
 MINOR = translate_color(MINOR)
-
+MODEL = MODEL.toUpperCase().replace("\n", "").trim().substring(0, 3);
+console.log(MODEL)
 NAME = removeAccents(NAME)
 DIRECCION = removeAccents(DIRECCION)
 
-let date_ISS = moment()
+let date_ISS = moment();
 let ISSUE = date_ISS.format("MMM DD, YYYY");
 console.log(ISSUE)
 // let ISSUE = "SEP 28, 2022";
 
-const date_EXP = date_ISS.clone().add(2, 'months').add(1, 'days')
+const date_EXP = date_ISS.clone().add(2, 'months').subtract(1, 'days');
+  //subtract(1, 'days')
 let EXP = date_EXP.format("MMM DD,YYYY");
+console.log(EXP, "EXP")
 // let EXP = "NOV 27, 2022";
 
 
@@ -419,11 +426,11 @@ async function fillForm(OUTPUT) {
       let filename = OUTPUT + rand
       fs.writeFile('./out/' + filename + '.pdf', pdfBytes, err => { let syncClone = cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${filename}.pdf"`) })
       console.log("TERMINO PLACA " + filename)
-      cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${filename}.pdf"`);
-      console.log("TERMINO PLACA " + OUTPUT)
+      // cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${filename}.pdf"`);
+      // console.log("TERMINO PLACA " + OUTPUT)
     }
     else {
-      cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${OUTPUT}.pdf"`);
+      // cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${OUTPUT}.pdf"`);
       console.log("TERMINO PLACA " + OUTPUT)
     }
 

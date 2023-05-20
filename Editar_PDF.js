@@ -67,20 +67,19 @@ let TIPO_BASE = '1'
 let output_name = TAG + ','
 
 
-let VIN = `2B3KA43RX8H114295        
+let VIN = `WBSFV9C56DC774094          
 `
-let YEAR = `2008           
+let YEAR = `2013            
 
 `
-let MAKE = `  DODG 
+let MAKE = `  bmw    
 `
-let COLOR = `BLANCO        
+let COLOR = `red         
 `
-let NAME = `SAMUEL ELIS PALACIOS
+let NAME = `hector ismael murillo nuñes
 
 `
-let DIRECCION = `5775 PHILLIPS DR| FOREST PARK GA |30297
-
+let DIRECCION = `310 st rear |stafford tx |77477
 `
 
 let MODEL = `CHA  

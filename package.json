@@ -1,7 +1,6 @@
 {
   "name": "pdf",
   "version": "1.0.0",
-  "description": "",
   "main": "Editar PDF.js",
   "scripts": {
     "run": "node ./src/index.js",
@@ -18,5 +17,15 @@
     "pdf-lib": "1.17.1",
     "pdf417-generator": "1.0.4",
     "qrcode": "^1.5.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayra9821/PDF_Fill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mayra9821/PDF_Fill/issues"
+  },
+  "homepage": "https://github.com/mayra9821/PDF_Fill#readme",
+  "description": ""
 }
