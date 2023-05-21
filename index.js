@@ -39,7 +39,6 @@ client.on('ready', async () => {
   formVisible = true;
   loading = false;
   console.log("WhatsApp Web v", await client.getWWebVersion());
-  console.log("WWebJS v", require("whatsapp-web.js").version);
   client.getChats().then((chats) => {
     // console.log(chats);
     //for (let chat of chats) {
