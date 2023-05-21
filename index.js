@@ -1,21 +1,20 @@
 import express from 'express';
-import path from 'path';
 import fillForm from "./Editar_PDF4.js";
 import moment from 'moment';
 import qrcode from 'qrcode';
 import whatsapp from 'whatsapp-web.js';
 import * as fs from 'fs';
-import { error } from 'console';
 let qr_data = "";
 let formVisible = false; // Variable para controlar la visibilidad del formulario
-const SESSION_FILE_PATH = './session.json';
 let loading = true;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 const amor = "573046162462@c.us" //amor
 const placas = '120363044029875718@g.us'
 const portapapeles = '120363044942242672@g.us'
+
 let error_message = null;
 const client = new whatsapp.Client({
   authStrategy: new whatsapp.LocalAuth(),
@@ -26,7 +25,7 @@ const client = new whatsapp.Client({
 
 
 
-const loader = fs.readFileSync('./loader.html', 'utf-8');
+let loader = fs.readFileSync('./loader.html', 'utf-8');
 
 client.on('qr', (qr) => {
   console.log('QR RECEIVED', qr);
@@ -88,7 +87,7 @@ app.get('/', async (req, res) => {
     // Leer el contenido del archivo HTML
     let html = fs.readFileSync('./form.html', 'utf-8');
     Object.entries(defaultValues).forEach(([key, value]) => {
-      const regex = new RegExp(`{{${key}}}`, 'g');
+      let regex = new RegExp(`{{${key}}}`, 'g');
       html = html.replace(regex, value);
     });
     if (error_message) {
@@ -125,7 +124,7 @@ app.post('/generar', async (req, res) => {
     return res.redirect('/');
   }
   try {
-    error = null;
+    error_message = null;
     console.log(req.body);
     const data = {
       VIN: req.body.VIN,
