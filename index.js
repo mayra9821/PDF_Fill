@@ -175,9 +175,12 @@ app.post('/generar', async (req, res) => {
       var b64encoded = btoa(Uint8ToString(pdfBytes));
       const media = new whatsapp.MessageMedia('application/pdf', b64encoded);
       media.filename = archivo + ".pdf";
+      console.log("sending");
       client.sendMessage(portapapeles, media, { sendMediaAsDocument: true, caption: null }).then(() => {
-        console.log("Sending file")
         client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
+      }).catch((err) => {
+        console.log(err)
+        client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
       })
     })
 
