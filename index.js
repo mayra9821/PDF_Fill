@@ -182,6 +182,7 @@ app.post('/generar', async (req, res) => {
         console.log(err)
         client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
       })
+      console.log("sent")
     })
 
   } catch (error) {
