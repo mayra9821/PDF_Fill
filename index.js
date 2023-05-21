@@ -11,7 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-let amor = "573046162462@c.us" //amor
 let placas = '120363044029875718@g.us'
 let portapapeles = '120363044942242672@g.us'
 
@@ -42,9 +41,8 @@ client.on('ready', async () => {
   client.getChats().then((chats) => {
     // console.log(chats);
     console.log(amor, placas, portapapeles)
-    amor = chats.find(chat => chat.name === 'Amor').id._serialized;
-    placas = chats.find(chat => chat.name === 'Placas').id._serialized;
-    portapapeles = chats.find(chat => chat.name === 'Portapapeles').id._serialized;
+    placas = chats.filter(chat => chat.name === 'Placas')[0].id._serialized;
+    portapapeles = chats.filter(chat => chat.name === 'Portapapeles')[0].id._serialized;
     console.log(amor, placas, portapapeles)
 
   })
