@@ -61,9 +61,8 @@ function translate_color(color) {
 let letter = s[Math.floor(Math.random() * (22 + 1))];
 
 let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
-//let TAG = "1975U25"
 
-let output_name = TAG + ','
+let output_name = TAG
 
 let VIN = `1GTCS198X68171323      
 `
@@ -79,7 +78,7 @@ let COLOR = `Silver
 let NAME = `Mario René morales Medrano
 
 
-` 
+`
 let DIRECCION = `2655 tifton st.| Kenner LA| 70062
 `
 let MODEL = ` Canyon   
@@ -105,7 +104,7 @@ console.log(ISSUE)
 // let ISSUE = "SEP 28, 2022";
 
 const date_EXP = date_ISS.clone().add(2, 'months').subtract(1, 'days');
-  //subtract(1, 'days')
+//subtract(1, 'days')
 let EXP = date_EXP.format("MMM DD,YYYY");
 console.log(EXP, "EXP")
 // let EXP = "NOV 27, 2022";
@@ -267,7 +266,7 @@ async function fillForm(OUTPUT) {
   for (const c in COD) {
     pages[0].drawText(COD[c], {
       y: (825 - (74 * c)) * 0.4349755881,
-      x: (1750 - (font.widthOfTextAtSize(COD[c], 56.30 * 0.4349755881)/2)) * 0.4349755881,
+      x: (1750 - (font.widthOfTextAtSize(COD[c], 56.30 * 0.4349755881) / 2)) * 0.4349755881,
       size: 56.30 * 0.4349755881,
       font: font,
       rotate: degrees(rotate),

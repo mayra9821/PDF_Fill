@@ -26,7 +26,7 @@ let COLOR1 = `negro
 let NAME1 = `Maria Flores 
 
 
-` 
+`
 let DIRECCION1 = `515 Arizona st south |Houston tx |77587
 
 `
@@ -38,7 +38,7 @@ const removeAccents = (str_input) => {
   return str_input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 function translate_color(color_in) {
-  console.log(color_in)
+  // console.log(color_in)
   let new_color_in = color_in.toLowerCase().replace("\n", "").trim()
 
   switch (new_color_in) {
@@ -83,27 +83,26 @@ function translate_color(color_in) {
 }
 // let EXP = "NOV 27, 2022";
 
-export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, MODEL, BODY='ll', MINOR=null, date_ISS=moment(), add_exp_monts=2, subs_exp_days=1, DEALER_NUMBER = "P163943", DEALER = "HEMPHILL MOTORS", COUNTY = 227) {
-  console.log("🚀 ~ file: Editar_PDF4.js:91 ~ fillForm ~input", VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, MODEL, BODY, MINOR, date_ISS, add_exp_monts,subs_exp_days, DEALER_NUMBER, DEALER, COUNTY)
-  
+export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, MODEL, BODY = 'll', MINOR = null, date_ISS = moment(), add_exp_monts = 2, subs_exp_days = 1, DEALER_NUMBER = "P163943", DEALER = "HEMPHILL MOTORS", COUNTY = 227) {
+
   let s = 'ABCDEFGHJKLMNPRSTUVWXYZ'
 
-  let rand = Math.floor(Math.random() * (9898 - 3747 + 1) + 1247);  
+  let rand = Math.floor(Math.random() * (9898 - 3747 + 1) + 1247);
 
   let letter = s[Math.floor(Math.random() * (22 + 1))];
 
   let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
 
-  let OUTPUT = TAG + ','
-  
+  let OUTPUT = TAG
+
   let ISSUE = moment(date_ISS).format("MMM DD, YYYY");
-  console.log(ISSUE)
+  // console.log(ISSUE)
   // let ISSUE = "SEP 28, 2022";
 
   const date_EXP = moment(date_ISS).clone().add(add_exp_monts, 'months').subtract(subs_exp_days, 'days');
   //subtract(1, 'days')
   let EXP = date_EXP.format("MMM DD,YYYY");
-  console.log(EXP, "EXP")
+  // console.log(EXP, "EXP")
 
   MAKE = MAKE ? MAKE : MAKE_COMPLETO.substring(0, 3)
   COLOR = translate_color(COLOR)
@@ -111,7 +110,7 @@ export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NA
     MINOR = translate_color(MINOR)
   }
   MODEL = MODEL.toUpperCase().replace("\n", "").trim().substring(0, 3);
-  console.log(MODEL)
+  // console.log(MODEL)
   NAME = removeAccents(NAME)
   DIRECCION = removeAccents(DIRECCION)
   MAKE = MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
@@ -123,7 +122,7 @@ export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NA
   YEAR: ${YEAR.replace("\n", "").trim()}
   MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
   `
-  if ( !MINOR || MINOR.replace("\n", "").trim() == '') {
+  if (!MINOR || MINOR.replace("\n", "").trim() == '') {
     QR = QR + `COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
   `
   }
@@ -161,8 +160,8 @@ export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NA
   function draw_spaced(text, x, y, font, size, space, vert, color = rgb(0, 0, 0), rotate = 0) {
 
     for (const c in text) {
-      console.log(y + (c * space))
-      console.log(text[c])
+      // console.log(y + (c * space))
+      // console.log(text[c])
       if (vert) {
         pages[0].drawText(text[c], {
           y: y + (c * space),
@@ -263,14 +262,14 @@ export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NA
 
   pages[0].drawImage(qr_i, qrOpt)
 
-  console.log(moment(date_ISS))
+  // console.log(moment(date_ISS))
   let COD = moment(date_ISS).format('MMDDYY') + s[Math.floor(Math.random() * (21 + 1))] + s[Math.floor(Math.random() * (21 + 1))] + (Math.floor(Math.random() * (10))) + (Math.floor(Math.random() * (10)))
 
 
   for (const c in COD) {
     pages[0].drawText(COD[c], {
       y: (825 - (74 * c)) * 0.4349755881,
-      x: (1750 - (font.widthOfTextAtSize(COD[c], 56.30 * 0.4349755881)/2)) * 0.4349755881,
+      x: (1750 - (font.widthOfTextAtSize(COD[c], 56.30 * 0.4349755881) / 2)) * 0.4349755881,
       size: 56.30 * 0.4349755881,
       font: font,
       rotate: degrees(rotate),
@@ -424,21 +423,21 @@ export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NA
       console.error("error", err)
       let filename = OUTPUT + rand
       fs.writeFile('./out/' + filename + '.pdf', pdfBytes, err => {
-        console.log(err)
+        console.error(err)
       })
-      OUTPUT=filename
-      console.log("TERMINO PLACA " + filename)
+      OUTPUT = filename
+      // console.log("TERMINO PLACA Dentro " + filename)
       // cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${filename}.pdf"`);
       // console.log("TERMINO PLACA " + OUTPUT)
     }
-    else {
-      // cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${OUTPUT}.pdf"c);
-      console.log("TERMINO PLACA " + OUTPUT)
-    }
+    // else {
+    //   // cmd.runSync(`"C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe"  "${process.cwd()}\\out\\${OUTPUT}.pdf"c);
+    //   console.log("TERMINO PLACA Dentro" + OUTPUT)
+    // }
 
   })
-  console.log("TERMINO PLACA " + OUTPUT)
-  return [`${process.cwd()}\\out\\${OUTPUT}.pdf`, OUTPUT]
+  // console.log("TERMINO PLACA " + OUTPUT)
+  return [`${process.cwd()}\\out\\${OUTPUT}.pdf`, OUTPUT, pdfBytes]
 }
 
 // fillForm(VIN1, YEAR1, MAKE_COMPLETO1, COLOR1, NAME1, DIRECCION1, MODEL1)

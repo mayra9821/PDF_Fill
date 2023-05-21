@@ -4,11 +4,13 @@
     // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "node",
             "request": "launch",
             "name": "Iniciar el programa",
-            "runtimeExecutable": "C:\\Users\\MayraAdmin\\AppData\\Local\\fnm_multishells\\18136_1684163817252\\node.exe",
+            "restart":true,
+            "runtimeExecutable": "C:\\Users\\JoseAdmin\\AppData\\Local\\fnm_multishells\\84144_1684647203392\\node.exe",
             "skipFiles": [
                 "<node_internals>/**/*.js",
                 "${workspaceFolder}/node_modules/**/*.js"
