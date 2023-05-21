@@ -11,9 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const amor = "573046162462@c.us" //amor
-const placas = '120363044029875718@g.us'
-const portapapeles = '120363044942242672@g.us'
+let amor = "573046162462@c.us" //amor
+let placas = '120363044029875718@g.us'
+let portapapeles = '120363044942242672@g.us'
 
 let error_message = null;
 const client = new whatsapp.Client({
@@ -39,9 +39,15 @@ client.on('ready', async () => {
   console.log('Client is ready!');
   formVisible = true;
   loading = false;
-  // client.getChats().then((chats) => {
-  //   console.log(chats);
-  // })
+  client.getChats().then((chats) => {
+    console.log(chats);
+    console.log(amor, placas, portapapeles)
+    amor = chats.find(chat => chat.name === 'Amor').id._serialized;
+    placas = chats.find(chat => chat.name === 'Placas').id._serialized;
+    portapapeles = chats.find(chat => chat.name === 'Portapapeles').id._serialized;
+    console.log(amor, placas, portapapeles)
+
+  })
 });
 
 client.initialize();

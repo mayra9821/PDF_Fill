@@ -437,7 +437,7 @@ export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NA
 
   })
   // console.log("TERMINO PLACA " + OUTPUT)
-  return [`${process.cwd()}\\out\\${OUTPUT}.pdf`, OUTPUT, pdfBytes]
+  return [`${process.cwd()}/out/${OUTPUT}.pdf`, OUTPUT, pdfBytes]
 }
 
 // fillForm(VIN1, YEAR1, MAKE_COMPLETO1, COLOR1, NAME1, DIRECCION1, MODEL1)
