@@ -176,7 +176,7 @@ app.post('/generar', async (req, res) => {
       console.log(ruta);
       client.sendMessage(portapapeles, `Preparando`)
 
-      var b64encoded = btoa(Uint8ToString(pdfBytes));
+      let b64encoded = btoa(Uint8ToString(pdfBytes));
       const media = new whatsapp.MessageMedia('application/pdf', b64encoded);
       media.filename = archivo + ".pdf";
       console.log(media)
