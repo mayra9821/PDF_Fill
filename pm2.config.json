@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "placas",
+      "script": "index.js",
+      "exec_mode": "cluster",
+      "instances": "max",
+      "node_args": [
+        "--experimental-modules"
+      ],
+      "interpreter": "node"
+    }
+  ]
+}
