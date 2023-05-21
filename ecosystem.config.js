@@ -1,8 +1,8 @@
-module.exports = {
+export default {
   apps: [
     {
       name: 'placas',
-      script: 'index.js', // Reemplaza esto con el nombre de tu archivo principal de la API
+      script: 'index.js',
       watch: true,
       ignore_watch: ['node_modules'],
       env: {
