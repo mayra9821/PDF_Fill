@@ -40,10 +40,10 @@ client.on('ready', async () => {
   loading = false;
   client.getChats().then((chats) => {
     // console.log(chats);
-    console.log(amor, placas, portapapeles)
+    console.log(placas, portapapeles)
     placas = chats.filter(chat => chat.name === 'Placas')[0].id._serialized;
     portapapeles = chats.filter(chat => chat.name === 'Portapapeles')[0].id._serialized;
-    console.log(amor, placas, portapapeles)
+    console.log(placas, portapapeles)
 
   })
 });
