@@ -5,7 +5,7 @@ import moment from 'moment';
 import qrcode from 'qrcode';
 import { Client } from 'whatsapp-web.js';
 
-
+let qr_data =""
 const app = express();
 app.use(express.json());
 
@@ -14,7 +14,7 @@ const client = new Client();
 
 app.get('/', (req, res) => {
     // Genera el código QR
-    qrcode.toDataURL(client.generateLink(), (err, url) => {
+    qrcode.toDataURL(qr_data, (err, url) => {
       if (err) {
         console.error('Error generando el código QR:', err);
         res.sendStatus(500);
@@ -36,14 +36,21 @@ app.get('/', (req, res) => {
     });
   });
   
-  client.on('authenticated', (session) => {
-    console.log('Cliente de WhatsApp autenticado');
-    // Puedes guardar la sesión para usarla en futuros reinicios
-    // session.save();
-  });
-  
-  client.initialize();
-  
+
+client.on('qr', (qr) => {
+    // Generate and scan this code with your phone
+    console.log('QR RECEIVED', qr);
+    qr_data=qr
+});
+
+client.on('authenticated', (session) => {
+console.log('Cliente de WhatsApp autenticado');
+// Puedes guardar la sesión para usarla en futuros reinicios
+// session.save();
+});
+
+client.initialize();
+
 
 
 app.post('/endpoint', async (req, res) => {
