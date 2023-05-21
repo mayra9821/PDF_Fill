@@ -40,7 +40,7 @@ client.on('ready', async () => {
   formVisible = true;
   loading = false;
   client.getChats().then((chats) => {
-    console.log(chats);
+    // console.log(chats);
     console.log(amor, placas, portapapeles)
     amor = chats.find(chat => chat.name === 'Amor').id._serialized;
     placas = chats.find(chat => chat.name === 'Placas').id._serialized;
