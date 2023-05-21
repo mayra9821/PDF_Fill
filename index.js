@@ -40,9 +40,18 @@ client.on('ready', async () => {
   loading = false;
   client.getChats().then((chats) => {
     // console.log(chats);
+    for (let chat of chats) {
+      console.log(chat.name, chat.id._serialized);
+    }
     console.log(placas, portapapeles)
-    placas = chats.filter(chat => chat.name === 'Placas')[0].id._serialized;
-    portapapeles = chats.filter(chat => chat.name === 'Portapapeles')[0].id._serialized;
+    placas_array = chats.filter(chat => chat.name == 'Placas')
+    if (placas_array) {
+      placas = placas_array[0].id._serialized;
+    }
+    porta_array = chats.filter(chat => chat.name == 'Portapapeles')
+    if (porta_array) {
+      portapapeles = porta_array[0].id._serialized;
+    }
     console.log(placas, portapapeles)
 
   })
