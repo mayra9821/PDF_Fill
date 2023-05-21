@@ -38,25 +38,28 @@ client.on('ready', async () => {
   console.log('Client is ready!');
   formVisible = true;
   loading = false;
+  console.log("WhatsApp Web v", await client.getWWebVersion());
+  console.log("WWebJS v", require("whatsapp-web.js").version);
   client.getChats().then((chats) => {
     // console.log(chats);
     //for (let chat of chats) {
     //console.log(chat.name, chat.id._serialized);
     //}
-    console.log(placas, portapapeles)
+    // console.log(placas, portapapeles)
     let placas_array = chats.filter(chat => chat.name == 'Placas')
     if (placas_array) {
       // console.log(placas_array)
       placas = placas_array[0].id._serialized;
-      console.log(placas)
+      // console.log(placas)
     }
     let porta_array = chats.filter(chat => chat.name.includes('Portapa'))
     if (porta_array) {
       // console.log(porta_array)
       portapapeles = porta_array[0].id._serialized;
-      console.log(portapapeles)
+      // console.log(portapapeles)
     }
-    console.log(placas, portapapeles)
+    // console.log(placas, portapapeles)
+
 
   })
 });
@@ -177,6 +180,7 @@ app.post('/generar', async (req, res) => {
       var b64encoded = btoa(Uint8ToString(pdfBytes));
       const media = new whatsapp.MessageMedia('application/pdf', b64encoded);
       media.filename = archivo + ".pdf";
+      console.log(media)
       console.log("sending");
       client.sendMessage(portapapeles, media).then(() => {
         client.sendMessage(portapapeles, `archivo ${archivo} enviado`)

@@ -64,24 +64,22 @@ let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
 
 let output_name = TAG
 
-let VIN = `1GTCS198X68171323      
+let VIN = `1GYEC63N56R146514
 `
-let YEAR = `2006        
+let YEAR = `2006
 `
-let MAKE_COMPLETO = `Gmc             
+let MAKE_COMPLETO = `Cadillac
 `
-let MAKE = `Gmc   
+let MAKE = `Cadillac
    `
 
-let COLOR = `Silver       
+let COLOR = `Blanca
 `
-let NAME = `Mario René morales Medrano
-
-
+let NAME = `Luis López
 `
-let DIRECCION = `2655 tifton st.| Kenner LA| 70062
+let DIRECCION = `6407 Antoine Dr |Houston TX |77091
 `
-let MODEL = ` Canyon   
+let MODEL = ` Esc
 `
 let BODY = `ll
 `
