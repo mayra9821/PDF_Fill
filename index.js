@@ -93,6 +93,9 @@ app.get('/', async (req, res) => {
     if (error_message) {
       html = html.replace('{{error_message}}', `<p class="error-message">${error_message}</p>`);
     }
+    else {
+      html = html.replace('{{error_message}}', '');
+    }
     res.send(html);
   } else {
     // Generar el código QR
@@ -125,7 +128,7 @@ app.post('/generar', async (req, res) => {
   }
   try {
     error_message = null;
-    console.log(req.body);
+    console.log("request", req.body);
     const data = {
       VIN: req.body.VIN,
       YEAR: req.body.YEAR,
@@ -144,18 +147,19 @@ app.post('/generar', async (req, res) => {
       DEALER: req.body.DEALER || "HEMPHILL MOTORS",
       COUNTY: req.body.COUNTY || 227,
     };
-    // console.log(JSON.stringify(data));
+    console.log("data: ", JSON.stringify(data));
     if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
       error_message = `Datos Faltantes o incorrectos ${req.body}`;
       throw new Error('Datos Faltantes o incorrectos');
     }
     fillForm(...Object.values(data)).then(([ruta, archivo, pdfBytes]) => {
 
-      // console.log(ruta);
+      console.log(ruta);
       var b64encoded = btoa(Uint8ToString(pdfBytes));
       const media = new whatsapp.MessageMedia('application/pdf', b64encoded);
       media.filename = archivo + ".pdf";
       client.sendMessage(portapapeles, media, { sendMediaAsDocument: true, caption: null }).then(() => {
+        console.log("Sending file")
         client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
       })
     })
