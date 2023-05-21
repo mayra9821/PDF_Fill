@@ -18,7 +18,10 @@ const placas = '120363044029875718@g.us'
 const portapapeles = '120363044942242672@g.us'
 let error_message = null;
 const client = new whatsapp.Client({
-  authStrategy: new whatsapp.LocalAuth()
+  authStrategy: new whatsapp.LocalAuth(),
+  puppeteer: {
+    args: ['--no-sandbox'],
+  }
 });
 
 
