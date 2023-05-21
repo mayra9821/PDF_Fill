@@ -17,7 +17,8 @@
     "node-cmd": "^5.0.0",
     "pdf-lib": "1.17.1",
     "pdf417-generator": "1.0.4",
-    "qrcode": "^1.5.1"
+    "qrcode": "^1.5.3",
+    "whatsapp-web.js": "^1.20.0"
   },
   "devDependencies": {},
   "repository": {
