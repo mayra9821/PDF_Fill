@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import fillForm from "./Editar_PDF4.js"
 import moment from 'moment';
-import express from 'express';
 import qrcode from 'qrcode';
 import { Client } from 'whatsapp-web.js';
 
