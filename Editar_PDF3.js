@@ -103,7 +103,7 @@ console.log(ISSUE)
 
 const date_EXP = date_ISS.clone().add(2, 'months').subtract(1, 'days');
 //subtract(1, 'days')
-let EXP = date_EXP.format("MMM DD,YYYY");
+let EXP = date_EXP.format("MMM DD, YYYY");
 console.log(EXP, "EXP")
 // let EXP = "NOV 27, 2022";
 
