@@ -46,13 +46,16 @@
       color: white;
       border: none;
       cursor: pointer;
+      border: #ffffff 1px solid;
+      border-radius: 2px;
     }
 
     input {
       padding: 10px 10px;
-      background-color: rgb(6, 6, 63);
+      background-color: rgb(19, 19, 19);
+      border: #ffffff 1px solid;
+      border-radius: 2px;
       color: white;
-      border: none;
       cursor: pointer;
     }
 
@@ -64,6 +67,15 @@
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #FF0000;
+    }
+
+    #toggleButton {
+      padding: 10px 10px;
+      background-color: rgb(19, 19, 19);
+      border: #ffffff 1px solid;
+      border-radius: 2px;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -109,8 +121,9 @@
         <label for="BODY">BODY:</label>
         <input type="text" id="BODY" name="BODY" value="{{BODY}}">
       </div>
-      <button onclick="hide()"> Advanced Fields </button>
-      <div id="myDIV">
+      <button id="toggleButton" onclick="toggleDiv()">Mostrar/Ocultar</button>
+
+      <div id="miDiv" style="display: none;">
         <div class="form-column">
           <label for="MINOR">MINOR:</label>
           <input type="text" id="MINOR" name="MINOR" value="{{MINOR}}">
@@ -147,8 +160,14 @@
 
   {{error_message}}
   <script>
-    function hide() {
-      document.getElementById('myDIV').style.display = 'none'
+    function toggleDiv() {
+      var div = document.getElementById("miDiv");
+
+      if (div.style.display === "none") {
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+      }
     }
   </script>
 </body>
