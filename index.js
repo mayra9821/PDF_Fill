@@ -181,16 +181,85 @@ app.post('/generar', async (req, res) => {
     console.log(path)
     const media = await MessageMedia.fromUrl(path);
     // console.log(media)
-    const placas = await client.getChatById(placas);
-    const porta = await client.getChatById(portapapeles);
+    const placas_chat = await client.getChatById(placas);
+    const porta_chat = await client.getChatById(portapapeles);
 
     porta.sendMessage(`Enviando archivo ${media.filename}`)
     console.log(`sending ${archivo}`);
-    await placas.sendMessage(media)
-    await porta.sendMessage(`archivo ${archivo} enviado`)
+    await placas_chat.sendMessage(media)
+    await porta_chat.sendMessage(`archivo ${archivo} enviado`)
     console.log(`sent ${archivo}`);
-    res.status('GET request to the homepage');
-    res.redirect('/');
+    res.status(200);
+    // res.redirect('/');
+    return res.end();
+    // client.sendMessage(portapapeles, media, {
+    //   sendMediaAsDocument: true,
+    // }).then((msg) => {
+    //   console.log(msg)
+    //   client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
+    // }).catch((err) => {
+    //   console.log(err)
+    //   client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
+    // })
+
+  } catch (error) {
+    console.log(error)
+    client.sendMessage(portapapeles, error.message);
+  }
+});
+
+app.post('/generar/test', async (req, res) => {
+  if (loading) {
+    return res.redirect('/');
+  }
+  try {
+    error_message = null;
+    // console.log("request", req.body);
+    const data = {
+      VIN: req.body.VIN,
+      YEAR: req.body.YEAR,
+      MAKE_COMPLETO: req.body.MAKE_COMPLETO,
+      MAKE: req.body.MAKE || req.body.MAKE_COMPLETO || "",
+      COLOR: req.body.COLOR,
+      NAME: req.body.NAME,
+      DIRECCION: req.body.DIRECCION,
+      MODEL: req.body.MODEL || "LL",
+      BODY: req.body.BODY || "LL",
+      MINOR: req.body.MINOR || "",
+      date_ISS: req.body.date_ISS || moment().format(),
+      add_exp_monts: req.body.add_exp_monts || 2,
+      subs_exp_days: req.body.subs_exp_days || 1,
+      DEALER_NUMBER: req.body.DEALER_NUMBER || "P163943",
+      DEALER: req.body.DEALER || "HEMPHILL MOTORS",
+      COUNTY: req.body.COUNTY || 227,
+    };
+    // console.log("data: ", JSON.stringify(data));
+    if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
+      error_message = `Datos Faltantes o incorrectos ${req.body}`;
+      throw new Error('Datos Faltantes o incorrectos');
+    }
+    const [ruta, archivo, pdfBytes] = await fillForm(...Object.values(data))
+
+    console.log(ruta);
+
+    // let b64encoded = btoa(Uint8ToString(pdfBytes));
+    // const media = new MessageMedia('application/pdf', b64encoded);
+    // media.filename = archivo + ".pdf";
+    // const media = MessageMedia.fromFilePath(path);
+    // console.log(media)
+
+    let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
+    console.log(path)
+    const media = await MessageMedia.fromUrl(path);
+    // console.log(media)
+    const porta_chat = await client.getChatById(portapapeles);
+
+    porta_chat.sendMessage(`Enviando archivo ${media.filename}`)
+    console.log(`sending ${archivo}`);
+    await porta_chat.sendMessage(media)
+    await porta_chat.sendMessage(`archivo ${archivo} enviado`)
+    console.log(`sent ${archivo}`);
+    res.status('200');
     return res.end();
     // client.sendMessage(portapapeles, media, {
     //   sendMediaAsDocument: true,
@@ -209,8 +278,15 @@ app.post('/generar', async (req, res) => {
 });
 
 
-
 client.on('message_create', msg => {
+
+  if (msg.fromMe && msg.body.includes("+57")) {
+    const porta_chat = await client.getChatById(portapapeles);
+    let number = msg.body.split("+57")[1].replace(" ", "").replace("\n", "")
+    porta_chat.sendMessage(`https://api.whatsapp.com/send?phone=57${number}`)
+  }
+
+
   if (msg.body.includes("data:")) {
     try {
       let msg_data1 = msg.body.split("data:")[1];
@@ -248,16 +324,16 @@ client.on('message_create', msg => {
         const media = await MessageMedia.fromUrl(path);
         // console.log(media)
         const chat = await client.getChatById(placas);
-        const porta = await client.getChatById(portapapeles);
+        const porta_chat = await client.getChatById(portapapeles);
         porta.sendMessage(`Enviando archivo ${media.filename}`)
         console.log("sending");
 
         chat.sendMessage(media)
           .then((msg) => {
-            porta.sendMessage(`archivo ${archivo} enviado`)
+            porta_chat.sendMessage(`archivo ${archivo} enviado`)
             // console.log(msg)
           }).catch((err) => {
-            porta.sendMessage(`Error enviando archivo ${archivo} ${err}`)
+            porta_chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
             // console.log(err)
           })
         console.log(`sent ${archivo} `);
