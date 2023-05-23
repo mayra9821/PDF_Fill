@@ -1,9 +1,10 @@
-import express from 'express';
-import fillForm from "./Editar_PDF4.js";
-import moment from 'moment';
-import qrcode from 'qrcode';
-import whatsapp from 'whatsapp-web.js';
-import * as fs from 'fs';
+const express = require('express');
+const fillForm = require("./Editar_PDF4.cjs");
+const moment = require('moment');
+const qrcode = require('qrcode');
+const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
+const fs = require('fs');
+
 let qr_data = "";
 let formVisible = false; // Variable para controlar la visibilidad del formulario
 let loading = true;
@@ -15,8 +16,8 @@ let placas = '120363044029875718@g.us'
 let portapapeles = '120363044942242672@g.us'
 
 let error_message = null;
-const client = new whatsapp.Client({
-  authStrategy: new whatsapp.LocalAuth(),
+const client = new Client({
+  authStrategy: new LocalAuth(),
   puppeteer: {
     headless: true,
     args: ['--no-sandbox'],
@@ -171,9 +172,9 @@ app.post('/generar', async (req, res) => {
       console.log(ruta);
 
       // let b64encoded = btoa(Uint8ToString(pdfBytes));
-      // const media = new whatsapp.MessageMedia('application/pdf', b64encoded);
+      // const media = new MessageMedia('application/pdf', b64encoded);
       // media.filename = archivo + ".pdf";
-      const media = whatsapp.MessageMedia.fromFilePath(ruta);
+      const media = MessageMedia.fromFilePath(ruta);
       // console.log(media)
       console.log("sending");
       client.sendMessage(portapapeles, media).then((msg) => {
@@ -229,7 +230,7 @@ client.on('message_create', msg => {
 
 
         var b64encoded = btoa(Uint8ToString(pdfBytes));
-        const media = new whatsapp.MessageMedia('application/pdf', b64encoded);
+        const media = new MessageMedia('application/pdf', b64encoded);
         media.filename = archivo + ".pdf";
         client.sendMessage(portapapeles, media, { sendMediaAsDocument: true, caption: null }).then(() => {
           msg.reply(`archivo ${archivo} enviado`)

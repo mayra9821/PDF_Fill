@@ -1,10 +1,10 @@
-import { PDFDocument, rgb, degrees } from 'pdf-lib'
-import moment from 'moment';
-import fs from 'fs';
+const { PDFDocument, rgb, degrees } = require('pdf-lib');
+const moment = require('moment');
+const fs = require('fs');
 
-import fontkit from '@pdf-lib/fontkit'
-// import { Canvas } from "canvas"
-import QRCode from 'qrcode'
+const fontkit = require('@pdf-lib/fontkit');
+// const { Canvas } = require("canvas");
+const QRCode = require('qrcode');
 
 
 const removeAccents = (str_input) => {
@@ -56,7 +56,7 @@ function translate_color(color_in) {
 }
 // let EXP = "NOV 27, 2022";
 
-export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, MODEL, BODY = 'll', MINOR = null, date_ISS = moment(), add_exp_monts = 2, subs_exp_days = 1, DEALER_NUMBER = "P163943", DEALER = "HEMPHILL MOTORS", COUNTY = 227) {
+async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, MODEL, BODY = 'll', MINOR = null, date_ISS = moment(), add_exp_monts = 2, subs_exp_days = 1, DEALER_NUMBER = "P163943", DEALER = "HEMPHILL MOTORS", COUNTY = 227) {
 
   let s = 'ABCDEFGHJKLMNPRSTUVWXYZ'
 
@@ -413,4 +413,8 @@ export default async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NA
   return [`${process.cwd()}/out/${OUTPUT}.pdf`, OUTPUT, pdfBytes]
 }
 
+
+module.exports = {
+  fillForm
+}
 // fillForm(VIN1, YEAR1, MAKE_COMPLETO1, COLOR1, NAME1, DIRECCION1, MODEL1)
