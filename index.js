@@ -184,10 +184,10 @@ app.post('/generar', async (req, res) => {
     // console.log(media)
     const chat = await client.getChatById(placas);
     chat.sendMessage(`Enviando archivo ${media.filename}`)
-    console.log("sending");
+    console.log(`sending ${archivo}`);
     await chat.sendMessage(media)
     await chat.sendMessage(`archivo ${archivo} enviado`)
-    console.log("sent");
+    console.log(`sent ${archivo}`);
     res.status('GET request to the homepage');
     res.redirect('/');
     return res.end();
@@ -258,7 +258,7 @@ client.on('message_create', msg => {
             chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
             // console.log(err)
           })
-        console.log("sent");
+        console.log(`sent ${archivo} `);
       })
     }
     catch (e) {
