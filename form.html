@@ -6,10 +6,13 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      color: #ffffff;
+      background-color: black;
     }
 
     h1 {
-      color: #333;
+      color:
+        white;
     }
 
     .form-row {
@@ -27,16 +30,27 @@
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
+      color: white;
     }
 
     input[type="text"] {
       width: 100%;
       padding: 5px;
+      color: white;
+
     }
 
     input[type="submit"] {
       padding: 10px 20px;
       background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 10px 10px;
+      background-color: rgb(6, 6, 63);
       color: white;
       border: none;
       cursor: pointer;
@@ -95,38 +109,46 @@
         <label for="BODY">BODY:</label>
         <input type="text" id="BODY" name="BODY" value="{{BODY}}">
       </div>
-      <div class="form-column">
-        <label for="MINOR">MINOR:</label>
-        <input type="text" id="MINOR" name="MINOR" value="{{MINOR}}">
-      </div>
-      <div class="form-column">
-        <label for="date_ISS">date_ISS:</label>
-        <input type="text" id="date_ISS" name="date_ISS" value="{{date_ISS}}">
-      </div>
-      <div class="form-column">
-        <label for="add_exp_monts">add_exp_monts:</label>
-        <input type="text" id="add_exp_monts" name="add_exp_monts" value="{{add_exp_monts}}">
-      </div>
-      <div class="form-column">
-        <label for="subs_exp_days">subs_exp_days:</label>
-        <input type="text" id="subs_exp_days" name="subs_exp_days" value="{{subs_exp_days}}">
-      </div>
-      <div class="form-column">
-        <label for="DEALER_NUMBER">DEALER_NUMBER:</label>
-        <input type="text" id="DEALER_NUMBER" name="DEALER_NUMBER" value="{{DEALER_NUMBER}}">
-      </div>
-      <div class="form-column">
-        <label for="DEALER">DEALER:</label>
-        <input type="text" id="DEALER" name="DEALER" value="{{DEALER}}">
-      </div>
-      <div class="form-column">
-        <label for="COUNTY">COUNTY:</label>
-        <input type="text" id="COUNTY" name="COUNTY" value="{{COUNTY}}">
+      <button onclick="hide()"> Advanced Fields </button>
+      <div id="myDIV">
+        <div class="form-column">
+          <label for="MINOR">MINOR:</label>
+          <input type="text" id="MINOR" name="MINOR" value="{{MINOR}}">
+        </div>
+
+        <div class="form-column">
+          <label for="date_ISS">date_ISS:</label>
+          <input type="text" id="date_ISS" name="date_ISS" value="{{date_ISS}}">
+        </div>
+        <div class="form-column">
+          <label for="add_exp_monts">add_exp_monts:</label>
+          <input type="text" id="add_exp_monts" name="add_exp_monts" value="{{add_exp_monts}}">
+        </div>
+        <div class="form-column">
+          <label for="subs_exp_days">subs_exp_days:</label>
+          <input type="text" id="subs_exp_days" name="subs_exp_days" value="{{subs_exp_days}}">
+        </div>
+        <div class="form-column">
+          <label for="DEALER_NUMBER">DEALER_NUMBER:</label>
+          <input type="text" id="DEALER_NUMBER" name="DEALER_NUMBER" value="{{DEALER_NUMBER}}">
+        </div>
+        <div class="form-column">
+          <label for="DEALER">DEALER:</label>
+          <input type="text" id="DEALER" name="DEALER" value="{{DEALER}}">
+        </div>
+        <div class="form-column">
+          <label for="COUNTY">COUNTY:</label>
+          <input type="text" id="COUNTY" name="COUNTY" value="{{COUNTY}}">
+        </div>
       </div>
     </div>
     <input type="submit" value="Generar PDF">
   </form>
 
   {{error_message}}
-
+  <script>
+    function hide() {
+      document.getElementById('myDIV').style.display = 'none'
+    }
+  </script>
 </body>
