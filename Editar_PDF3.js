@@ -64,22 +64,23 @@ let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
 
 let output_name = TAG
 
-let VIN = `1GYEC63N56R146514
+let VIN = `2GKFLREK4D6324862
 `
-let YEAR = `2006
+let YEAR = `2013
 `
-let MAKE_COMPLETO = `Cadillac
+let MAKE_COMPLETO = `GMC
 `
-let MAKE = `Cadillac
+let MAKE = `GMC
    `
 
-let COLOR = `Blanca
+let COLOR = `Negra
 `
-let NAME = `Luis López
+let NAME = `MANUEL HURTADO CRUZ
+
 `
-let DIRECCION = `6407 Antoine Dr |Houston TX |77091
+let DIRECCION = `1336 DESOTO AVE |IPSILANTY MI |48198
 `
-let MODEL = ` Esc
+let MODEL = ` Ter
 `
 let BODY = `ll
 `
@@ -109,6 +110,9 @@ console.log(EXP, "EXP")
 
 
 MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
+if (MAKE == "TOYO") {
+  MAKE = "TOYT"
+}
 
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
 const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")

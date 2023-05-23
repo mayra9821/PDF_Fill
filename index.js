@@ -18,7 +18,8 @@ let error_message = null;
 const client = new whatsapp.Client({
   authStrategy: new whatsapp.LocalAuth(),
   puppeteer: {
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    headless: true,
+    args: ['--no-sandbox'],
   }
 });
 

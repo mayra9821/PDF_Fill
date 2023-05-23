@@ -6,33 +6,6 @@ import fontkit from '@pdf-lib/fontkit'
 // import { Canvas } from "canvas"
 import QRCode from 'qrcode'
 
-import cmd from 'node-cmd'
-
-
-
-// NO USAR I Ñ O Q
-
-//let TAG = "1975U25"
-
-let VIN1 = `3GNEC12T84G233045      
-`
-let YEAR1 = `2004        
-`
-let MAKE_COMPLETO1 = `Chevrolet             
-`
-
-let COLOR1 = `negro       
-`
-let NAME1 = `Maria Flores 
-
-
-`
-let DIRECCION1 = `515 Arizona st south |Houston tx |77587
-
-`
-let MODEL1 = ` avalanche  
-`
-
 
 const removeAccents = (str_input) => {
   return str_input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
