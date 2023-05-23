@@ -184,7 +184,7 @@ app.post('/generar', async (req, res) => {
     console.log(media)
     console.log("sending");
     const chat = await client.getChatById(portapapeles);
-    chat.sendMessage(`Enviando archivo ${media.data}`)
+    chat.sendMessage(`Enviando archivo ${media.filename}`)
 
     chat.sendMessage(media)
       .then((msg) => {
