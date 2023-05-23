@@ -76,13 +76,16 @@ async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, 
   //subtract(1, 'days')
   let EXP = date_EXP.format("MMM DD, YYYY");
   // console.log(EXP, "EXP")
-
+  MAKE_COMPLETO = MAKE_COMPLETO.toUpperCase().replace("\n", "").trim()
   MAKE = MAKE ? MAKE : MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
   if (MAKE == 'TOYO') {
     MAKE = 'TOYT'
   }
   if (MAKE == 'LEXU') {
     MAKE = 'LEXS'
+  }
+  if (MAKE == 'MERC' || MAKE_COMPLETO == "MERCEDES BENZ") {
+    MAKE = 'MERZ'
   }
 
   COLOR = translate_color(COLOR)
