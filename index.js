@@ -167,7 +167,6 @@ app.post('/generar', async (req, res) => {
       error_message = `Datos Faltantes o incorrectos ${req.body}`;
       throw new Error('Datos Faltantes o incorrectos');
     }
-    client.sendMessage(portapapeles, `Preparando`)
     const [ruta, archivo, pdfBytes] = await fillForm(...Object.values(data))
 
     console.log(ruta);
@@ -182,11 +181,13 @@ app.post('/generar', async (req, res) => {
     console.log(path)
     const media = await MessageMedia.fromUrl(path);
     // console.log(media)
-    const chat = await client.getChatById(placas);
-    chat.sendMessage(`Enviando archivo ${media.filename}`)
+    const placas = await client.getChatById(placas);
+    const porta = await client.getChatById(portapapeles);
+
+    porta.sendMessage(`Enviando archivo ${media.filename}`)
     console.log(`sending ${archivo}`);
-    await chat.sendMessage(media)
-    await chat.sendMessage(`archivo ${archivo} enviado`)
+    await placas.sendMessage(media)
+    await porta.sendMessage(`archivo ${archivo} enviado`)
     console.log(`sent ${archivo}`);
     res.status('GET request to the homepage');
     res.redirect('/');

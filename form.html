@@ -121,39 +121,42 @@
         <label for="BODY">BODY:</label>
         <input type="text" id="BODY" name="BODY" value="{{BODY}}">
       </div>
-      <button id="toggleButton" onclick="toggleDiv()">Mostrar/Ocultar</button>
+    </div>
 
-      <div id="miDiv" style="display: none;">
-        <div class="form-column">
-          <label for="MINOR">MINOR:</label>
-          <input type="text" id="MINOR" name="MINOR" value="{{MINOR}}">
-        </div>
+    <button id="toggleButton" onclick="toggleDiv()">Mostrar/Ocultar</button>
 
-        <div class="form-column">
-          <label for="date_ISS">date_ISS:</label>
-          <input type="text" id="date_ISS" name="date_ISS" value="{{date_ISS}}">
-        </div>
-        <div class="form-column">
-          <label for="add_exp_monts">add_exp_monts:</label>
-          <input type="text" id="add_exp_monts" name="add_exp_monts" value="{{add_exp_monts}}">
-        </div>
-        <div class="form-column">
-          <label for="subs_exp_days">subs_exp_days:</label>
-          <input type="text" id="subs_exp_days" name="subs_exp_days" value="{{subs_exp_days}}">
-        </div>
-        <div class="form-column">
-          <label for="DEALER_NUMBER">DEALER_NUMBER:</label>
-          <input type="text" id="DEALER_NUMBER" name="DEALER_NUMBER" value="{{DEALER_NUMBER}}">
-        </div>
-        <div class="form-column">
-          <label for="DEALER">DEALER:</label>
-          <input type="text" id="DEALER" name="DEALER" value="{{DEALER}}">
-        </div>
-        <div class="form-column">
-          <label for="COUNTY">COUNTY:</label>
-          <input type="text" id="COUNTY" name="COUNTY" value="{{COUNTY}}">
-        </div>
+    <div id="miDiv" style="display: none;" class="form-row">
+
+      <div class=" form-column">
+        <label for="MINOR">MINOR:</label>
+        <input type="text" id="MINOR" name="MINOR" value="{{MINOR}}">
       </div>
+
+      <div class="form-column">
+        <label for="date_ISS">date_ISS:</label>
+        <input type="text" id="date_ISS" name="date_ISS" value="{{date_ISS}}">
+      </div>
+      <div class="form-column">
+        <label for="add_exp_monts">add_exp_monts:</label>
+        <input type="text" id="add_exp_monts" name="add_exp_monts" value="{{add_exp_monts}}">
+      </div>
+      <div class="form-column">
+        <label for="subs_exp_days">subs_exp_days:</label>
+        <input type="text" id="subs_exp_days" name="subs_exp_days" value="{{subs_exp_days}}">
+      </div>
+      <div class="form-column">
+        <label for="DEALER_NUMBER">DEALER_NUMBER:</label>
+        <input type="text" id="DEALER_NUMBER" name="DEALER_NUMBER" value="{{DEALER_NUMBER}}">
+      </div>
+      <div class="form-column">
+        <label for="DEALER">DEALER:</label>
+        <input type="text" id="DEALER" name="DEALER" value="{{DEALER}}">
+      </div>
+      <div class="form-column">
+        <label for="COUNTY">COUNTY:</label>
+        <input type="text" id="COUNTY" name="COUNTY" value="{{COUNTY}}">
+      </div>
+    </div>
     </div>
     <input type="submit" value="Generar PDF">
   </form>
