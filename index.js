@@ -211,7 +211,7 @@ app.post('/generar', async (req, res) => {
     client.sendMessage(portapapeles, error.message);
   }
   res.status(200);
-  res.redirect('/');
+  // res.redirect('/');
 });
 
 
