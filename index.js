@@ -188,8 +188,9 @@ app.post('/generar', async (req, res) => {
     await chat.sendMessage(media)
     await chat.sendMessage(`archivo ${archivo} enviado`)
     console.log("sent");
-    return res.send('GET request to the homepage');
-    // res.redirect('/');
+    res.status('GET request to the homepage');
+    res.redirect('/');
+    return res.end();
     // client.sendMessage(portapapeles, media, {
     //   sendMediaAsDocument: true,
     // }).then((msg) => {
