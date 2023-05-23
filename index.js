@@ -183,7 +183,7 @@ app.post('/generar', async (req, res) => {
       const media = await MessageMedia.fromUrl(path);
       console.log(media)
       console.log("sending");
-      client.sendMessage(portapapeles, `Enviando archivo ${media}`,)
+      client.sendMessage(portapapeles, `Enviando archivo ${media.data}`,)
 
       const chat = await client.getChatById(portapapeles);
 
