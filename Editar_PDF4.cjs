@@ -78,6 +78,12 @@ async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, 
   // console.log(EXP, "EXP")
 
   MAKE = MAKE ? MAKE : MAKE_COMPLETO.substring(0, 3)
+  if (MAKE == 'TOYO') {
+    MAKE = 'TOYT'
+  }
+  if (MAKE == 'LEXU') {
+    MAKE = 'LEXS'
+  }
   COLOR = translate_color(COLOR)
   if (MINOR != null && MINOR != '') {
     MINOR = translate_color(MINOR)
