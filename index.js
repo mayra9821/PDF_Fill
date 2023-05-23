@@ -165,18 +165,19 @@ app.post('/generar', async (req, res) => {
       error_message = `Datos Faltantes o incorrectos ${req.body}`;
       throw new Error('Datos Faltantes o incorrectos');
     }
+    client.sendMessage(portapapeles, `Preparando`)
     fillForm(...Object.values(data)).then(([ruta, archivo, pdfBytes]) => {
 
       console.log(ruta);
-      client.sendMessage(portapapeles, `Preparando`)
 
       // let b64encoded = btoa(Uint8ToString(pdfBytes));
       // const media = new whatsapp.MessageMedia('application/pdf', b64encoded);
       // media.filename = archivo + ".pdf";
       const media = whatsapp.MessageMedia.fromFilePath(ruta);
-      console.log(media)
+      // console.log(media)
       console.log("sending");
-      client.sendMessage(portapapeles, media).then(() => {
+      client.sendMessage(portapapeles, media).then((msg) => {
+        console.log(msg)
         client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
       }).catch((err) => {
         console.log(err)
@@ -223,6 +224,7 @@ client.on('message_create', msg => {
       if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
         throw new Error({ message: 'Ocurrió un error al generar el PDF' });
       }
+      client.sendMessage(portapapeles, `Preparando`)
       fillForm(...Object.values(data)).then(([ruta, archivo, pdfBytes, read]) => {
 
 
@@ -232,6 +234,7 @@ client.on('message_create', msg => {
         client.sendMessage(portapapeles, media, { sendMediaAsDocument: true, caption: null }).then(() => {
           msg.reply(`archivo ${archivo} enviado`)
         })
+        client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
       })
     }
     catch (e) {
