@@ -172,17 +172,23 @@ app.post('/generar', async (req, res) => {
 
       console.log(ruta);
 
-      let b64encoded = btoa(Uint8ToString(pdfBytes));
-      const media = new MessageMedia('application/pdf', b64encoded);
-      media.filename = archivo + ".pdf";
-      // let path = "./out/" + archivo + ".pdf";
+      // let b64encoded = btoa(Uint8ToString(pdfBytes));
+      // const media = new MessageMedia('application/pdf', b64encoded);
+      // media.filename = archivo + ".pdf";
       // const media = MessageMedia.fromFilePath(path);
       // console.log(media)
+
+      let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
+      let media = MessageMedia.fromUrl(path);
+
       console.log("sending");
-      client.sendMessage(portapapeles, `Enviando archivo ${archivo}`)
+      client.sendMessage(portapapeles, `Enviando archivo ${archivo}`, { media: media })
 
 
-      client.sendMessage(portapapeles, media).then((msg) => {
+      client.sendMessage(portapapeles, media, {
+        sendMediaAsDocument: true,
+        media: media
+      }).then((msg) => {
         console.log(msg)
         client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
       }).catch((err) => {
