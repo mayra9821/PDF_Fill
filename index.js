@@ -172,37 +172,37 @@ app.post('/generar', async (req, res) => {
 
     console.log(ruta);
 
-    let b64encoded = btoa(Uint8ToString(pdfBytes));
-    const media = new MessageMedia('application/pdf', b64encoded);
-    media.filename = archivo + ".pdf";
+    // let b64encoded = btoa(Uint8ToString(pdfBytes));
+    // const media = new MessageMedia('application/pdf', b64encoded);
+    // media.filename = archivo + ".pdf";
     // const media = MessageMedia.fromFilePath(path);
     // console.log(media)
 
-    // let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
-    // console.log(path)
-    // const media = await MessageMedia.fromUrl(path);
+    let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
+    console.log(path)
+    const media = await MessageMedia.fromUrl(path);
     // console.log(media)
-    // const chat = await client.getChatById(portapapeles);
-    // chat.sendMessage(`Enviando archivo ${media.filename}`)
-    // console.log("sending");
+    const chat = await client.getChatById(portapapeles);
+    chat.sendMessage(`Enviando archivo ${media.filename}`)
+    console.log("sending");
 
-    // chat.sendMessage(media)
-    //   .then((msg) => {
-    //     chat.sendMessage(`archivo ${archivo} enviado`)
-    //     console.log(msg)
-    //   }).catch((err) => {
-    //     chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
-    //     console.log(err)
-    //   })
-    client.sendMessage(portapapeles, media, {
-      sendMediaAsDocument: true,
-    }).then((msg) => {
-      console.log(msg)
-      client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
-    }).catch((err) => {
-      console.log(err)
-      client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
-    })
+    chat.sendMessage(media)
+      .then((msg) => {
+        chat.sendMessage(`archivo ${archivo} enviado`)
+        // console.log(msg)
+      }).catch((err) => {
+        chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
+        // console.log(err)
+      })
+    // client.sendMessage(portapapeles, media, {
+    //   sendMediaAsDocument: true,
+    // }).then((msg) => {
+    //   console.log(msg)
+    //   client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
+    // }).catch((err) => {
+    //   console.log(err)
+    //   client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
+    // })
 
 
   } catch (error) {
@@ -244,16 +244,25 @@ client.on('message_create', msg => {
         throw new Error({ message: 'Ocurrió un error al generar el PDF' });
       }
       client.sendMessage(portapapeles, `Preparando`)
-      fillForm(...Object.values(data)).then(([ruta, archivo, pdfBytes, read]) => {
+      fillForm(...Object.values(data)).then(async ([ruta, archivo, pdfBytes, read]) => {
 
 
-        var b64encoded = btoa(Uint8ToString(pdfBytes));
-        const media = new MessageMedia('application/pdf', b64encoded);
-        media.filename = archivo + ".pdf";
-        client.sendMessage(portapapeles, media, { sendMediaAsDocument: true, caption: null }).then(() => {
-          msg.reply(`archivo ${archivo} enviado`)
-        })
-        client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
+        let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
+        console.log(path)
+        const media = await MessageMedia.fromUrl(path);
+        // console.log(media)
+        const chat = await client.getChatById(portapapeles);
+        chat.sendMessage(`Enviando archivo ${media.filename}`)
+        console.log("sending");
+
+        chat.sendMessage(media)
+          .then((msg) => {
+            chat.sendMessage(`archivo ${archivo} enviado`)
+            // console.log(msg)
+          }).catch((err) => {
+            chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
+            // console.log(err)
+          })
       })
     }
     catch (e) {
