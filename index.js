@@ -143,7 +143,7 @@ app.post('/generar', async (req, res) => {
   }
   try {
     error_message = null;
-    console.log("request", req.body);
+    // console.log("request", req.body);
     const data = {
       VIN: req.body.VIN,
       YEAR: req.body.YEAR,
@@ -162,7 +162,7 @@ app.post('/generar', async (req, res) => {
       DEALER: req.body.DEALER || "HEMPHILL MOTORS",
       COUNTY: req.body.COUNTY || 227,
     };
-    console.log("data: ", JSON.stringify(data));
+    // console.log("data: ", JSON.stringify(data));
     if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
       error_message = `Datos Faltantes o incorrectos ${req.body}`;
       throw new Error('Datos Faltantes o incorrectos');
@@ -189,6 +189,10 @@ app.post('/generar', async (req, res) => {
     chat.sendMessage(media)
       .then((msg) => {
         chat.sendMessage(`archivo ${archivo} enviado`)
+        console.log("sent");
+        return res.send('GET request to the homepage');
+
+
         // console.log(msg)
       }).catch((err) => {
         chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
@@ -204,11 +208,10 @@ app.post('/generar', async (req, res) => {
     //   client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
     // })
 
-    console.log("sent");
   } catch (error) {
     client.sendMessage(portapapeles, error.message);
   }
-  return res.status(200);
+  res.redirect('/');
 });
 
 
