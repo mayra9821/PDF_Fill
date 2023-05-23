@@ -179,6 +179,9 @@ app.post('/generar', async (req, res) => {
       // const media = MessageMedia.fromFilePath(path);
       // console.log(media)
       console.log("sending");
+      client.sendMessage(portapapeles, `Enviando archivo ${archivo}`)
+
+
       client.sendMessage(portapapeles, media).then((msg) => {
         console.log(msg)
         client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
