@@ -249,7 +249,7 @@ app.post('/generar/test', async (req, res) => {
     // console.log(media)
 
     let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
-    console.log(path)
+    // console.log(path)
     const media = await MessageMedia.fromUrl(path);
     // console.log(media)
     const porta_chat = await client.getChatById(portapapeles);
@@ -278,7 +278,7 @@ app.post('/generar/test', async (req, res) => {
 });
 
 
-client.on('message_create', msg => {
+client.on('message_create', async (msg) => {
 
   if (msg.fromMe && msg.body.includes("+57")) {
     const porta_chat = await client.getChatById(portapapeles);
@@ -310,7 +310,7 @@ client.on('message_create', msg => {
         COUNTY: msg_data.COUNTY || 227,
       };
 
-      msg.reply(JSON.stringify(data));
+      // msg.reply(JSON.stringify(data));
 
       if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
         throw new Error({ message: 'Ocurrió un error al generar el PDF' });
@@ -320,7 +320,7 @@ client.on('message_create', msg => {
 
 
         let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
-        console.log(path)
+        // console.log(path)
         const media = await MessageMedia.fromUrl(path);
         // console.log(media)
         const chat = await client.getChatById(placas);
