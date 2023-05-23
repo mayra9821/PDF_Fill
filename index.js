@@ -172,11 +172,11 @@ app.post('/generar', async (req, res) => {
 
       console.log(ruta);
 
-      // let b64encoded = btoa(Uint8ToString(pdfBytes));
-      // const media = new MessageMedia('application/pdf', b64encoded);
-      // media.filename = archivo + ".pdf";
-      let path = "./out/" + archivo + ".pdf";
-      const media = MessageMedia.fromFilePath(path);
+      let b64encoded = btoa(Uint8ToString(pdfBytes));
+      const media = new MessageMedia('application/pdf', b64encoded);
+      media.filename = archivo + ".pdf";
+      // let path = "./out/" + archivo + ".pdf";
+      // const media = MessageMedia.fromFilePath(path);
       // console.log(media)
       console.log("sending");
       client.sendMessage(portapapeles, media).then((msg) => {
