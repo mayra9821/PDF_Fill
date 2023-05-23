@@ -187,7 +187,6 @@ app.post('/generar', async (req, res) => {
 
       client.sendMessage(portapapeles, media, {
         sendMediaAsDocument: true,
-        media: media
       }).then((msg) => {
         console.log(msg)
         client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
