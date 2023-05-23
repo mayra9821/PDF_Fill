@@ -204,12 +204,11 @@ app.post('/generar', async (req, res) => {
     //   client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
     // })
 
-
+    console.log("sent");
   } catch (error) {
     client.sendMessage(portapapeles, error.message);
   }
-  res.status(200);
-  // res.redirect('/');
+  return res.status(200);
 });
 
 
@@ -263,6 +262,7 @@ client.on('message_create', msg => {
             chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
             // console.log(err)
           })
+        console.log("sent");
       })
     }
     catch (e) {
