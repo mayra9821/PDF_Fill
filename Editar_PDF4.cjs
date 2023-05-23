@@ -74,7 +74,7 @@ async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, 
 
   const date_EXP = moment(date_ISS).clone().add(add_exp_monts, 'months').subtract(subs_exp_days, 'days');
   //subtract(1, 'days')
-  let EXP = date_EXP.format("MMM DD,YYYY");
+  let EXP = date_EXP.format("MMM DD, YYYY");
   // console.log(EXP, "EXP")
 
   MAKE = MAKE ? MAKE : MAKE_COMPLETO.substring(0, 3)
