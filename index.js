@@ -12,7 +12,7 @@ let loading = true;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use('/pdfs', express.static(__dirname + '/out'));
 let placas = '120363044029875718@g.us'
 let portapapeles = '120363044942242672@g.us'
 
