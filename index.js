@@ -186,18 +186,12 @@ app.post('/generar', async (req, res) => {
     chat.sendMessage(`Enviando archivo ${media.filename}`)
     console.log("sending");
 
-    chat.sendMessage(media)
-      .then((msg) => {
-        chat.sendMessage(`archivo ${archivo} enviado`)
-        console.log("sent");
-        return res.send('GET request to the homepage');
+    const msg = await chat.sendMessage(media)
 
-
-        // console.log(msg)
-      }).catch((err) => {
-        chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
-        // console.log(err)
-      })
+    chat.sendMessage(`archivo ${archivo} enviado`)
+    console.log("sent");
+    return res.send('GET request to the homepage');
+    // res.redirect('/');
     // client.sendMessage(portapapeles, media, {
     //   sendMediaAsDocument: true,
     // }).then((msg) => {
@@ -211,7 +205,6 @@ app.post('/generar', async (req, res) => {
   } catch (error) {
     client.sendMessage(portapapeles, error.message);
   }
-  res.redirect('/');
 });
 
 
