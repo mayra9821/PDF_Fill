@@ -77,13 +77,14 @@ async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, 
   let EXP = date_EXP.format("MMM DD, YYYY");
   // console.log(EXP, "EXP")
 
-  MAKE = MAKE ? MAKE : MAKE_COMPLETO.substring(0, 3)
+  MAKE = MAKE ? MAKE : MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
   if (MAKE == 'TOYO') {
     MAKE = 'TOYT'
   }
   if (MAKE == 'LEXU') {
     MAKE = 'LEXS'
   }
+
   COLOR = translate_color(COLOR)
   if (MINOR != null && MINOR != '') {
     MINOR = translate_color(MINOR)
@@ -92,7 +93,6 @@ async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, 
   // console.log(MODEL)
   NAME = removeAccents(NAME)
   DIRECCION = removeAccents(DIRECCION)
-  MAKE = MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
   const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
   const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
