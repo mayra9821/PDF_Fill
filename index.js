@@ -182,7 +182,7 @@ app.post('/generar', async (req, res) => {
     console.log(path)
     const media = await MessageMedia.fromUrl(path);
     // console.log(media)
-    const chat = await client.getChatById(portapapeles);
+    const chat = await client.getChatById(placas);
     chat.sendMessage(`Enviando archivo ${media.filename}`)
     console.log("sending");
     await chat.sendMessage(media)
@@ -246,7 +246,7 @@ client.on('message_create', msg => {
         console.log(path)
         const media = await MessageMedia.fromUrl(path);
         // console.log(media)
-        const chat = await client.getChatById(portapapeles);
+        const chat = await client.getChatById(placas);
         chat.sendMessage(`Enviando archivo ${media.filename}`)
         console.log("sending");
 
