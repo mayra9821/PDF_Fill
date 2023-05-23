@@ -1,5 +1,5 @@
 const express = require('express');
-const fillForm = require("./Editar_PDF4.cjs");
+const { fillForm } = require("./Editar_PDF4.cjs");
 const moment = require('moment');
 const qrcode = require('qrcode');
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
