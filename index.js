@@ -195,8 +195,6 @@ app.post('/generar', async (req, res) => {
         }).catch((err) => {
           console.log(err)
           chat.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
-        }).finnally(() => {
-          console.log("sent")
         })
       // client.sendMessage(portapapeles, media, {
       //   sendMediaAsDocument: true,
