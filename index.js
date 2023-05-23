@@ -181,7 +181,7 @@ app.post('/generar', async (req, res) => {
       let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
       console.log(path)
       const media = await MessageMedia.fromUrl(path);
-
+      console.log(media)
       console.log("sending");
       client.sendMessage(portapapeles, `Enviando archivo ${media}`,)
 
