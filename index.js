@@ -185,10 +185,8 @@ app.post('/generar', async (req, res) => {
     const chat = await client.getChatById(portapapeles);
     chat.sendMessage(`Enviando archivo ${media.filename}`)
     console.log("sending");
-
-    const msg = await chat.sendMessage(media)
-
-    chat.sendMessage(`archivo ${archivo} enviado`)
+    await chat.sendMessage(media)
+    await chat.sendMessage(`archivo ${archivo} enviado`)
     console.log("sent");
     return res.send('GET request to the homepage');
     // res.redirect('/');
@@ -203,6 +201,7 @@ app.post('/generar', async (req, res) => {
     // })
 
   } catch (error) {
+    console.log(error)
     client.sendMessage(portapapeles, error.message);
   }
 });
