@@ -248,15 +248,16 @@ client.on('message_create', msg => {
         const media = await MessageMedia.fromUrl(path);
         // console.log(media)
         const chat = await client.getChatById(placas);
-        chat.sendMessage(`Enviando archivo ${media.filename}`)
+        const porta = await client.getChatById(portapapeles);
+        porta.sendMessage(`Enviando archivo ${media.filename}`)
         console.log("sending");
 
         chat.sendMessage(media)
           .then((msg) => {
-            chat.sendMessage(`archivo ${archivo} enviado`)
+            porta.sendMessage(`archivo ${archivo} enviado`)
             // console.log(msg)
           }).catch((err) => {
-            chat.sendMessage(`Error enviando archivo ${archivo} ${err}`)
+            porta.sendMessage(`Error enviando archivo ${archivo} ${err}`)
             // console.log(err)
           })
         console.log(`sent ${archivo} `);
