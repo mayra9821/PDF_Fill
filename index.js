@@ -168,7 +168,7 @@ app.post('/generar', async (req, res) => {
       throw new Error('Datos Faltantes o incorrectos');
     }
     client.sendMessage(portapapeles, `Preparando`)
-    fillForm(...Object.values(data)).then(([ruta, archivo, pdfBytes]) => {
+    fillForm(...Object.values(data)).then(async ([ruta, archivo, pdfBytes]) => {
 
       console.log(ruta);
 
@@ -182,19 +182,30 @@ app.post('/generar', async (req, res) => {
       let media = MessageMedia.fromUrl(path);
 
       console.log("sending");
-      client.sendMessage(portapapeles, `Enviando archivo ${archivo}`, { media: media })
+      client.sendMessage(portapapeles, `Enviando archivo ${media}`,)
+
+      const chat = await client.getChatById(portapapeles);
 
 
-      client.sendMessage(portapapeles, media, {
-        sendMediaAsDocument: true,
-      }).then((msg) => {
-        console.log(msg)
-        client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
-      }).catch((err) => {
-        console.log(err)
-        client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
-      })
-      console.log("sent")
+      chat.sendMessage(media)
+        .then((msg) => {
+          console.log(msg)
+          chat.sendMessage(portapapeles, `archivo ${archivo} enviado`)
+        }).catch((err) => {
+          console.log(err)
+          chat.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
+        }).finnally(() => {
+          console.log("sent")
+        })
+      // client.sendMessage(portapapeles, media, {
+      //   sendMediaAsDocument: true,
+      // }).then((msg) => {
+      //   console.log(msg)
+      //   client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
+      // }).catch((err) => {
+      //   console.log(err)
+      //   client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
+      // })
     })
 
   } catch (error) {
