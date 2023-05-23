@@ -4,6 +4,7 @@ const moment = require('moment');
 const qrcode = require('qrcode');
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const fs = require('fs');
+const path = require('path');
 
 let qr_data = "";
 let formVisible = false; // Variable para controlar la visibilidad del formulario
@@ -174,7 +175,8 @@ app.post('/generar', async (req, res) => {
       // let b64encoded = btoa(Uint8ToString(pdfBytes));
       // const media = new MessageMedia('application/pdf', b64encoded);
       // media.filename = archivo + ".pdf";
-      const media = MessageMedia.fromFilePath(ruta);
+      path = "./out/" + archivo + ".pdf";
+      const media = MessageMedia.fromFilePath(path);
       // console.log(media)
       console.log("sending");
       client.sendMessage(portapapeles, media).then((msg) => {
