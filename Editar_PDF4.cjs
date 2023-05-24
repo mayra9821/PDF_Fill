@@ -78,7 +78,7 @@ async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, 
   // console.log(EXP, "EXP")
   MAKE_COMPLETO = MAKE_COMPLETO.toUpperCase().replace("\n", "").trim()
 
-  if (MAKER.replace("\n", "").trim() == '') {
+  if (MAKE.replace("\n", "").trim() == '' || MAKE == null) {
     MAKE = MAKE_COMPLETO
   }
   MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);

@@ -68,10 +68,10 @@ let VIN = `KM8SC83DX1U078921
 `
 let YEAR = `2001
 `
-let MAKER_COMPLETO = `Hyundai
+let MAKE_COMPLETO = `Hyundai
 
 `
-let MAKER = `Hyundai
+let MAKE = `Hyundai
 `
 
 
@@ -111,19 +111,19 @@ let EXP = date_EXP.format("MMM DD, YYYY");
 console.log(EXP, "EXP")
 // let EXP = "NOV 27, 2022";
 
-MAKER = MAKER.toUpperCase().replace("\n", "").trim().substring(0, 4);
+MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
-if (MAKER.replace("\n", "").trim() == '') {
-  MAKER = MAKER_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
+if (MAKE.replace("\n", "").trim() == '') {
+  MAKE = MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
 }
-if (MAKER == 'TOYO') {
-  MAKER = 'TOYT'
+if (MAKE == 'TOYO') {
+  MAKE = 'TOYT'
 }
-if (MAKER == 'LEXU') {
-  MAKER = 'LEXS'
+if (MAKE == 'LEXU') {
+  MAKE = 'LEXS'
 }
-if (MAKER == 'MERC' || MAKER_COMPLETO == "MERCEDES BENZ") {
-  MAKER = 'MERZ'
+if (MAKE == 'MERC' || MAKE_COMPLETO == "MERCEDES BENZ") {
+  MAKE = 'MERZ'
 }
 
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
@@ -131,7 +131,7 @@ const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
 
 let QR = `VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
 YEAR: ${YEAR.replace("\n", "").trim()}
-MAKER: ${MAKER.toUpperCase().replace("\n", "").trim()}
+MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
 `
 if (MINOR.replace("\n", "").trim() == '') {
   QR = QR + `COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
@@ -226,7 +226,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   }
   )
-  pages[0].drawText(MAKER_COMPLETO.toUpperCase().replace("\n", "").trim().trim(), {
+  pages[0].drawText(MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().trim(), {
     y: 238 * 0.4349755881,
     x: 55 * 0.4349755881,
     size: 61.30 * 0.4349755881,
@@ -342,7 +342,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(MAKER.toUpperCase().replace("\n", "").trim(), {
+  pages[1].drawText(MAKE.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 3,
     x: 160,
     size: 10,
