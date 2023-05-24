@@ -134,10 +134,10 @@
         <label for="BODY">BODY:</label>
         <input type="text" id="BODY" name="BODY" value="{{BODY}}">
       </div>
+      <div class="form-column" style="display: flex;">
+        <button id="toggleButton" type="button" onclick="toggleDiv()">Mostrar/Ocultar</button>
+      </div>
     </div>
-
-    <button id="toggleButton" type="button" onclick="toggleDiv()">Mostrar/Ocultar</button>
-
     <div id="miDiv" style="display: none;" class="form-row">
 
       <div class=" form-column">
@@ -171,15 +171,9 @@
       </div>
     </div>
     </div>
-    <div class="form-row">
-      <div class="form-column">
-
-        <input type="submit" value="Generar PDF">
-      </div>
-      <div class="form-column">
-
-        <input type="submit" value="Generar Test" formaction="/generar/test">
-      </div>
+    <div class="form-row" style="display: flex; gap:10px; justify-content:flex-start">
+      <input type="submit" value="Generar PDF">
+      <input type="submit" value="Generar Test" formaction="/generar/test">
     </div>
   </form>
 
