@@ -64,26 +64,26 @@ let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
 
 let output_name = TAG
 
-let VIN = `JTMWFREV0FD065689
+let VIN = `KM8SC83DX1U078921
 `
-let YEAR = `2015
+let YEAR = `2001
 `
-let MAKE_COMPLETO = `TOYOTA
+let MAKER_COMPLETO = `Hyundai
 
 `
-let MAKE = `TOYOTA`
+let MAKER = `Hyundai
+`
 
-let COLOR = `GRAY
+
+let COLOR = `White
 `
 let NAME = `
-SAULO JEREMÍAS ALVARADO
+Claudia waldina chavarria mazariego
+`
+let DIRECCION = `7883 Pine Bluff Rd, |Denham Springs, LA |70726
 
 `
-let DIRECCION = `19 LEROS CT |SACRAMENTO CA| 95823
-
-
-`
-let MODEL = ` RAV 
+let MODEL = ` Sfe
 `
 let BODY = `ll
 `
@@ -111,19 +111,19 @@ let EXP = date_EXP.format("MMM DD, YYYY");
 console.log(EXP, "EXP")
 // let EXP = "NOV 27, 2022";
 
+MAKER = MAKER.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
-MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
-MAKE = MAKE ? MAKE != '' : MAKE_COMPLETO
-MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
-
-if (MAKE == 'TOYO') {
-  MAKE = 'TOYT'
+if (MAKER.toUpperCase().replace("\n", "").trim() == '') {
+  MAKER = MAKER_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
 }
-if (MAKE == 'LEXU') {
-  MAKE = 'LEXS'
+if (MAKER == 'TOYO') {
+  MAKER = 'TOYT'
 }
-if (MAKE == 'MERC' || MAKE_COMPLETO == "MERCEDES BENZ") {
-  MAKE = 'MERZ'
+if (MAKER == 'LEXU') {
+  MAKER = 'LEXS'
+}
+if (MAKER == 'MERC' || MAKER_COMPLETO == "MERCEDES BENZ") {
+  MAKER = 'MERZ'
 }
 
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
@@ -131,7 +131,7 @@ const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
 
 let QR = `VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
 YEAR: ${YEAR.replace("\n", "").trim()}
-MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
+MAKER: ${MAKER.toUpperCase().replace("\n", "").trim()}
 `
 if (MINOR.replace("\n", "").trim() == '') {
   QR = QR + `COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
@@ -226,7 +226,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   }
   )
-  pages[0].drawText(MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().trim(), {
+  pages[0].drawText(MAKER_COMPLETO.toUpperCase().replace("\n", "").trim().trim(), {
     y: 238 * 0.4349755881,
     x: 55 * 0.4349755881,
     size: 61.30 * 0.4349755881,
@@ -342,7 +342,7 @@ async function fillForm(OUTPUT) {
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(MAKE.toUpperCase().replace("\n", "").trim(), {
+  pages[1].drawText(MAKER.toUpperCase().replace("\n", "").trim(), {
     y: init - 16 * 3,
     x: 160,
     size: 10,

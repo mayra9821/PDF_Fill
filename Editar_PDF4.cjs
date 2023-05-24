@@ -77,7 +77,10 @@ async function fillForm(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, 
   let EXP = date_EXP.format("MMM DD, YYYY");
   // console.log(EXP, "EXP")
   MAKE_COMPLETO = MAKE_COMPLETO.toUpperCase().replace("\n", "").trim()
-  MAKE = MAKE ? MAKE : MAKE_COMPLETO
+
+  if (MAKE == '') {
+    MAKE = MAKE_COMPLETO
+  }
   MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
   if (MAKE == 'TOYO') {
     MAKE = 'TOYT'
