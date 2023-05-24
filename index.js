@@ -265,6 +265,7 @@ app.post('/generar/test', async (req, res) => {
     await porta_chat.sendMessage(`archivo ${archivo} enviado`)
     console.log(`sent ${archivo}`);
     res.status(200);
+    res.redirect('/');
     return res.end();
     // client.sendMessage(portapapeles, media, {
     //   sendMediaAsDocument: true,
