@@ -9,6 +9,7 @@ const path = require('path');
 let qr_data = "";
 let formVisible = false; // Variable para controlar la visibilidad del formulario
 let loading = true;
+let ultimo_pdf = null
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -61,8 +62,6 @@ client.on('ready', async () => {
 
 client.initialize();
 
-
-
 function Uint8ToString(u8a) {
   var CHUNK_SZ = 0x8000;
   var c = [];
@@ -76,6 +75,7 @@ app.get('/', async (req, res) => {
 
   if (loading) {
     res.send(loader);
+    ultimo_pdf = null
   }
   else if (formVisible && !loading) {
     // Mostrar el formulario si formVisible es true
@@ -110,6 +110,11 @@ app.get('/', async (req, res) => {
     }
     else {
       html = html.replace('{{error_message}}', '');
+    }
+    if (ultimo_pdf) {
+      html = html.replace('{{ultimo_pdf}}', `<a href=${ultimo_pdf} class="error-message">Ver Ultimo PDF</a>`);
+    } else {
+      html = html.replace('{{ultimo_pdf}}', '');
     }
     res.send(html);
   } else {
@@ -170,16 +175,16 @@ app.post('/generar', async (req, res) => {
     const [ruta, archivo, pdfBytes] = await fillForm(...Object.values(data))
 
     console.log(ruta);
-
-    // let b64encoded = btoa(Uint8ToString(pdfBytes));
-    // const media = new MessageMedia('application/pdf', b64encoded);
-    // media.filename = archivo + ".pdf";
+    ultimo_pdf = "http://josefcc.tech/pdfs/" + archivo + ".pdf";
+    let b64encoded = btoa(Uint8ToString(pdfBytes));
+    const media = new MessageMedia('application/pdf', b64encoded);
+    media.filename = archivo + ".pdf";
     // const media = MessageMedia.fromFilePath(path);
     // console.log(media)
 
-    let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
-    console.log(path)
-    const media = await MessageMedia.fromUrl(path);
+    // let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
+    // console.log(path)
+    // const media = await MessageMedia.fromUrl(path);
     // console.log(media)
     const placas_chat = await client.getChatById(placas);
     const porta_chat = await client.getChatById(portapapeles);

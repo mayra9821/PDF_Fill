@@ -64,27 +64,26 @@ let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
 
 let output_name = TAG
 
-let VIN = `4JGBB8GB6BA726415
+let VIN = `JTMWFREV0FD065689
 `
-let YEAR = `2011
+let YEAR = `2015
 `
-let MAKE_COMPLETO = `MERCEDES BENZ
+let MAKE_COMPLETO = `TOYOTA
 
 `
-let MAKE = `MERZ
-   `
+let MAKE = `TOYOTA`
 
-let COLOR = `BLANCO
+let COLOR = `GRAY
 `
 let NAME = `
-MANUEL VILCHIZ
+SAULO JEREMÍAS ALVARADO
 
 `
-let DIRECCION = `1611 S 56TH CT| CICERO IL |60804
+let DIRECCION = `19 LEROS CT |SACRAMENTO CA| 95823
 
 
 `
-let MODEL = ` Ml350
+let MODEL = ` RAV 
 `
 let BODY = `ll
 `
@@ -114,8 +113,17 @@ console.log(EXP, "EXP")
 
 
 MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
-if (MAKE == "TOYO") {
-  MAKE = "TOYT"
+MAKE = MAKE ? MAKE != '' : MAKE_COMPLETO
+MAKE = MAKE.toUpperCase().replace("\n", "").trim().substring(0, 4);
+
+if (MAKE == 'TOYO') {
+  MAKE = 'TOYT'
+}
+if (MAKE == 'LEXU') {
+  MAKE = 'LEXS'
+}
+if (MAKE == 'MERC' || MAKE_COMPLETO == "MERCEDES BENZ") {
+  MAKE = 'MERZ'
 }
 
 const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
