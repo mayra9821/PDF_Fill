@@ -112,7 +112,7 @@ app.get('/', async (req, res) => {
       html = html.replace('{{error_message}}', '');
     }
     if (ultimo_pdf) {
-      html = html.replace('{{ultimo_pdf}}', `<a href='/pdfs/${ultimo_pdf}.png class="ultimo_pdf">Ver Ultimo PDF ${ultimo_pdf} </a>`);
+      html = html.replace('{{ultimo_pdf}}', `<a href='/pdfs/${ultimo_pdf}.pdf' class="ultimo_pdf">Ver Ultimo PDF ${ultimo_pdf} </a>`);
     } else {
       html = html.replace('{{ultimo_pdf}}', '');
     }
