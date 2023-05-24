@@ -8,6 +8,8 @@
       font-family: Arial, sans-serif;
       color: #ffffff;
       background-color: black;
+      display: flex;
+      flex-direction: column;
     }
 
     h1 {
@@ -76,6 +78,17 @@
       border-radius: 2px;
       color: white;
       cursor: pointer;
+    }
+
+    .ultimo_pdf {
+      color: white;
+      font-weight: bold;
+      margin-top: 10px;
+      /* background-color: #FFCCCC; */
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ffffff;
+
     }
   </style>
 </head>
@@ -158,12 +171,16 @@
       </div>
     </div>
     </div>
-    <input type="submit" value="Generar PDF">
-    <input type="submit" value="Generar Test" formaction="/generar/test">
+    <div class="form-row">
+      <input type="submit" value="Generar PDF">
+      <input type="submit" value="Generar Test" formaction="/generar/test">
+    </div>
   </form>
+
   {{ultimo_pdf}}
 
   {{error_message}}
+
   <script>
     function toggleDiv() {
       var div = document.getElementById("miDiv");

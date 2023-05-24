@@ -112,7 +112,7 @@ app.get('/', async (req, res) => {
       html = html.replace('{{error_message}}', '');
     }
     if (ultimo_pdf) {
-      html = html.replace('{{ultimo_pdf}}', `<a href=${ultimo_pdf} class="error-message">Ver Ultimo PDF</a>`);
+      html = html.replace('{{ultimo_pdf}}', `<a href='/pdfs/${ultimo_pdf}.png class="ultimo_pdf">Ver Ultimo PDF ${ultimo_pdf} </a>`);
     } else {
       html = html.replace('{{ultimo_pdf}}', '');
     }
@@ -175,7 +175,7 @@ app.post('/generar', async (req, res) => {
     const [ruta, archivo, pdfBytes] = await fillForm(...Object.values(data))
 
     console.log(ruta);
-    ultimo_pdf = "http://josefcc.tech/pdfs/" + archivo + ".pdf";
+    ultimo_pdf = archivo;
     let b64encoded = btoa(Uint8ToString(pdfBytes));
     const media = new MessageMedia('application/pdf', b64encoded);
     media.filename = archivo + ".pdf";
@@ -244,6 +244,8 @@ app.post('/generar/test', async (req, res) => {
       throw new Error('Datos Faltantes o incorrectos');
     }
     const [ruta, archivo, pdfBytes] = await fillForm(...Object.values(data))
+    ultimo_pdf = archivo;
+
 
     console.log(ruta);
 
