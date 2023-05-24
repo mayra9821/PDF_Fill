@@ -113,7 +113,7 @@ console.log(EXP, "EXP")
 
 MAKER = MAKER.toUpperCase().replace("\n", "").trim().substring(0, 4);
 
-if (MAKER.toUpperCase().replace("\n", "").trim() == '') {
+if (MAKER.replace("\n", "").trim() == '') {
   MAKER = MAKER_COMPLETO.toUpperCase().replace("\n", "").trim().substring(0, 4);
 }
 if (MAKER == 'TOYO') {
