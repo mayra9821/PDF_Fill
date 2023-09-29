@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/pdfs', express.static(__dirname + '/out'));
 let placas = '120363044029875718@g.us'
 let portapapeles = '120363044942242672@g.us'
+let aleja = '12818980063@c.us'
 
 let error_message = null;
 const client = new Client({
@@ -25,8 +26,6 @@ const client = new Client({
     args: ['--no-sandbox'],
   }
 });
-
-
 
 let loader = fs.readFileSync('./loader.html', 'utf-8');
 
@@ -45,16 +44,17 @@ client.on('ready', async () => {
   console.log("WhatsApp Web v", await client.getWWebVersion());
   client.getChats().then((chats) => {
     // console.log(chats);
-    //for (let chat of chats) {
-    //console.log(chat.name, chat.id._serialized);
-    //}
-    console.log(placas, portapapeles)
+    // for (let chat of chats) {
+    //   console.log(chat.name, chat.id._serialized);
+    // }
+    // console.log(placas, portapapeles)
     placas = chats.find(chat => chat.name == 'Placas')?.id._serialized;
     portapapeles = chats.find(chat => chat.name.includes('Portapa'))?.id._serialized;
+    aleja = chats.find(chat => chat.name == 'Cuñada Aleja')?.id._serialized;
     //
     // console.log(portapapeles)
     // }
-    console.log(placas, portapapeles)
+    console.log(placas, portapapeles, aleja)
 
 
   })
@@ -186,12 +186,28 @@ app.post('/generar', async (req, res) => {
     // console.log(path)
     // const media = await MessageMedia.fromUrl(path);
     // console.log(media)
-    const placas_chat = await client.getChatById(placas);
+
     const porta_chat = await client.getChatById(portapapeles);
+
+    var chat = null
+    if (req.body.CHAT == "placas") {
+      chat = await client.getChatById(placas);
+    }
+    else if (req.body.CHAT == "aleja") {
+      chat = await client.getChatById(aleja);
+    }
+    else if (req.body.CHAT == "portapapeles") {
+      chat = porta_chat;
+    }
+    else {
+      chat = await client.getChatById(placas);
+    }
+
+
 
     porta_chat.sendMessage(`Enviando archivo ${media.filename}`)
     console.log(`sending ${archivo}`);
-    await placas_chat.sendMessage(media)
+    await chat.sendMessage(media)
     await porta_chat.sendMessage(`archivo ${archivo} enviado`)
     console.log(`sent ${archivo}`);
     res.status(200);
