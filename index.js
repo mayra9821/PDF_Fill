@@ -55,7 +55,9 @@ client.on('ready', async () => {
     // console.log(portapapeles)
     // }
     console.log(placas, portapapeles, aleja)
-    portapapeles.sendMessage(`Servidor Listo......`)
+    client.getChatById(portapapeles).then((chat) => {
+      chat.sendMessage(`Servidor Listo...... ${moment().format()}`)
+    })
 
   })
 
