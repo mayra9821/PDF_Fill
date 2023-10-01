@@ -5,6 +5,7 @@ const qrcode = require('qrcode');
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
 let qr_data = "";
 let formVisible = false; // Variable para controlar la visibilidad del formulario
