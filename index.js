@@ -55,9 +55,12 @@ client.on('ready', async () => {
     // console.log(portapapeles)
     // }
     console.log(placas, portapapeles, aleja)
-
+    portapapeles.sendMessage(`Servidor Listo......`)
 
   })
+
+
+
 });
 
 client.initialize();
@@ -310,6 +313,24 @@ client.on('message_create', async (msg) => {
     porta_chat.sendMessage(`https://api.whatsapp.com/send?phone=57${number}`)
   }
 
+  if (msg.fromMe && msg.body.includes("!ping")) {
+    const porta_chat = await client.getChatById(portapapeles);
+    porta_chat.sendMessage(`pong ${moment().format()}`)
+  }
+
+  if (msg.fromMe && msg.body.includes("reboot")) {
+    const porta_chat = await client.getChatById(portapapeles);
+    porta_chat.sendMessage(`reiniciando ${moment().format()}`)
+    exec('sh ./reiniciar-servidor.sh', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error al ejecutar el comando: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
+    });
+
+  }
 
   if (msg.body.includes("data:")) {
     try {
