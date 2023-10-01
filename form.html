@@ -41,6 +41,7 @@
       color: white;
 
     }
+
     select {
       width: 100%;
       color: white;
@@ -118,9 +119,16 @@
         <label for="MAKE_COMPLETO">MAKE_COMPLETO:</label>
         <input type="text" id="MAKE_COMPLETO" name="MAKE_COMPLETO" value="{{MAKE_COMPLETO}}" required>
       </div>
-      <div class="form-column">
-        <label for="MAKE">MAKE:</label>
-        <input type="text" id="MAKE" name="MAKE" value="{{MAKE}}">
+      <div class="form-column" style="display: flex; align-items: center;">
+          <div class="form-column"
+            style="margin: 0px; flex-basis: calc(30% - 10px); display: flex; align-items: center;">
+            <input style="margin: 0px;" id="customMake" text="Custom Make" type="checkbox" onclick="toggleMake()">
+            <label for="customMake" style="margin: 0px 10px;"> Custom Make</label>
+          </div>
+          <div class="form-column" id="toogleMake" style="display: none; flex-basis: calc(70% - 10px); margin-bottom: 0px;">
+            <label for="MAKE">MAKE:</label>
+            <input type="text" id="MAKE" name="MAKE" value="{{MAKE}}">
+          </div>
       </div>
       <div class="form-column">
         <label for="COLOR">COLOR:</label>
@@ -206,6 +214,15 @@
         div.style.display = "block";
       } else {
         div.style.display = "none";
+      }
+    }
+    function toggleMake() {
+      var customMake = document.getElementById("customMake");
+      var toogleMake = document.getElementById("toogleMake");
+      if (customMake.checked) {
+        toogleMake.style.display = "block";
+      } else {
+        toogleMake.style.display = "none";
       }
     }
   </script>
