@@ -373,7 +373,7 @@ client.on('message_create', async (msg) => {
         // console.log(media)
         const chat = await client.getChatById(placas);
         const porta_chat = await client.getChatById(portapapeles);
-        porta.sendMessage(`Enviando archivo ${media.filename}`)
+        porta_chat.sendMessage(`Enviando archivo ${media.filename}`)
         console.log("sending");
 
         chat.sendMessage(media)
