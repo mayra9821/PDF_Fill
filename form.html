@@ -5,6 +5,7 @@
   <title>WhatsApp QR</title>
   <style>
     body {
+      margin:10px;
       font-family: Arial, sans-serif;
       color: #ffffff;
       background-color: black;
@@ -99,7 +100,15 @@
       border: 1px solid #ffffff;
 
     }
+    @media screen and (max-width: 480px) {
+      .form-column {
+        flex-basis: calc(100% - 10px);
+        margin-bottom: 10px;
+      }
+    }
+
   </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 

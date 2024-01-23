@@ -316,7 +316,7 @@ client.on('message_create', async (msg) => {
     porta_chat.sendMessage(`https://api.whatsapp.com/send?phone=57${number}`)
   }
 
-  if (msg.fromMe && msg.body.includes("!ping")) {
+  if (msg.fromMe && msg.body.includes("ping")) {
     const porta_chat = await client.getChatById(portapapeles);
     porta_chat.sendMessage(`pong ${moment().format()}`)
   }
@@ -339,16 +339,16 @@ client.on('message_create', async (msg) => {
     try {
       let msg_data1 = msg.body.split("data:")[1];
       let msg_data = JSON.parse(msg_data1.replace("\n", ""));
-      let data = {
+      const data = {
         VIN: msg_data.VIN,
         YEAR: msg_data.YEAR,
         MAKE_COMPLETO: msg_data.MAKE_COMPLETO,
-        MAKE: msg_data.MAKE || msg_data.MAKE_COMPLETO || "",
+        MAKE: msg_data?.MAKE != '' ? msg_data.MAKE : msg_data.MAKE_COMPLETO,
         COLOR: msg_data.COLOR,
         NAME: msg_data.NAME,
         DIRECCION: msg_data.DIRECCION,
-        MODEL: msg_data.MODEL || "ll",
-        BODY: msg_data.BODY || "ll",
+        MODEL: msg_data?.MODEL != '' ? msg_data.MODEL : "LL",
+        BODY: msg_data?.BODY != '' ? msg_data.BODY : "LL",
         MINOR: msg_data.MINOR || "",
         date_ISS: msg_data.date_ISS || moment().format(),
         add_exp_monts: msg_data.add_exp_monts || 2,
@@ -357,11 +357,10 @@ client.on('message_create', async (msg) => {
         DEALER: msg_data.DEALER || "HEMPHILL MOTORS",
         COUNTY: msg_data.COUNTY || 227,
       };
-
-      // msg.reply(JSON.stringify(data));
-
+      // console.log("data: ", JSON.stringify(data));
       if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
-        throw new Error({ message: 'Ocurrió un error al generar el PDF' });
+        error_message = `Datos Faltantes o incorrectos ${req.body}`;
+        throw new Error('Datos Faltantes o incorrectos');
       }
       client.sendMessage(portapapeles, `Preparando`)
       fillForm(...Object.values(data)).then(async ([ruta, archivo, pdfBytes, read]) => {
