@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WhatsApp QR</title>
+  <style>
+    body {
+      margin:10px;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      color:
+        white;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .form-column {
+      flex-basis: calc(50% - 10px);
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: white;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 10px);
+      padding: 5px;
+      color: white;
+
+    }
+
+    select {
+      width: 100%;
+      color: white;
+      padding: 5px;
+      background-color: rgb(19, 19, 19);
+      border: #ffffff 1px solid;
+      border-radius: 2px;
+    }
+
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border: #ffffff 1px solid;
+      border-radius: 2px;
+    }
+
+    input {
+      padding: 10px 10px;
+      background-color: rgb(19, 19, 19);
+      border: #ffffff 1px solid;
+      border-radius: 2px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .error-message {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+      background-color: #FFCCCC;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #FF0000;
+    }
+
+    #toggleButton {
+      padding: 10px 10px;
+      background-color: rgb(19, 19, 19);
+      border: #ffffff 1px solid;
+      border-radius: 2px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .ultimo_pdf {
+      color: white;
+      font-weight: bold;
+      margin-top: 10px;
+      /* background-color: #FFCCCC; */
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ffffff;
+
+    }
+    @media screen and (max-width: 480px) {
+      .form-column {
+        flex-basis: calc(100% - 10px);
+        margin-bottom: 10px;
+      }
+    }
+
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body>
+  <h1>Generar placa</h1>
+  <form method="POST" action="/generar" style="display: flex; flex-direction: column;">
+    <div class="form-row">
+      <div class="form-column">
+        <label for="VIN">VIN:</label>
+        <input type="text" id="VIN" name="VIN" value="{{VIN}}" required>
+      </div>
+      <div class="form-column">
+        <label for="YEAR">YEAR:</label>
+        <input type="text" id="YEAR" name="YEAR" value="{{YEAR}}" required>
+      </div>
+      <div class="form-column">
+        <label for="MAKE_COMPLETO">MAKE_COMPLETO:</label>
+        <input type="text" id="MAKE_COMPLETO" name="MAKE_COMPLETO" value="{{MAKE_COMPLETO}}" required>
+      </div>
+      <div class="form-column" style="display: flex; align-items: center;">
+          <div class="form-column"
+            style="margin: 0px; flex-basis: calc(30% - 10px); display: flex; align-items: center;">
+            <input style="margin: 0px;" id="customMake" text="Custom Make" type="checkbox" onclick="toggleMake()">
+            <label for="customMake" style="margin: 0px 10px;"> Custom Make</label>
+          </div>
+          <div class="form-column" id="toogleMake" style="display: none; flex-basis: calc(70% - 10px); margin-bottom: 0px;">
+            <label for="MAKE">MAKE:</label>
+            <input type="text" id="MAKE" name="MAKE" value="{{MAKE}}">
+          </div>
+      </div>
+      <div class="form-column">
+        <label for="COLOR">COLOR:</label>
+        <input type="text" id="COLOR" name="COLOR" value="{{COLOR}}" required>
+      </div>
+      <div class="form-column">
+        <label for="NAME">NAME:</label>
+        <input type="text" id="NAME" name="NAME" value="{{NAME}}" required>
+      </div>
+      <div class="form-column">
+        <label for="DIRECCION">DIRECCION:</label>
+        <input type="text" id="DIRECCION" name="DIRECCION" value="{{DIRECCION}}" required>
+      </div>
+      <div class="form-column">
+        <label for="MODEL">MODEL:</label>
+        <input type="text" id="MODEL" name="MODEL" value="{{MODEL}}">
+      </div>
+      <div class="form-column">
+        <label for="BODY">BODY:</label>
+        <input type="text" id="BODY" name="BODY" value="{{BODY}}">
+      </div>
+      <div class="form-column">
+        <label for="CHAT">SEND TO:</label>
+        <select id="CHAT" name="CHAT">
+          <option value="placas" selected>Placas</option>
+          <option value="aleja">Aleja</option>
+          <option value="portapapeles">Portapapeles</option>
+        </select>
+      </div>
+      <div class="form-column" style="display: flex;">
+        <button id="toggleButton" type="button" onclick="toggleDiv()">Mostrar/Ocultar</button>
+      </div>
+    </div>
+    <div id="miDiv" style="display: none;" class="form-row">
+
+      <div class=" form-column">
+        <label for="MINOR">MINOR:</label>
+        <input type="text" id="MINOR" name="MINOR" value="{{MINOR}}">
+      </div>
+
+      <div class="form-column">
+        <label for="date_ISS">date_ISS:</label>
+        <input type="text" id="date_ISS" name="date_ISS" value="{{date_ISS}}">
+      </div>
+      <div class="form-column">
+        <label for="add_exp_monts">add_exp_monts:</label>
+        <input type="text" id="add_exp_monts" name="add_exp_monts" value="{{add_exp_monts}}">
+      </div>
+      <div class="form-column">
+        <label for="subs_exp_days">subs_exp_days:</label>
+        <input type="text" id="subs_exp_days" name="subs_exp_days" value="{{subs_exp_days}}">
+      </div>
+      <div class="form-column">
+        <label for="DEALER_NUMBER">DEALER_NUMBER:</label>
+        <input type="text" id="DEALER_NUMBER" name="DEALER_NUMBER" value="{{DEALER_NUMBER}}">
+      </div>
+      <div class="form-column">
+        <label for="DEALER">DEALER:</label>
+        <input type="text" id="DEALER" name="DEALER" value="{{DEALER}}">
+      </div>
+      <div class="form-column">
+        <label for="COUNTY">COUNTY:</label>
+        <input type="text" id="COUNTY" name="COUNTY" value="{{COUNTY}}">
+      </div>
+
+    </div>
+    </div>
+    <div class="form-row" style="display: flex; gap:10px; justify-content:flex-start">
+      <input type="submit" value="Generar PDF">
+      <!-- <input type="submit" value="Generar Test" formaction="/generar/test"> -->
+    </div>
+  </form>
+
+  {{ultimo_pdf}}
+
+  {{error_message}}
+
+  <script>
+    function toggleDiv() {
+      var div = document.getElementById("miDiv");
+
+      if (div.style.display === "none") {
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+      }
+    }
+    function toggleMake() {
+      var customMake = document.getElementById("customMake");
+      var toogleMake = document.getElementById("toogleMake");
+      if (customMake.checked) {
+        toogleMake.style.display = "block";
+      } else {
+        toogleMake.style.display = "none";
+      }
+    }
+  </script>
+</body>
