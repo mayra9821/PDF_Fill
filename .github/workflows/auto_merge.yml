@@ -2,7 +2,7 @@ on:
   pull_request:
     types: [closed]
     branches:
-      - main
+      - master
 jobs:
   automerge:
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'hotfix/')
@@ -16,19 +16,19 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Merge development -> staging
+    - name: Merge develop -> staging
       uses: devmasx/merge-branch@master
       with:
         type: now
         from_branch: ${{ steps.extract_branch.outputs.branch }}
-        target_branch: development
+        target_branch: develop
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Merge development -> quality
       uses: devmasx/merge-branch@master
       with:
         type: now
-        from_branch: development
+        from_branch: develop
         target_branch: quality
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
