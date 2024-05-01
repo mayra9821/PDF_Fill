@@ -65,8 +65,7 @@ let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
 let output_name = TAG
 
 let VIN = `
-4T3BK3BB9EU099892
-
+4T3BK3BB9EU09989
 `
 
 let YEAR = `
