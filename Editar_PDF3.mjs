@@ -64,28 +64,32 @@ let TAG = (rand + letter + Math.floor(Math.random() * (99 - 11 + 1) + 11));
 
 let output_name = TAG
 
-let VIN = `KM8SC83DX1U078921
-`
-let YEAR = `2001
-`
-let MAKE_COMPLETO = `Hyundai
+let VIN = `
+4T3BK3BB9EU099892
 
 `
-let MAKE = `Hyundai
-`
 
-
-let COLOR = `White
-`
-let NAME = `
-Claudia waldina chavarria mazariego
-`
-let DIRECCION = `7883 Pine Bluff Rd, |Denham Springs, LA |70726
+let YEAR = `
+2014
 
 `
-let MODEL = ` Sfe
+let MAKE_COMPLETO = `Toyota
 `
-let BODY = `ll
+let MAKE = `Toyota
+`
+
+let COLOR = `Negro
+
+`
+let NAME = `Luis Miguel Díaz Dominicci
+
+`
+let DIRECCION = `1097 Hollywell Ave apt 304 |Chambersburg,PA |17201
+
+`
+let MODEL = ` Venza
+`
+let BODY = `XL
 `
 let MINOR = `
 `
