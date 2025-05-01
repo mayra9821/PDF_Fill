@@ -1,5 +1,6 @@
 const express = require('express');
 const { fillForm } = require("./Editar_PDF4.cjs");
+const { fillForm2 } = require("./Editar_PDF5.cjs");
 const moment = require('moment');
 const qrcode = require('qrcode');
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
@@ -183,6 +184,97 @@ app.post('/generar', async (req, res) => {
       throw new Error('Datos Faltantes o incorrectos');
     }
     const [ruta, archivo, pdfBytes] = await fillForm(...Object.values(data))
+
+    console.log(ruta);
+    ultimo_pdf = archivo;
+    let b64encoded = btoa(Uint8ToString(pdfBytes));
+    const media = new MessageMedia('application/pdf', b64encoded);
+    media.filename = archivo + ".pdf";
+    // const media = MessageMedia.fromFilePath(path);
+    // console.log(media)
+
+    // let path = "http://localhost:3000/pdfs/" + archivo + ".pdf";
+    // console.log(path)
+    // const media = await MessageMedia.fromUrl(path);
+    // console.log(media)
+
+    const porta_chat = await client.getChatById(portapapeles);
+
+    var chat = null
+    if (req.body.CHAT == "placas") {
+      chat = await client.getChatById(placas);
+    }
+    else if (req.body.CHAT == "aleja") {
+      chat = await client.getChatById(aleja);
+    }
+    else if (req.body.CHAT == "portapapeles") {
+      chat = porta_chat;
+    }
+    else {
+      chat = await client.getChatById(placas);
+    }
+
+
+
+    porta_chat.sendMessage(`Enviando archivo ${media.filename}`)
+    console.log(`sending ${archivo}`);
+    await chat.sendMessage(media)
+    await porta_chat.sendMessage(`archivo ${archivo} enviado`)
+    console.log(`sent ${archivo}`);
+    res.status(200);
+    res.redirect('/');
+    return res.end();
+    // client.sendMessage(portapapeles, media, {
+    //   sendMediaAsDocument: true,
+    // }).then((msg) => {
+    //   console.log(msg)
+    //   client.sendMessage(portapapeles, `archivo ${archivo} enviado`)
+    // }).catch((err) => {
+    //   console.log(err)
+    //   client.sendMessage(portapapeles, `Error enviando archivo ${archivo} ${err}`)
+    // })
+
+  } catch (error) {
+    console.log(error)
+    client.sendMessage(portapapeles, error.message);
+  }
+});
+
+app.post('/generar/louisiana', async (req, res) => {
+  if (loading) {
+    return res.redirect('/');
+  }
+  try {
+    error_message = null;
+    // console.log("request", req.body);
+    const data = {
+      VIN: req.body.VIN,
+      YEAR: req.body.YEAR,
+      MAKE_COMPLETO: req.body.MAKE_COMPLETO,
+      MAKE: req.body?.MAKE != '' ? req.body.MAKE : req.body.MAKE_COMPLETO,
+      COLOR: req.body.COLOR,
+      NAME: req.body.NAME,
+      DIRECCION: req.body.DIRECCION,
+      MODEL: req.body?.MODEL != '' ? req.body.MODEL : "LL",
+      BODY: req.body?.BODY != '' ? req.body.BODY : "LL",
+      MINOR: req.body.MINOR || "",
+      date_ISS: req.body.date_ISS || moment().format(),
+      add_exp_monts: req.body.add_exp_monts || 2,
+      subs_exp_days: req.body.subs_exp_days || 1,
+      DEALER_NUMBER: req.body.DEALER_NUMBER || "54648",
+      DEALER: req.body.DEALER || "Crosby Auto Title",
+      COUNTY: req.body.COUNTY || 227,
+    };
+    // console.log("data: ", JSON.stringify(data));
+    if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
+      error_message = `Datos Faltantes o incorrectos ${req.body}`;
+      throw new Error('Datos Faltantes o incorrectos');
+    }
+    if (!data?.YEAR || data.YEAR.length < 4) {
+      error_message = `Año incorrecto ${req.body}`;
+      throw new Error('Año incorrecto');
+    }
+    const [ruta, archivo, pdfBytes] = await fillForm2(...Object.values(data))
 
     console.log(ruta);
     ultimo_pdf = archivo;
