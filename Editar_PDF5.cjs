@@ -243,7 +243,7 @@ async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION,
   let x_2p = 180
 
   pages[1].drawText(TAG.toUpperCase().replace("\n", "").trim(), {
-    y: init,
+    y: init-2,
     x: x_2p,
     size: 10,
     font: tmnr,
@@ -283,8 +283,8 @@ async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
-  init = init - 10
 
+  init = init - 8
   pages[1].drawText(COLOR.toUpperCase().replace("\n", "").trim(), {
     y: init - 20 * 7,
     x: x_2p,
@@ -302,7 +302,7 @@ async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION,
   })
 
   pages[1].drawText(YEAR.toUpperCase().replace("\n", "").trim(), {
-    y: init - 20 * 9,
+    y: init-2 - 20 * 9,
     x: x_2p,
     size: 10,
     font: tmnr,
@@ -310,14 +310,14 @@ async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION,
   })
 
   pages[1].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
-    y: init - 20 * 10,
+    y: init-2 - 20 * 10,
     x: x_2p,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
   pages[1].drawText(EXP.toUpperCase().replace("\n", "").trim(), {
-    y: init - 20 * 11,
+    y: init-2 - 20 * 11,
     x: x_2p,
     size: 10,
     font: tmnr,
