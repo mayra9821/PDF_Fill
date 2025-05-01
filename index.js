@@ -178,7 +178,7 @@ app.post('/generar', async (req, res) => {
       DEALER: req.body.DEALER || "HEMPHILL MOTORS",
       COUNTY: req.body.COUNTY || 227,
     };
-    // console.log("data: ", JSON.stringify(data));
+    console.log("data: ", JSON.stringify(data));
     if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
       error_message = `Datos Faltantes o incorrectos ${req.body}`;
       throw new Error('Datos Faltantes o incorrectos');
@@ -265,7 +265,7 @@ app.post('/generar/louisiana', async (req, res) => {
       DEALER: req.body.DEALER || "Crosby Auto Title",
       COUNTY: req.body.COUNTY || 227,
     };
-    // console.log("data: ", JSON.stringify(data));
+    console.log("data: ", JSON.stringify(data));
     if (!data?.DIRECCION || !data.DIRECCION.includes('|')) {
       error_message = `Datos Faltantes o incorrectos ${req.body}`;
       throw new Error('Datos Faltantes o incorrectos');

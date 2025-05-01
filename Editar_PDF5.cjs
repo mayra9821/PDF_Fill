@@ -54,28 +54,25 @@ function translate_color(color_in) {
   }
 
 }
-// let EXP = "NOV 27, 2022";
 
-async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, MODEL, BODY = 'll', MINOR = null, date_ISS = moment(), add_exp_monts = 2, subs_exp_days = 1, DEALER_NUMBER = "P163943", DEALER = "HEMPHILL MOTORS", COUNTY = 227) {
 
-  let s = 'ABCDEFGHJKLMNPRSTUVWXYZ'
+async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION, MODEL_STR, BODY = 'll', MINOR = null, date_ISS = moment("2025-04-30"), add_exp_monts = 2, subs_exp_days = 2, DEALER_NUMBER = "P163943", DEALER = "HEMPHILL MOTORS", COUNTY = 227) {
+
 
   let rand = Math.floor(Math.random() * (9898 - 3747 + 1) + 1247);
-
   // let letter = s[Math.floor(Math.random() * (22 + 1))];
 
-  let TAG = 9897+rand
+  let TAG = "9897" + rand
+  console.log(TAG)
 
   let OUTPUT = TAG
 
-  let ISSUE = moment(date_ISS).format("MMM DD, YYYY");
-  // console.log(ISSUE)
-  // let ISSUE = "SEP 28, 2022";
+  let ISSUE = moment(date_ISS).format("MM/DD/YYYY");
 
   const date_EXP = moment(date_ISS).clone().add(add_exp_monts, 'months').subtract(subs_exp_days, 'days');
-  //subtract(1, 'days')
-  let EXP = date_EXP.format("MMM DD, YYYY");
-  // console.log(EXP, "EXP")
+
+  let EXP = date_EXP.format("MM/DD/YYYY");
+
   MAKE_COMPLETO = MAKE_COMPLETO.toUpperCase().replace("\n", "").trim()
 
   if (MAKE.replace("\n", "").trim() == '' || MAKE == null) {
@@ -96,304 +93,310 @@ async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION,
   if (MINOR != null && MINOR != '') {
     MINOR = translate_color(MINOR)
   }
-  MODEL = MODEL.toUpperCase().replace("\n", "").trim().substring(0, 3);
-  // console.log(MODEL)
+
+  MODEL = MODEL_STR.toUpperCase().replace("\n", "").trim().substring(0, 3);
   NAME = removeAccents(NAME)
-  DIRECCION = removeAccents(DIRECCION)
-
-  const CREATED_QR = new Date(Date.parse(ISSUE)).toLocaleDateString("en-US")
-  const EXPIRATION_QR = new Date(Date.parse(EXP)).toLocaleDateString("en-US")
-
-  let QR = `VIN: ${VIN.toUpperCase().replace("\n", "").trim()}
-  YEAR: ${YEAR.replace("\n", "").trim()}
-  MAKE: ${MAKE.toUpperCase().replace("\n", "").trim()}
-  `
-  if (!MINOR || MINOR.replace("\n", "").trim() == '') {
-    QR = QR + `COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
-  `
+  NAME = NAME.toUpperCase().trim().split(" ")
+  FIRST_NAME = NAME[0]
+  MIDDLE_NAME = ""
+  LAST_NAME = ""
+  if (NAME.length == 2) {
+    LAST_NAME = NAME[1]
   }
   else {
-    QR = QR + `MAJOR COLOR: ${COLOR.toUpperCase().replace("\n", "").trim()}
-  MINOR COLOR: ${MINOR.toUpperCase().replace("\n", "").trim()}
-  ` }
+    if (NAME[3] != undefined) {
+      LAST_NAME = NAME[2] + " " + NAME[3]
+      MIDDLE_NAME = NAME[1]
+    }
+    else if (NAME[2] != undefined) {
+      LAST_NAME = NAME[2]
+      MIDDLE_NAME = NAME[1]
+    }
+    if (LAST_NAME.includes("JR") || LAST_NAME.includes("SR")) {
+      LAST_NAME = MIDDLE_NAME + " " + LAST_NAME
+      MIDDLE_NAME = ""
 
-  QR = QR + `TAG #: ${TAG.toUpperCase().replace("\n", "").trim()}
-  CREATED: ${CREATED_QR}
-  EXPIRATION: ${EXPIRATION_QR}
-  `
+    }
+  }
 
+
+  DIRECCION = removeAccents(DIRECCION)
+
+  DIRECCION = DIRECCION.toUpperCase().replace("\n", "").trim().split("|")
+  DIRECCION_1 = DIRECCION[0]
+  CITY = DIRECCION[1]
+  STATE = DIRECCION[2]
+  ZIP = DIRECCION[3] + ""
   ///////////////////////////////////
 
   let base = "base_lou.pdf"
   let rotate = 0
-  let indice = 0
   const file = await fs.readFileSync("bases/" + base)
 
-  // const generateQR = async text => {
-  //   try {
-  //     return await QRCode.toDataURL(text, { margin: 0, errorCorrectionLevel: 'l' })
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
-  // const dataurl = await generateQR(QR)
 
-  let heigh = 28
   const pdfDoc = await PDFDocument.load(file)
 
   pdfDoc.registerFontkit(fontkit)
 
   // const qr_i = await pdfDoc.embedPng(dataurl)
-  const arial = await pdfDoc.embedFont(fs.readFileSync('bases/arialbd.ttf'), { subset: true, customName: "Arial" })
+  const arial = await pdfDoc.embedFont(fs.readFileSync('bases/arial.ttf'), { subset: true, customName: "Arial" })
   const helv = await pdfDoc.embedFont(fs.readFileSync('bases/helv.ttf'), { subset: true, customName: "Helvetica" })
   const mvboli = await pdfDoc.embedFont(fs.readFileSync('bases/mvboli.ttf'), { subset: true, customName: "MV Boli" })
-
-
-  // function draw_spaced(text, x, y, font, size, space, vert, color = rgb(0, 0, 0), rotate = 0) {
-
-  //   for (const c in text) {
-  //     // console.log(y + (c * space))
-  //     // console.log(text[c])
-  //     if (vert) {
-  //       pages[0].drawText(text[c], {
-  //         y: y + (c * space),
-  //         x: x,
-  //         size: size,
-  //         font: arial,
-  //         rotate: degrees(rotate),
-  //         color: color,
-  //       })
-  //     }
-  //     else {
-  //       pages[0].drawText(text[c], {
-  //         y: y,
-  //         x: x + (c * space),
-  //         size: size,
-  //         font: arial,
-  //         rotate: degrees(rotate),
-  //         color: color,
-  //       })
-  //     }
-  //   }
-  // }
+  const brush = await pdfDoc.embedFont(fs.readFileSync('bases/brush.ttf'), { subset: true, customName: "Brush Script" })
 
 
   const pages = pdfDoc.getPages()
 
-
   // PRIMERA PAGINA
   pages[0].drawText(VIN.toUpperCase().replace("\n", "").trim(), {
-    y: 312 * 0.4349755881, // + -> , - <-
-    x: 1170 * 0.4349755881,
-    size: 45.06 * 0.4349755881,
-    font: arial,
+    y: 386,// + arriba , abajo <-
+    x: 539 * 0.4349755881,// + -> , - <-
+    size: 22,
+    font: mvboli,
+    ySkew: degrees(20),
     rotate: degrees(rotate),
     color: rgb(0, 0, 0),
   })
 
-  pages[0].drawText(DEALER.toUpperCase().replace("\n", "").trim(), {
-    y: 259 * 0.4349755881, // + -> , - <-
-    x: 1170 * 0.4349755881,
-    size: 45.06 * 0.4349755881,
-    font: arial,
+  pages[0].drawText(moment(date_ISS).format("MM-DD-YYYY").toUpperCase().replace("\n", "").trim(), {
+    y: 345,
+    x: 840 * 0.4349755881,
+    size: 22,
+    font: mvboli,
+    ySkew: degrees(8),
     rotate: degrees(rotate),
     color: rgb(0, 0, 0),
-  })
+  }
+  )
 
   pages[0].drawText(YEAR.toUpperCase().replace("\n", "").trim(), {
-    y: 298 * 0.4349755881,
-    x: 55 * 0.4349755881,
-    size: 61.30 * 0.4349755881,
-    font: arial,
+    y: 419,
+    x: 685 * 0.4349755881,
+    size: 22,
+    font: mvboli,
+    ySkew: degrees(20),
     rotate: degrees(rotate),
     color: rgb(0, 0, 0),
   }
   )
   pages[0].drawText(MAKE_COMPLETO.toUpperCase().replace("\n", "").trim().trim(), {
-    y: 238 * 0.4349755881,
-    x: 55 * 0.4349755881,
-    size: 61.30 * 0.4349755881,
-    font: arial,
+    y: 419,
+    x: 845 * 0.4349755881,
+    size: 22,
+    font: mvboli,
+    ySkew: degrees(20),
     rotate: degrees(rotate),
     color: rgb(0, 0, 0),
   })
 
-  const x = (1700 * 0.4349755881 - font.widthOfTextAtSize(TAG.toUpperCase().replace("\n", "").trim(), 383.46 * 0.4349755881)) / 2
-
-  // draw_spaced(TAG.toUpperCase().replace("\n", "").trim(), x, 397, font, 383.5, 220, false, rgb(0, 0, 0), rotate)
+  const x = (2570 * 0.4349755881 - arial.widthOfTextAtSize(TAG.toUpperCase().replace("\n", "").trim(), 383.46 * 0.4349755881)) / 2
 
   pages[0].drawText(TAG.toUpperCase().replace("\n", "").trim(), {
-    y: 397 * 0.4349755881,
+    y: 465 * 0.4349755881,
     x: x,
-    size: 383.5 * 0.4349755881,
+    size: 132,
+    ySkew: degrees(8),
     font: arial,
     rotate: degrees(rotate),
     color: rgb(0, 0, 0),
   })
 
+  EXP_DATA = EXP.split("/")
 
-
-  const x2 = (1800 - font.widthOfTextAtSize(EXP.toUpperCase().trim().replace("\n", "").toUpperCase().trim(), 159.61)) / 2
-
-  pages[0].drawText(EXP.toUpperCase().trim().replace("\n", "").toUpperCase().trim(), {
-    y: 740 * 0.4349755881,
-    x: x2 * 0.4349755881,
-    size: 159.61 * 0.4349755881,
-    font: arial,
+  pages[0].drawText(EXP_DATA[0].toUpperCase().trim().replace("\n", "").toUpperCase().trim(), {
+    y: 425,
+    x: 50,
+    size: 105,
+    font: brush,
+    rotate: degrees(rotate),
+    color: rgb(0, 0, 0),
+  })
+  pages[0].drawText(EXP_DATA[1].toUpperCase().trim().replace("\n", "").toUpperCase().trim(), {
+    y: 320,
+    x: 50,
+    size: 105,
+    font: brush,
     rotate: degrees(rotate),
     color: rgb(0, 0, 0),
   })
 
-  heigh = 194 * 0.4349755881
-  let qrOpt =
-  {
+  pages[0].drawText(EXP_DATA[2].toUpperCase().trim().replace("\n", "").toUpperCase().trim().substring(2, 4), {
+    y: 205,
+    x: 50,
+    size: 105,
+    font: brush,
     rotate: degrees(rotate),
-    y: 706 * 0.4349755881,
-    x: 1465 * 0.4349755881,
-    height: heigh,
-    width: heigh,
-  }
+    color: rgb(0, 0, 0),
+  })
+
 
 
 
   /// SEGUNDA PAGINA
   const tmnr = await pdfDoc.embedFont(fs.readFileSync('bases/times.ttf'), { subset: true, customName: "Times New Roman" })
 
+
+
+
+  let init = 858
+
+  let x_2p = 180
+
   pages[1].drawText(TAG.toUpperCase().replace("\n", "").trim(), {
-    y: 708,
-    x: 160,
-    size: 10,
-    font: tmnr,
-    color: rgb(0, 0, 0),
-  })
-
-  pages[1].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
-    y: 710,
-    x: 435,
-    size: 10,
-    font: tmnr,
-    color: rgb(0, 0, 0),
-  })
-
-  pages[1].drawText(EXP.toUpperCase().replace("\n", "").trim(), {
-    y: 694,
-    x: 435,
-    size: 10,
-    font: tmnr,
-    color: rgb(0, 0, 0),
-  })
-
-  let init = 665
-
-  pages[1].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
     y: init,
-    x: 160,
+    x: x_2p,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
-
 
   pages[1].drawText(VIN.toUpperCase().replace("\n", "").trim(), {
-    y: init - 16 * 1,
-    x: 160,
+    y: init - 20 * 2,
+    x: x_2p,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(YEAR.toUpperCase().replace("\n", "").trim(), {
-    y: init - 16 * 2,
-    x: 160,
-    size: 10,
-    font: tmnr,
-    color: rgb(0, 0, 0),
-  })
 
   pages[1].drawText(MAKE.toUpperCase().replace("\n", "").trim(), {
-    y: init - 16 * 3,
-    x: 160,
+    y: init - 20 * 3,
+    x: x_2p,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(COLOR.toUpperCase().replace("\n", "").trim(), {
-    y: init - 16 * 4,
-    x: 160,
-    size: 10,
-    font: tmnr,
-    color: rgb(0, 0, 0),
-  })
 
-  // body model minor
-  let init1 = 640
   pages[1].drawText(BODY.toUpperCase().replace("\n", "").trim(), {
-    y: init1,
-    x: 435,
+    y: init - 20 * 4,
+    x: x_2p,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
 
   pages[1].drawText(MODEL.toUpperCase().replace("\n", "").trim(), {
-    y: init1 - 16,
-    x: 435,
+    y: init - 20 * 5,
+    x: x_2p,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+  init = init - 10
+
+  pages[1].drawText(COLOR.toUpperCase().replace("\n", "").trim(), {
+    y: init - 20 * 7,
+    x: x_2p,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
 
-  if (MINOR) {
-    pages[1].drawText(MINOR.toUpperCase().replace("\n", "").trim(), {
-      y: init1 - 32,
-      x: 435,
-      size: 10,
-      font: tmnr,
-      color: rgb(0, 0, 0),
-    })
-  }
+  pages[1].drawText(COLOR.toUpperCase().replace("\n", "").trim(), {
+    y: init - 20 * 8,
+    x: x_2p,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
 
-  init1 = 565
-  pages[1].drawText(DEALER.toUpperCase().replace("\n", "").trim(), {
+  pages[1].drawText(YEAR.toUpperCase().replace("\n", "").trim(), {
+    y: init - 20 * 9,
+    x: x_2p,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+
+  pages[1].drawText(ISSUE.toUpperCase().replace("\n", "").trim(), {
+    y: init - 20 * 10,
+    x: x_2p,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+  pages[1].drawText(EXP.toUpperCase().replace("\n", "").trim(), {
+    y: init - 20 * 11,
+    x: x_2p,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+
+
+
+
+  init1 = 855
+  let x_2p_2 = 430
+
+  pages[1].drawText(FIRST_NAME.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
     y: init1,
-    x: 307,
+    x: x_2p_2,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+  pages[1].drawText(MIDDLE_NAME.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
+    y: init1 - 20 * 1,
+    x: x_2p_2,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+  pages[1].drawText(LAST_NAME.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
+    y: init1 - 20 * 2,
+    x: x_2p_2,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
 
-  pages[1].drawText(DEALER_NUMBER.toUpperCase().replace("\n", "").trim(), {
-    y: init1 - 16,
-    x: 307,
-    size: 10,
-    font: tmnr,
-    color: rgb(0, 0, 0),
-  })
-
-
-
-  init1 = 505
-  pages[1].drawText(NAME.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
+  init1 = 730
+  pages[1].drawText(DIRECCION_1.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
     y: init1,
-    x: 307,
+    x: x_2p_2,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+  pages[1].drawText(CITY.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
+    y: init1 - 20 * 1,
+    x: x_2p_2,
     size: 10,
     font: tmnr,
     color: rgb(0, 0, 0),
   })
 
 
-  DIRECCION.replace("\n", "").split("|").forEach(
-    (line, index) => {
-      pages[1].drawText(line.toUpperCase().replace("\n", "").trim(), {
-        y: init1 - (16 * (index + 1)),
-        x: 307,
-        size: 10,
-        font: tmnr,
-        color: rgb(0, 0, 0),
-      })
-    }
-  )
+  init1 = init1 - 20
+  pages[1].drawText(STATE.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
+    y: init1 - 20 * 2,
+    x: x_2p_2,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+  pages[1].drawText(ZIP.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
+    y: init1 - 20 * 3,
+    x: x_2p_2,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+
+
+  pages[1].drawText(ISSUE.toUpperCase().replace("Ñ", "N").replace("\n", "").trim().replace("\n", ""), {
+    y: 40,
+    x: x_2p_2 + 30,
+    size: 10,
+    font: tmnr,
+    color: rgb(0, 0, 0),
+  })
+
+
+
+
 
   const pdfBytes = await pdfDoc.save()
 
@@ -423,4 +426,23 @@ async function fillForm2(VIN, YEAR, MAKE_COMPLETO, MAKE, COLOR, NAME, DIRECCION,
 module.exports = {
   fillForm2
 }
-// fillForm(VIN1, YEAR1, MAKE_COMPLETO1, COLOR1, NAME1, DIRECCION1, MODEL1)
+
+let data = {
+  "VIN": "4T1BE32KX60696535",
+  "YEAR": "2006",
+  "MAKE_COMPLETO": "TOYOTA",
+  "MAKE": "TOYOTA",
+  "COLOR": "Maroon",
+  "NAME": "ROYCE CHUDEJ JR",
+  "DIRECCION": "12625 coursey blvd. Apt.#2025 |Baton Rouge| LA |70816",
+  "MODEL": "m6asd",
+  "BODY": "VN",
+  "MINOR": "",
+  "date_ISS": "2025-05-01T11:57:14-05:00",
+  "add_exp_monts": "2",
+  "subs_exp_days": "1",
+  "DEALER_NUMBER": "P163943",
+  "DEALER": "HEMPHILL MOTORS",
+  "COUNTY": "227"
+}
+fillForm2(data.VIN, data.YEAR, data.MAKE_COMPLETO, data.MAKE, data.COLOR, data.NAME, data.DIRECCION, data.MODEL)
